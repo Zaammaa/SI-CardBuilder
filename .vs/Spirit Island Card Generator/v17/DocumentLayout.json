@@ -1,0 +1,1098 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\cardgenerator\\cardgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\cardgenerator\\cardgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\pusheffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\pusheffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\landelementalthresholdeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\landelementalthresholdeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\cardgenerator\\deckgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\cardgenerator\\deckgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\gathereffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\gathereffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\destroyeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\destroyeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\effect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\addeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\addeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\isolateeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\isolateeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\dahanextrahealtheffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\dahanextrahealtheffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\globaleffects\\feareffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\globaleffects\\feareffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\spiriteffects\\extracardplayeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\spiriteffects\\extracardplayeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\dahanpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\dahanpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\blightpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\blightpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\blightgather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\blightgather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\dahangather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\dahangather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\beastgather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\beastgather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\piecegather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\piecegather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\piecedestroyed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\piecedestroyed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\piecepush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\piecepush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\pieceadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\pieceadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\conditions\\landtypecondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\conditions\\landtypecondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\conditions\\condition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\conditions\\condition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\cardgenerator\\ipowerpowerlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\cardgenerator\\ipowerpowerlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\targetlandconditioneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\targetlandconditioneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\target.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\target.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\landeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\landeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\defendeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\defendeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\blightadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\blightadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\targetconditions\\landconditon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\targetconditions\\landconditon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\badlandsadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\badlandsadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\reflectionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\reflectionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\elementset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\elementset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\cardgenerator\\generatoroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\cardgenerator\\generatoroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\spiriteffects\\rangeincreaseeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\spiriteffects\\rangeincreaseeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\spiriteffects\\gainpowercardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\spiriteffects\\gainpowercardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\spiriteffects\\gainenergyeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\spiriteffects\\gainenergyeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\removeblighteffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\removeblighteffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\explorerpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\explorerpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\townpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\townpush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\presencepush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\pusheffects\\presencepush.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\towngather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\towngather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\destroyedpresenceadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\destroyedpresenceadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\strifeadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\strifeadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\citydestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\citydestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\spiriteffects\\spiriteffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\spiriteffects\\spiriteffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\beastadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\beastadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\explorerdestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\explorerdestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\diseaseadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\diseaseadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\gameconcepts\\powercardtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\gameconcepts\\powercardtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|c:\\users\\tim\\source\\repos\\spirit island card generator\\spirit island card generator\\classes\\gameconcepts\\gamepieces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\gameconcepts\\gamepieces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\cardgeneratorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\cardgeneratorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\cardgeneratorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\cardgeneratorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\presencegather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\gathereffects\\presencegather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\dahandestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\destroyeffects\\dahandestroy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\effects\\landeffects\\addeffect\\dahanadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\effects\\landeffects\\addeffect\\dahanadd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\analysis\\effectreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\analysis\\effectreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\spirit island card generator\\classes\\analysis\\cardscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D488A44-E560-43FD-93ED-B9F8E81C0782}|Spirit Island Card Generator\\Spirit Island Card Generator.csproj|solutionrelative:spirit island card generator\\classes\\analysis\\cardscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Card.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Card.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Card.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Card.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Card.cs",
+              "ViewState": "AQIAAH0AAAAAAAAAAAAIwJsAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:14:32.195Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Effect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Effect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\Effect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Effect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\Effect.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAwDwAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:28:59.388Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "GeneratorOption.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\GeneratorOption.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\CardGenerator\\GeneratorOption.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\GeneratorOption.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\CardGenerator\\GeneratorOption.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:15:19.913Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Condition.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Conditions\\Condition.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\Conditions\\Condition.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Conditions\\Condition.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\Conditions\\Condition.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBQAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T01:16:36.969Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IsolateEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\IsolateEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\IsolateEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\IsolateEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\IsolateEffect.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAA9wEAAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T18:52:18.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CardGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\CardGenerator.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\CardGenerator\\CardGenerator.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\CardGenerator.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\CardGenerator\\CardGenerator.cs",
+              "ViewState": "AQIAADEAAAAAAAAAAAAIwEoAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T19:07:31.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Target.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Target.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Target.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Target.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Target.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T04:17:26.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IPowerPowerLevel.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\IPowerPowerLevel.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\CardGenerator\\IPowerPowerLevel.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\IPowerPowerLevel.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\CardGenerator\\IPowerPowerLevel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T20:05:43.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "PieceAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\PieceAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\PieceAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\PieceAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\PieceAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBYAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T00:22:26.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "PiecePush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PiecePush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PiecePush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PiecePush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PiecePush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBkAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T20:40:15.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PieceDestroyed.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\PieceDestroyed.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\PieceDestroyed.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\PieceDestroyed.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\PieceDestroyed.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T19:05:19.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "TargetLandConditionEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\TargetLandConditionEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\TargetLandConditionEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\TargetLandConditionEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\TargetLandConditionEffect.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAUwEUAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T01:13:48.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LandElementalThresholdEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandElementalThresholdEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandElementalThresholdEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandElementalThresholdEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandElementalThresholdEffect.cs",
+              "ViewState": "AQIAANIAAAAAAAAAAAAwwPAAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T20:53:11.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FearEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\GlobalEffects\\FearEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\GlobalEffects\\FearEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\GlobalEffects\\FearEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\GlobalEffects\\FearEffect.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAuwEIAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T18:39:42.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AddEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\AddEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\AddEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\AddEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\AddEffect.cs",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAewKkAAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T06:14:41.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DahanExtraHealthEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DahanExtraHealthEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DahanExtraHealthEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DahanExtraHealthEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DahanExtraHealthEffect.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAIwDsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T20:35:49.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DestroyEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DestroyEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DestroyEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DestroyEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DestroyEffect.cs",
+              "ViewState": "AQIAAJcAAAAAAAAAAAAswLgAAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T17:23:47.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GatherEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\GatherEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\GatherEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\GatherEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\GatherEffect.cs",
+              "ViewState": "AQIAALkAAAAAAAAAAAAIwNsAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T18:31:55.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PushEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PushEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PushEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PushEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PushEffect.cs",
+              "ViewState": "AQIAAK0AAAAAAAAAAAAowLwAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T18:32:10.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "GainPowerCardEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainPowerCardEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainPowerCardEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainPowerCardEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainPowerCardEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA4AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T18:49:17.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "LandEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\LandEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T01:04:27.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DeckGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\DeckGenerator.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\CardGenerator\\DeckGenerator.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\CardGenerator\\DeckGenerator.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\CardGenerator\\DeckGenerator.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAqwB0AAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T19:07:16.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DamageEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DamageEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DamageEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DamageEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DamageEffect.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAuwF0AAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T18:38:45.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "DefendEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DefendEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DefendEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DefendEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DefendEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA0AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-04T18:44:31.842Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PieceGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PieceGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PieceGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PieceGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PieceGather.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T01:48:30.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BlightGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BlightGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BlightGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BlightGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BlightGather.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T01:56:59.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DahanPush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\DahanPush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\DahanPush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\DahanPush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\DahanPush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T02:10:03.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BlightPush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\BlightPush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\BlightPush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\BlightPush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\BlightPush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T02:16:04.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ExtraCardPlayEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\ExtraCardPlayEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\ExtraCardPlayEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\ExtraCardPlayEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\ExtraCardPlayEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA0AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T21:09:21.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "BlightAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BlightAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BlightAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BlightAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BlightAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T23:15:53.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Settings.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Settings.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Settings.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Settings.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBkAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:36:00.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LandConditon.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\TargetConditions\\LandConditon.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\TargetConditions\\LandConditon.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\TargetConditions\\LandConditon.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\TargetConditions\\LandConditon.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAgwFEAAABeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T02:01:26.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "BeastGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BeastGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BeastGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BeastGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\BeastGather.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:35:55.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "DahanGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\DahanGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\DahanGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\DahanGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\DahanGather.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:38:07.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "LandTypeCondition.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Conditions\\LandTypeCondition.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\Conditions\\LandTypeCondition.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\Conditions\\LandTypeCondition.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\Conditions\\LandTypeCondition.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAkwF8AAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T01:30:00.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ReflectionManager.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\ReflectionManager.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\ReflectionManager.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\ReflectionManager.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\ReflectionManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T03:09:12.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ElementSet.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\ElementSet.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\ElementSet.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\ElementSet.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\ElementSet.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAqwDMAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:16:25.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "GainEnergyEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainEnergyEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainEnergyEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainEnergyEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\GainEnergyEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA4AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T18:39:32.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "RangeIncreaseEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\RangeIncreaseEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\RangeIncreaseEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\RangeIncreaseEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\RangeIncreaseEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA0AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T19:38:33.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "RemoveBlightEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\RemoveBlightEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\RemoveBlightEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\RemoveBlightEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\RemoveBlightEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA4AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T19:39:55.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BadlandsAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BadlandsAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BadlandsAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BadlandsAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BadlandsAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T23:23:47.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ExplorerPush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\ExplorerPush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\ExplorerPush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\ExplorerPush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\ExplorerPush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T20:34:24.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "TownPush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\TownPush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\TownPush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\TownPush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\TownPush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T17:20:48.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "CityDestroy.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\CityDestroy.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\CityDestroy.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\CityDestroy.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\CityDestroy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:33:42.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "StrifeAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\StrifeAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\StrifeAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\StrifeAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\StrifeAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T23:18:15.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "PresencePush.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PresencePush.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PresencePush.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PresencePush.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\PushEffects\\PresencePush.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:38:27.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "BeastAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BeastAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BeastAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BeastAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\BeastAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAYwBoAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:35:51.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "TownGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\TownGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\TownGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\TownGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\TownGather.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T19:30:09.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "DestroyedPresenceAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DestroyedPresenceAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DestroyedPresenceAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DestroyedPresenceAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DestroyedPresenceAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:38:12.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Utils.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Utils.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Utils.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Utils.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBMAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T03:44:40.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "SpiritEffect.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\SpiritEffect.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\SpiritEffect.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\SpiritEffect.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\SpiritEffects\\SpiritEffect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T01:07:13.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "ExplorerDestroy.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\ExplorerDestroy.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\ExplorerDestroy.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\ExplorerDestroy.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\ExplorerDestroy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T05:35:51.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "PresenceGather.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PresenceGather.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PresenceGather.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PresenceGather.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\GatherEffects\\PresenceGather.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAA6wBkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:38:26.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "DiseaseAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DiseaseAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DiseaseAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DiseaseAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DiseaseAdd.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T23:26:30.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Range.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Range.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Range.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Range.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Range.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwB4AAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:59:25.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "PowerCardType.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\GameConcepts\\PowerCardType.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\GameConcepts\\PowerCardType.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\GameConcepts\\PowerCardType.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\GameConcepts\\PowerCardType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T18:53:13.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "GamePieces.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\GameConcepts\\GamePieces.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\GameConcepts\\GamePieces.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\GameConcepts\\GamePieces.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\GameConcepts\\GamePieces.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T17:53:30.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "CardGeneratorForm.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-02T01:36:14.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "CardGeneratorForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\CardGeneratorForm.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\CardGeneratorForm.cs [Design]",
+              "RelativeToolTip": "Spirit Island Card Generator\\CardGeneratorForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T03:12:34.777Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "DahanDestroy.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DahanDestroy.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DahanDestroy.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DahanDestroy.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\DestroyEffects\\DahanDestroy.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAA6wBYAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:38:01.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "DahanAdd.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DahanAdd.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DahanAdd.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DahanAdd.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Effects\\LandEffects\\AddEffect\\DahanAdd.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAA6wBYAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-03T18:37:59.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "EffectReader.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Analysis\\EffectReader.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Analysis\\EffectReader.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Analysis\\EffectReader.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Analysis\\EffectReader.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAwwFEAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-02T17:37:57.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "CardScanner.cs",
+              "DocumentMoniker": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Analysis\\CardScanner.cs",
+              "RelativeDocumentMoniker": "Spirit Island Card Generator\\Classes\\Analysis\\CardScanner.cs",
+              "ToolTip": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Classes\\Analysis\\CardScanner.cs",
+              "RelativeToolTip": "Spirit Island Card Generator\\Classes\\Analysis\\CardScanner.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAIBJwCYAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-02T01:23:14.572Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

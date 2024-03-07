@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "30fhwryufQ0AyHATv82cI7Y2/QFC9SO/K1oxSJCOGt8Qaz4pv5MD9eRgFKU6jURPcKq4Kf1/r1whh0j0wq/6jA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tim\\source\\repos\\Spirit Island Card Generator\\Spirit Island Card Generator\\Spirit Island Card Generator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tim\\.nuget\\packages\\htmlagilitypack\\1.11.59\\htmlagilitypack.1.11.59.nupkg.sha512",
+    "C:\\Users\\tim\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\tim\\.nuget\\packages\\selenium.webdriver\\4.18.1\\selenium.webdriver.4.18.1.nupkg.sha512",
+    "C:\\Users\\tim\\.nuget\\packages\\serilog\\3.1.1\\serilog.3.1.1.nupkg.sha512",
+    "C:\\Users\\tim\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
