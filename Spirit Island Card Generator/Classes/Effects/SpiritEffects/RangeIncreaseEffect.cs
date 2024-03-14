@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
-    internal class RangeIncreaseEffect : SpiritEffect
+    [SpiritEffect]
+    internal class RangeIncreaseEffect : Effect
     {
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
         public override int Complexity { get { return 3; } }
 
-        Card? card;
         public override Regex descriptionRegex
         {
             get
@@ -30,20 +32,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return "Target Spirit gets +{range-" + rangeAmount + "} Range with all their Powers.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (!card.Target.SpiritTarget)
+            if (!context.target.SpiritTarget)
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
-            this.card = card;
+            Card card = Context.card;
             if (card.CardType == Card.CardTypes.Minor)
             {
-                rangeAmount = settings.rng.Next(1, 4);
+                rangeAmount = Context.rng.Next(1, 4);
             }
             else
             {
@@ -54,7 +56,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override double CalculatePowerLevel()
         {
             double power = (double)rangeAmount / 2;
-            if (card.Fast)
+            if (Context.card.Fast)
                 power /= 2;
 
             return power;
@@ -68,9 +70,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 RangeIncreaseEffect newEffect = (RangeIncreaseEffect)Duplicate();
                 newEffect.rangeAmount += 1;
@@ -82,7 +84,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             RangeIncreaseEffect newEffect = (RangeIncreaseEffect)Duplicate();
             newEffect.rangeAmount -= 1;
@@ -104,8 +106,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         public override Effect Duplicate()
         {
-            GainEnergyEffect effect = new GainEnergyEffect();
-            effect.energyAmount = rangeAmount;
+            RangeIncreaseEffect effect = new RangeIncreaseEffect();
+            effect.rangeAmount = rangeAmount;
+            effect.Context = Context;
             return effect;
         }
     }

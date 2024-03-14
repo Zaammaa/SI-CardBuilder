@@ -82,5 +82,13 @@ namespace Spirit_Island_Card_Generator.Classes
                 return String.Join("/", landConditions);
             }
         }
+
+        public Target CreateShallowCopy()
+        {
+            Target newTarget = new Target();
+            newTarget.SpiritTarget = SpiritTarget;
+            newTarget.landConditions = new List<LandConditions>(landConditions);
+            return newTarget;
+        }
     }
 }

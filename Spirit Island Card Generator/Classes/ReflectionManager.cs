@@ -1,10 +1,12 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects;
+﻿using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.Design.AxImporter;
 
 namespace Spirit_Island_Card_Generator.Classes
 {
@@ -15,23 +17,24 @@ namespace Spirit_Island_Card_Generator.Classes
         public static List<T> GetInstanciatedSubClasses<T>()
         {
             List<Type> types = GetSubClasses<T>();
-            List<T> instanciated = new List<T>();
-            foreach (Type type in types)
-            {
-                if (type.IsClass && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
-                {
-                    // Instantiate the class using Activator.CreateInstance
-                    object instance = Activator.CreateInstance(type);
+            return InstanciateTypes<T> (types);
+            //List<T> instanciated = new List<T>();
+            //foreach (Type type in types)
+            //{
+            //    if (type.IsClass && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
+            //    {
+            //        // Instantiate the class using Activator.CreateInstance
+            //        object instance = Activator.CreateInstance(type);
 
-                    // If needed, cast the instance to the Effect class
-                    T classInstance = (T)instance;
+            //        // If needed, cast the instance to the Effect class
+            //        T classInstance = (T)instance;
 
-                    // Now you can use the instantiated object
-                    // For example, you can call methods or set properties
-                    instanciated.Add(classInstance);
-                }
-            }
-            return instanciated;
+            //        // Now you can use the instantiated object
+            //        // For example, you can call methods or set properties
+            //        instanciated.Add(classInstance);
+            //    }
+            //}
+            //return instanciated;
         }
 
         public static List<Type> GetSubClasses<T>()
@@ -63,7 +66,7 @@ namespace Spirit_Island_Card_Generator.Classes
                     // Filter types that inherit from MyBaseClass
                     foreach (Type type in types)
                     {
-                        if (type.IsSubclassOf(typeof(T)))
+                        if (type.IsSubclassOf(typeof(T)) || typeof(T).IsAssignableFrom(type))
                         {
                             derivedTypes.Add(type);
                         }
@@ -84,6 +87,46 @@ namespace Spirit_Island_Card_Generator.Classes
             foundTypes.Add(typeof(T), derivedTypes);
             return derivedTypes;
 
+        }
+
+        public static List<T> InstanciateTypes<T>(List<Type> options)
+        {
+            List<T> instanciated = new List<T>();
+            foreach (Type type in options)
+            {
+                if (type.IsClass && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
+                {
+                    // Instantiate the class using Activator.CreateInstance
+                    object instance = Activator.CreateInstance(type);
+
+                    // If needed, cast the instance to the Effect class
+                    T classInstance = (T)instance;
+
+                    // Now you can use the instantiated object
+                    // For example, you can call methods or set properties
+                    instanciated.Add(classInstance);
+                }
+            }
+            return instanciated;
+        }
+
+        public static List<IGeneratorOption> GetGeneratorOptions()
+        {
+            IEnumerable<Type> options = Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IGeneratorOption).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+            return ReflectionManager.InstanciateTypes<IGeneratorOption>(options.ToList());
+        }
+
+        public static List<Type> GetAttributeClasses(Attribute attribute)
+        {
+            List<Type> types = new List<Type>();
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (type.GetCustomAttributes(attribute.GetType(), true).Length > 0)
+                {
+                    types.Add(type);
+                }
+            }
+            return types;
         }
     }
 }

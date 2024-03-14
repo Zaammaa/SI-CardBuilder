@@ -1,4 +1,6 @@
-﻿using Spirit_Island_Card_Generator.Classes.GameConcepts;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.GameConcepts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
-    internal class GainPowerCardEffect : SpiritEffect
+    [SpiritEffect]
+    internal class GainPowerCardEffect : Effect
     {
         public override double BaseProbability { get { return .07; } }
         public override double AdjustedProbability { get { return .07; } set { } }
@@ -37,20 +40,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (!card.Target.SpiritTarget || card.ContainsEffect(GetType()))
+            if (!context.card.Target.SpiritTarget || context.card.ContainsSameEffectType(this))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 List<PowerCardType> validTypes = new List<PowerCardType>() { PowerCardType.Minor, PowerCardType.Major, PowerCardType.Unspecified };
-                cardType = Utils.ChooseRandomListElement(validTypes,settings.rng);
+                cardType = Utils.ChooseRandomListElement(validTypes, Context.rng);
             }
             else
             {
@@ -81,7 +84,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
             if (cardType == PowerCardType.Minor)
             {
@@ -101,7 +104,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             if (cardType == PowerCardType.Major)
             {
@@ -142,6 +145,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             GainPowerCardEffect effect = new GainPowerCardEffect();
             effect.cardType = cardType;
+            effect.Context = Context;
             return effect;
         }
     }

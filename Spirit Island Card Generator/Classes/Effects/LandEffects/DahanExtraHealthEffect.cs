@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +10,12 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    internal class DahanExtraHealthEffect : LandEffect
+    [LandEffect]
+    internal class DahanExtraHealthEffect : Effect
     {
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 3; } }
+        public override int Complexity { get { return 2; } }
 
         public override Regex descriptionRegex
         {
@@ -30,15 +33,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return "{dahan}" + $" have +{extraDahanHealth} Health while in target land";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (card.ContainsEffect(this.GetType()) || card.Target.SpiritTarget || card.Target.landConditions.Contains(LandConditions.NoDahan))
+            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || context.card.Target.landConditions.Contains(LandConditions.NoDahan))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             extraDahanHealth = 2;
         }
@@ -57,9 +60,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 DahanExtraHealthEffect newEffect = (DahanExtraHealthEffect)Duplicate();
                 newEffect.extraDahanHealth += 1;
@@ -71,7 +74,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             if (extraDahanHealth > 1)
             {
@@ -99,6 +102,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DahanExtraHealthEffect effect = new DahanExtraHealthEffect();
             effect.extraDahanHealth = extraDahanHealth;
+            effect.Context = Context;
             return effect;
         }
     }

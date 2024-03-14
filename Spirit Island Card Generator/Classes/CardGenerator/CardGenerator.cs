@@ -18,6 +18,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
     {
         //Used to select elements if exact elements is not set in settings
         public Dictionary<Element, int> elementPool = new Dictionary<Element, int>();
+        public EffectGenerator generator;
 
         public enum EffectTemplate
         {
@@ -31,18 +32,27 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public CardGenerator()
         {
             SetupElementPool();
+            generator = new EffectGenerator();
         }
 
         public Card GenerateMinorCard(Settings settings)
         {
             Card card = new Card();
             card.CardType = Card.CardTypes.Minor;
+            Context context = new Context();
+            context.rng = settings.rng;
+            context.settings = settings;
+            context.card = card;
+            context.effectGenerator = generator;
+            
             //Step 1: Elements
-            card.elements = ChooseElements(card, settings);
+            card.elements = ChooseElements(context);
             //Step 2: Speed/Cost/Target/Range
             ChooseSpeed(card, settings.rng);
             ChooseCost(card, settings.rng);
             card.Target = ChooseTarget(card, settings.rng);
+            context.target = card.Target;
+            //context.conditions = card.Target.landConditions;
             card.Range = ChooseRange(card, settings.rng);
             //Step 3: Template
             //TODO use other templates
@@ -51,61 +61,41 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             
             do
             {
-                card.effects.Add(ChooseRandomEffect(card, settings));
-            } while (card.CalculatePowerLevel() <= settings.TargetPowerLevel - settings.PowerLevelVariance);
+                //generator.ChooseEffect(context);
+                Effect? effect = (Effect?)generator.ChooseEffect(context);
+                if (effect != null)
+                    card.effects.Add(effect);
+            } while (card.Complexity() <= settings.MinComplexity);
             //Step 5: Refine Balance
-            while (!card.IsValid(settings))
+            while (!card.IsValid(context))
             {
-                if (card.Complexity() > settings.MaxComplexity)
+                if (card.effects.Count == 1 && !card.effects.First().Standalone)
                 {
-                    //TODO, this should potentially touch targeting and range requirements?
-                    Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
-                    card.effects.Remove(effect);
+                    Effect? effect = (Effect?)generator.ChooseEffect(context);
+                    if (effect != null)
+                        card.effects.Add(effect);
+                } else if (card.Complexity() > settings.MaxComplexity)
+                {
+                    generator.DecreaseCardComplexity(context);
                 } else if (card.Complexity() < settings.MinComplexity) {
-                    //TODO, this should potentially touch targeting and range requirements?
-                    card.effects.Add(ChooseRandomEffect(card, settings));
+                    generator.IncreaseCardComplexity(context);
                 } else if (card.CalculatePowerLevel() >= settings.TargetPowerLevel + settings.PowerLevelVariance)
                 {
-                    Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
-                    Effect? newEffect = effect?.Weaken(card, settings);
-                    if (newEffect != null && effect != null && newEffect.CalculatePowerLevel() < effect.CalculatePowerLevel())
-                    {
-                        //TODO: Keep order?
-                        card.effects.Remove(effect);
-                        card.effects.Add(newEffect);
-                    } else
-                    {
-                        card.effects.Remove(effect);
-                    }
+                    generator.WeakenCard(context);
                 } else if (card.CalculatePowerLevel() <= settings.TargetPowerLevel - settings.PowerLevelVariance)
                 {
-                    Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
-                    Effect? newEffect = effect?.Strengthen(card, settings);
-                    if (newEffect != null && effect != null && newEffect.CalculatePowerLevel() > effect.CalculatePowerLevel())
-                    {
-                        //TODO: Keep order?
-                        card.effects.Remove(effect);
-                        card.effects.Add(newEffect);
-                    }
-                    else
-                    {
-                        card.effects.Add(ChooseRandomEffect(card, settings));
-                    }
+                    generator.StrengthenCard(context);
                 } else
                 {
                     //TODO, this should potentially touch targeting and range requirements?
                     Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
                     card.effects.Remove(effect);
                 }
-
-                if (card.ContainsEffect(typeof(LandElementalThresholdEffect)))
-                {
-                    int x = 0;
-                }
             }
             //Step 6: Name
             //Step 7: Art
 
+            generator.CardChosen(card);
             return card;
         }
         #region elements
@@ -121,8 +111,9 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
         }
 
-        private ElementSet ChooseElements(Card card, Settings settings)
+        private ElementSet ChooseElements(Context context)
         {
+            Settings settings = context.settings;
             int roll = (int)(settings.rng.NextDouble() * 100);
             List<Element> elements = new List<Element>();
 
@@ -287,30 +278,30 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         #endregion
 
         #region Effects
-        private Effect ChooseRandomEffect(Card card, Settings settings)
-        {
-            IEnumerable<Effect> effects;
-            if (card.Target.SpiritTarget)
-            {
-                effects = ReflectionManager.GetInstanciatedSubClasses<SpiritEffect>();
-            } else
-            {
-                effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-            }
+        //private Effect ChooseRandomEffect(Context context)
+        //{
+        //    IEnumerable<Effect> effects;
+        //    if (card.Target.SpiritTarget)
+        //    {
+        //        effects = ReflectionManager.GetInstanciatedSubClasses<SpiritEffect>();
+        //    } else
+        //    {
+        //        effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
+        //    }
             
-            Dictionary<Effect, int> weightedEffectChances = new Dictionary<Effect, int>();
-            foreach (Effect effect in effects)
-            {
-                effect.InitializeEffect(card, settings);
-                if (effect.IsValid(card, settings))
-                {
-                    //TODO: change adjusted probability to use int instead.
-                    weightedEffectChances.Add(effect, (int)(effect.AdjustedProbability * 100));
-                }
-            }
-            Effect choosenEffect = Utils.ChooseWeightedOption<Effect>(weightedEffectChances, settings.rng);
-            return choosenEffect;
-        }
+        //    Dictionary<Effect, int> weightedEffectChances = new Dictionary<Effect, int>();
+        //    foreach (Effect effect in effects)
+        //    {
+        //        effect.InitializeEffect(card, settings);
+        //        if (effect.IsValid(card, settings))
+        //        {
+        //            //TODO: change adjusted probability to use int instead.
+        //            weightedEffectChances.Add(effect, (int)(effect.AdjustedProbability * 100));
+        //        }
+        //    }
+        //    Effect choosenEffect = Utils.ChooseWeightedOption<Effect>(weightedEffectChances, settings.rng);
+        //    return choosenEffect;
+        //}
         #endregion
     }
 }

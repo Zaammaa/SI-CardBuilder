@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
-    internal class ExtraCardPlayEffect : SpiritEffect
+    [SpiritEffect]
+    internal class ExtraCardPlayEffect : Effect
     {
         public override double BaseProbability { get { return .07; } }
         public override double AdjustedProbability { get { return .07; } set { } }
@@ -27,15 +30,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return $"Target Spirit may immediately play another Power Card by paying its cost.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (!card.Target.SpiritTarget)
+            if (!context.target.SpiritTarget)
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
 
         }
@@ -53,12 +56,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
             return null;
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             return null;
         }
@@ -73,6 +76,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override Effect Duplicate()
         {
             ExtraCardPlayEffect effect = new ExtraCardPlayEffect();
+            effect.Context = Context;
             return effect;
         }
     }

@@ -22,7 +22,7 @@ namespace Spirit_Island_Card_Generator.Classes
         public double PowerLevelVariance = 0.2;
         //How complex the generated deck should be. Some cards will still be more or less complicated.
         //Higher complexity means more outlandish effects can be generated, as well as allowing more effects on each card more often
-        public int MaxComplexity = 15;
+        public int MaxComplexity = 20;
         public int MinComplexity = 6;
 
         public int seed = 0;

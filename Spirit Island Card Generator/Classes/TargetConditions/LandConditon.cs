@@ -182,6 +182,10 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
                 {
                     invalidConditions.AddRange(implications[condition]);
                 }
+                if (currentLandConditions.Contains(condition))
+                {
+                    invalidConditions.Add(condition);
+                }
             }
 
             allConditions.RemoveAll(invalidConditions.Contains);

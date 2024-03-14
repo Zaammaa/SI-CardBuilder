@@ -1,4 +1,6 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    public class DamageEffect : LandEffect
+    [LandEffect]
+    public class DamageEffect : Effect
     {
         public override double BaseProbability { get { return .20; } }
         public override double AdjustedProbability { get { return .20; } set { } }
@@ -30,18 +33,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return damageAmount + " Damage.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (card.ContainsEffect(this.GetType()) || card.Target.SpiritTarget)
+            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             //TODO: Care about power level
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 damageAmount = 1;
             }
@@ -65,13 +68,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                DamageEffect newEffect = new DamageEffect();
-                int damageIncrease = 1;
-                newEffect.damageAmount += damageIncrease;
+                DamageEffect newEffect = (DamageEffect)Duplicate();
+                newEffect.damageAmount += 1;
                 return newEffect;
             }
             else
@@ -80,17 +82,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             if (damageAmount <= 1)
             {
                 return null;
             }
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                DamageEffect newEffect = new DamageEffect();
-                int damageDecrease = 1;
-                newEffect.damageAmount -= damageDecrease;
+                DamageEffect newEffect = (DamageEffect)Duplicate();
+                newEffect.damageAmount -= 1;
                 return newEffect;
             }
             else
@@ -113,6 +114,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DamageEffect effect = new DamageEffect();
             effect.damageAmount = damageAmount;
+            effect.Context = Context;
             return effect;
         }
     }

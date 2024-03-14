@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes
 {
-    public class Card : IPowerPowerLevel
+    public class Card : IPowerLevel
     {
         public enum CardTypes
         {
@@ -29,11 +29,12 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public string artworkDataString = "";
 
-        public bool ContainsEffect(Type effectType)
+        public bool ContainsSameEffectType(Effect otherEffect)
         {
+            Type effectType = otherEffect.GetType();
             foreach (Effect effect in effects)
             {
-                if (effect.GetType() == effectType)
+                if (effect.GetType() == effectType && !effect.Equals(otherEffect))
                 {
                     return true;
                 }
@@ -106,7 +107,7 @@ namespace Spirit_Island_Card_Generator.Classes
                     complexity += 1;
                 }
                 if (Range.SourceLand.HasValue) {
-                    complexity += 3;
+                    complexity += 2;
                 }
             }
 
@@ -120,8 +121,9 @@ namespace Spirit_Island_Card_Generator.Classes
             return complexity;
         }
 
-        public bool IsValid(Settings settings)
+        public bool IsValid(Context context)
         {
+            Settings settings = context.settings;
             if (CalculatePowerLevel() >= settings.TargetPowerLevel + settings.PowerLevelVariance) {
                 return false;
             } else if (CalculatePowerLevel() <= settings.TargetPowerLevel - settings.PowerLevelVariance) {
@@ -131,31 +133,36 @@ namespace Spirit_Island_Card_Generator.Classes
                 return false;
             }
 
-            bool hasStandaloneEffect = false;
-            foreach(Effect effect in effects)
+            if (effects.Count == 1 && !effects.First().Standalone)
             {
-                if (effect.Standalone)
-                {
-                    hasStandaloneEffect = true;
-                    break;
-                }
-            }
-            if (!hasStandaloneEffect)
-            {
+                //bool hasStandaloneEffect = false;
+                //foreach (Effect effect in effects)
+                //{
+                //    if (effect.Standalone)
+                //    {
+                //        hasStandaloneEffect = true;
+                //        break;
+                //    }
+                //}
+                //if (!hasStandaloneEffect)
+                //{
+                //    return false;
+                //}
                 return false;
             }
 
-            foreach (Effect effect in effects)
-            {
-                if (!effect.IsValid(this, settings)) { 
-                    return false;
-                }
-            }
+
+            //foreach (Effect effect in effects)
+            //{
+            //    if (!effect.IsValid(context)) { 
+            //        return false;
+            //    }
+            //}
 
             return true;
         }
 
-        public IPowerPowerLevel Duplicate()
+        public IPowerLevel Duplicate()
         {
             Card newCard = new Card();
             newCard.CardType = CardType;

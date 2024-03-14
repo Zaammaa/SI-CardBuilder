@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OpenQA.Selenium.DevTools.V120.Input;
+using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    public class DefendEffect : LandEffect
+    [LandEffect]
+    public class DefendEffect : Effect
     {
-        public override double BaseProbability { get { return .16; } }
-        public override double AdjustedProbability { get { return .16; } set { } }
+        public override double BaseProbability { get { return .30; } }
+        public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 1; } }
 
         public override Regex descriptionRegex
@@ -29,20 +33,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return $"Defend {defendAmount}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (card.ContainsEffect(this.GetType()) || card.Target.SpiritTarget || !card.Fast)
+            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || !context.card.Fast || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders) || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoBuildings))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             //TODO: Care about power level
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                defendAmount = settings.rng.Next(1,11);
+                defendAmount = 5;
             }
             else
             {
@@ -64,9 +68,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 DefendEffect newEffect = (DefendEffect)Duplicate();
                 newEffect.defendAmount += 1;
@@ -78,7 +82,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             if (defendAmount > 1)
             {
@@ -105,6 +109,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DefendEffect effect = new DefendEffect();
             effect.defendAmount = defendAmount;
+            effect.Context = Context;
             return effect;
         }
     }

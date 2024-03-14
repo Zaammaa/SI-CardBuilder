@@ -21,6 +21,9 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public void GenerateDeck()
         {
+            Context context = new Context();
+            context.rng = settings.rng;
+            context.settings = settings;
             CardGenerator cardGenerator = new CardGenerator();
             
             Dictionary<ElementSet.Element, int> elementCounts = new Dictionary<ElementSet.Element, int>();
@@ -61,6 +64,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 Log.Information($"{el}: {elementCounts[el]}");
             }
+            cardGenerator.generator.LogTrackedStats();
         }
     }
 }

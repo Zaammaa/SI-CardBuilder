@@ -1,4 +1,5 @@
-﻿using Spirit_Island_Card_Generator.Classes.CardGenerator;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    public class IsolateEffect : LandEffect
+    [LandEffect]
+    public class IsolateEffect : Effect
     {
         public override double BaseProbability { get { return .04; } }
         public override double AdjustedProbability { get { return .04; } set { } }
@@ -28,22 +30,21 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return $"Isolate target land.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (card.ContainsEffect(this.GetType()) || card.Target.SpiritTarget || !card.Fast)
+            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || !context.card.Fast)
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            //TODO: work with the calculated power levels
             return 0.2;
         }
 
@@ -57,15 +58,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override IsolateEffect Duplicate()
         {
             IsolateEffect effect = new IsolateEffect();
+            effect.Context = Context;
             return effect;
         }
 
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
             return null;
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             return null;
         }

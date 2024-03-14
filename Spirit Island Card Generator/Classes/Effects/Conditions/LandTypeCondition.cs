@@ -93,35 +93,35 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 
         public LandConditon.LandConditions landCondition;
 
-        public override IPowerPowerLevel Duplicate()
+        public override IPowerLevel Duplicate()
         {
             LandTypeCondition condition = new LandTypeCondition();
             condition.landCondition = landCondition;
             return condition;
         }
 
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
             return true;
         }
 
-        public override void Initialize(Card card, Settings settings)
+        public override void Initialize(Context context)
         {
             Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
-            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(card.Target.landConditions);
+            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(context.target.landConditions);
             foreach (LandConditions condition in conditions.Keys)
             {
                 if (compatibleConditions.Contains(condition))
                     weights.Add(condition, conditions[condition].weight);
             }
 
-            landCondition = Utils.ChooseWeightedOption(weights, settings.rng);
+            landCondition = Utils.ChooseWeightedOption(weights, context.rng);
         }
 
-        public override bool ChooseHarderCondition(Card card, Settings settings)
+        public override bool ChooseHarderCondition(Context context)
         {
             Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
-            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(card.Target.landConditions);
+            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(context.target.landConditions);
 
             foreach (LandConditions condition in conditions.Keys)
             {
@@ -129,7 +129,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                     weights.Add(condition, conditions[condition].weight);
             }
 
-            LandConditions? newCondition =  Utils.ChooseWeightedOption(weights, settings.rng);
+            LandConditions? newCondition =  Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)
             {
                 landCondition = newCondition.Value;
@@ -139,10 +139,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                 return false;
             }
         }
-        public override bool ChooseEasierCondition(Card card, Settings settings)
+        public override bool ChooseEasierCondition(Context context)
         {
             Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
-            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(card.Target.landConditions);
+            List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(context.target.landConditions);
 
             foreach (LandConditions condition in conditions.Keys)
             {
@@ -150,7 +150,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                     weights.Add(condition, conditions[condition].weight);
             }
 
-            LandConditions? newCondition = Utils.ChooseWeightedOption(weights, settings.rng);
+            LandConditions? newCondition = Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)
             {
                 landCondition = newCondition.Value;

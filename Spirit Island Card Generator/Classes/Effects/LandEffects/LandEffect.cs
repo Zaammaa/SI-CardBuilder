@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    public abstract class LandEffect : Effect
-    {
-    }
+    //public abstract class LandEffect : Effect
+    //{
+    //}
 }

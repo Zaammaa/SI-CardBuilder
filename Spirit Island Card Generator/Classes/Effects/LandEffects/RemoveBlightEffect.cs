@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,8 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    internal class RemoveBlightEffect : LandEffect
+    [LandEffect]
+    internal class RemoveBlightEffect : Effect, ITrackedStat
     {
         public override double BaseProbability { get { return .12; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -22,6 +25,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
+        public static string TrackedName => "Blight Removal";
+
+        public static int TargetAmount => 12;
+
+        public bool ExactTarget => false;
+
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
+
         public int removeAmount = 1;
 
         //Writes what goes on the card
@@ -30,16 +41,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return "Remove " + removeAmount + " {blight}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
             //TODO: At some point This should avoid cards that have a blight add effect too
-            if (card.ContainsEffect(this.GetType()) || card.Target.SpiritTarget || card.Target.landConditions.Contains(LandConditions.Noblight))
+            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || context.target.landConditions.Contains(LandConditions.Noblight))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             removeAmount = 1;
         }
@@ -58,9 +69,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 RemoveBlightEffect newEffect = (RemoveBlightEffect)Duplicate();
                 newEffect.removeAmount += 1;
@@ -72,7 +83,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             if (removeAmount > 1)
             {
@@ -100,6 +111,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             RemoveBlightEffect effect = new RemoveBlightEffect();
             effect.removeAmount = removeAmount;
+            effect.Context = Context;
             return effect;
         }
     }

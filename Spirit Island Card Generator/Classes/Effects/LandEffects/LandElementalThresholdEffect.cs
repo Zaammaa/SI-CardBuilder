@@ -1,4 +1,6 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,17 +11,30 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    internal class LandElementalThresholdEffect : LandEffect
+    [LandEffect]
+    internal class LandElementalThresholdEffect : Effect
     {
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
-        public override int Complexity { get { return 6; } }
+        public override int Complexity { 
+            get {
+                int complexity = 4;
+                foreach (Effect effect in Effects)
+                {
+                    complexity += effect.Complexity;
+                }
+                return complexity;
+            } 
+        }
 
         private bool offElement = false;
         private Dictionary<ElementSet.Element, int> elements = new Dictionary<ElementSet.Element, int>();
         public List<Effect> Effects = new List<Effect>();
 
-        public override bool Standalone { get { return true; } }
+        public override bool Standalone { get { return false; } }
+        public override bool TopLevelEffect() { 
+            return true; 
+        }
 
         public override Regex descriptionRegex
         {
@@ -31,30 +46,30 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
             //If there's more than 5 elements it's probably some specially made elemental card
-            if (card.ContainsEffect(typeof(LandElementalThresholdEffect)) && card.elements.GetElements().Count <= 5 && card.elements.GetElements().Count > 0)
+            if (context.card.ContainsSameEffectType(new LandElementalThresholdEffect()) || context.card.elements.GetElements().Count >= 5 || context.card.elements.GetElements().Count <= 1)
                 return false;
 
             return true;
         }
 
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
-            ChooseElements(card, settings);
+            ChooseElements();
 
             //Choose Effect
-            ChooseRandomEffect(card, settings);
+            ChooseRandomEffect();
         }
 
-        private void ChooseElements(Card card, Settings settings)
+        private void ChooseElements()
         {
-            ElementSet set = card.elements;
+            ElementSet set = Context.card.elements;
             List<ElementSet.Element> elementOptions = new List<ElementSet.Element>();
-            int roll = (int)(settings.rng.NextDouble() * 100) + 1;
-            if (roll <= 20 && card.CardType == Card.CardTypes.Minor)
+            int roll = (int)(Context.settings.rng.NextDouble() * 100) + 1;
+            if (roll <= 20 && Context.card.CardType == Card.CardTypes.Minor)
             {
                 //Choose 1 off element type
                 offElement = true;
@@ -79,19 +94,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 }
             }
 
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
                 //Only 1 element type for minors?
                 int amount;
                 if (offElement)
                 {
-                    amount = settings.rng.Next(1, 3);
+                    amount = Context.settings.rng.Next(1, 3);
                 }
                 else
                 {
-                    amount = settings.rng.Next(2, 4);
+                    amount = Context.settings.rng.Next(2, 4);
                 }
-                roll = settings.rng.Next(0, elementOptions.Count);
+                roll = Context.settings.rng.Next(0, elementOptions.Count);
                 elements.Add(elementOptions.ToArray()[roll], amount);
             }
             else
@@ -100,22 +115,26 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        protected void ChooseRandomEffect(Card card, Settings settings)
+        protected void ChooseRandomEffect()
         {
-            List<LandEffect> effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-            List<LandEffect> validEffects = new List<LandEffect>();
-            foreach (LandEffect landEffect in effects)
+            //List<LandEffect> effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
+            //List<LandEffect> validEffects = new List<LandEffect>();
+            //foreach (LandEffect landEffect in effects)
+            //{
+            //    if (landEffect.GetType() == typeof(TargetLandConditionEffect) || landEffect.GetType() == typeof(LandElementalThresholdEffect))
+            //        continue;
+            //    if (landEffect.IsValid(Context))
+            //    {
+            //        landEffect.InitializeEffect(UpdateContext());
+            //        validEffects.Add(landEffect);
+            //    }
+            //}
+            Effect? landEffect = (Effect?)Context.effectGenerator.ChooseStrongerEffect(UpdateContext(),0);
+            if (landEffect != null)
             {
-                if (landEffect.GetType() == typeof(TargetLandConditionEffect) || landEffect.GetType() == typeof(LandElementalThresholdEffect))
-                    continue;
-
-                landEffect.InitializeEffect(card, settings);
-                if (landEffect.IsValid(card, settings))
-                {
-                    validEffects.Add(landEffect);
-                }
-            }
-            Effects.Add((LandEffect)ChooseEffect(card, settings, validEffects));
+                landEffect.InitializeEffect(UpdateContext());
+                Effects.Add(landEffect);
+            }   
         }
 
         //Estimates the effects own power level
@@ -133,6 +152,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             Dictionary<int, double> difficultyMultipliers = new Dictionary<int, double>()
             {
+                {1, 0.9 },
                 {2, 0.8 },
                 {3, 0.6 },
                 {4, 0.3 },
@@ -143,9 +163,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 foreach (ElementSet.Element el in elements.Keys)
                 {
                     int count = elements[el];
-                    if (difficultyMultipliers[count + 1] < multiplier)
+                    if (difficultyMultipliers[count] < multiplier)
                     {
-                        multiplier = difficultyMultipliers[count + 1];
+                        multiplier = difficultyMultipliers[count];
                     }
                 }
             } else
@@ -212,6 +232,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             LandElementalThresholdEffect dupEffect = new LandElementalThresholdEffect();
             dupEffect.elements = elements.ToDictionary(entry => entry.Key, entry => entry.Value);
             dupEffect.offElement = offElement;
+            dupEffect.Context = Context;
             foreach (Effect effect in Effects)
             {
                 dupEffect.Effects.Add((Effect)effect.Duplicate());
@@ -219,14 +240,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
             LandElementalThresholdEffect strongerThis = (LandElementalThresholdEffect)Duplicate();
-            int roll = settings.rng.Next(0, 100);
+            int roll = Context.rng.Next(0, 100);
             //Reduce elements
             if (roll <= 15 && (strongerThis.offElement && CountTotalElements() >= 2 || !strongerThis.offElement && CountTotalElements() >= 3))
             {
-                ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, settings.rng);
+                ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, Context.rng);
                 strongerThis.elements[element] -= 1;
                 if (strongerThis.elements[element] <= 0)
                 {
@@ -236,10 +257,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             //Strengthen effect
             else if (roll <= 90)
             {
-                Effect effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, settings.rng);
+                Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
-                Effect strongerEffect = effectToStrengthen.Strengthen(card, settings);
-                if (strongerEffect != null)
+                Effect? strongerEffect = effectToStrengthen?.Strengthen();
+                if (strongerEffect != null && effectToStrengthen != null)
                 {
                     strongerThis.Effects.Remove(effectToStrengthen);
                     strongerThis.Effects.Add(strongerEffect);
@@ -248,13 +269,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 else
                 {
                     //Try to add a different, stronger effect
-                    List<LandEffect> options = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-                    options.ForEach((LandEffect effect) =>
-                    {
-                        effect.InitializeEffect(card, settings);
-                    });
-                    Effect? effect = ChooseStrongerEffect(card, settings, strongerThis.CalculatePowerLevel(), options);
-                    if (effect != null)
+                    //List<LandEffect> options = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
+                    //options.ForEach((LandEffect effect) =>
+                    //{
+                    //    effect.InitializeEffect(UpdateContext());
+                    //});
+                    Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), strongerThis.CalculatePowerLevel());
+                    if (effect != null && effectToStrengthen != null)
                     {
                         strongerThis.Effects.Remove(effectToStrengthen);
                         strongerThis.Effects.Add(effect);
@@ -269,12 +290,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             //Add another effect
             else
             {
-                List<LandEffect> options = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-                options.ForEach((LandEffect effect) =>
-                {
-                    effect.InitializeEffect(card, settings);
-                });
-                Effect? effect = (Effect?)ChooseEffect(card, settings, options);
+                List<Effect> options = ReflectionManager.GetInstanciatedSubClasses<Effect>();
+
+                Effect? effect = (Effect?)Context.effectGenerator.ChooseGeneratorOption<Effect>(new LandEffectAttribute(),UpdateContext());
+                effect?.InitializeEffect(UpdateContext());
+
                 if (effect != null)
                 {
                     strongerThis.Effects.Add(effect);
@@ -289,23 +309,23 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             LandElementalThresholdEffect weakerThis = (LandElementalThresholdEffect)Duplicate();
-            int roll = settings.rng.Next(0, 100);
+            int roll = Context.rng.Next(0, 100);
             //Increase elements
-            if (roll <= 15 && (weakerThis.offElement && CountTotalElements() <= 3 || !weakerThis.offElement && CountTotalElements() <= 4))
+            if (roll <= 15 && (weakerThis.offElement && CountTotalElements() <= 3 || !weakerThis.offElement && CountTotalElements() < 4))
             {
-                ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, settings.rng);
+                ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, Context.rng);
                 weakerThis.elements[element] += 1;
             }
             //Weaken effect
             else if (roll <= 90)
             {
-                Effect effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, settings.rng);
+                Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-                Effect weakerEffect = effectToWeaken.Weaken(card, settings);
-                if (weakerEffect != null)
+                Effect? weakerEffect = effectToWeaken?.Weaken();
+                if (weakerEffect != null && effectToWeaken != null)
                 {
                     weakerThis.Effects.Remove(effectToWeaken);
                     weakerThis.Effects.Add(weakerEffect);
@@ -319,15 +339,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             //Choose a different, weaker effect
             else
             {
-                List<LandEffect> options = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-                options.ForEach((LandEffect effect) =>
+                //List<LandEffect> options = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
+                //options.ForEach((LandEffect effect) =>
+                //{
+                //    effect.InitializeEffect(Context);
+                //});
+                Effect? effect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), CalculatePowerLevel());
+                if (effect != null && weakerThis.Effects.Count > 0)
                 {
-                    effect.InitializeEffect(card, settings);
-                });
-                Effect? effect = ChooseWeakerEffect(card, settings, CalculatePowerLevel(), options);
-                if (effect != null)
-                {
-                    weakerThis.Effects.Remove(Utils.ChooseRandomListElement(weakerThis.Effects, settings.rng));
+                    weakerThis.Effects.Remove(Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng));
                     weakerThis.Effects.Add(effect);
                     return weakerThis;
                 } else

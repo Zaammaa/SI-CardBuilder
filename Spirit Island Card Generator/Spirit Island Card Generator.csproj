@@ -16,10 +16,4 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Classes\Effects\ConditionalEffects\" />
-    <Folder Include="Classes\Effects\CardMetaEffects\" />
-    <Folder Include="Classes\Effects\Costs\" />
-  </ItemGroup>
-
 </Project>

@@ -1,9 +1,13 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -11,13 +15,14 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
-    internal class TargetLandConditionEffect : LandEffect
+    [LandEffect]
+    internal class TargetLandConditionEffect : Effect
     {
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
         public override int Complexity { get { return 6; } }
 
-        private Condition? condition;
+        private LandTypeCondition? condition;
         public List<Effect> Effects = new List<Effect>();
 
         public override bool Standalone { get { return false; } }
@@ -32,43 +37,35 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
             return true;
         }
 
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
-            List<Condition> conditions = ReflectionManager.GetInstanciatedSubClasses<Condition>();
-            List<Condition> validConditions = new List<Condition>();
-            foreach (Condition condition in conditions)
-            {
-                condition.Initialize(card, settings);
+           
+            condition = (LandTypeCondition?)Context.effectGenerator.ChooseGeneratorOption<LandTypeCondition>(UpdateContext());
+            Target target = Context.card.Target.CreateShallowCopy();
+            target.landConditions.Add(condition.landCondition);
+            Context.target = target;
+            
+            //List<Effect> effects = ReflectionManager.GetInstanciatedSubClasses<Effect>();
+            //List<Effect> validEffects = new List<Effect>();
+            //foreach (Effect landEffect in effects)
+            //{
+            //    if (landEffect.GetType() == typeof(TargetLandConditionEffect) || landEffect.GetType() == typeof(LandElementalThresholdEffect))
+            //        continue;
 
-                if (condition.IsValid(card, settings))
-                {
-                    validConditions.Add(condition);
-                }
-            }
-            condition = (Condition)ChooseEffect(card, settings, validConditions);
-            //Effects check cards for if they are valid or not, but not this condition. As a small hack, we can generate a new card with our condition as the target and use that
-            Card fakeCard = (Card)card.Duplicate();
+            //    if (landEffect.IsValid(UpdateContext()))
+            //    {
+            //        landEffect.InitializeEffect(UpdateContext());
+            //        validEffects.Add(landEffect);
+            //    }
+            //}
+            Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
 
-            List<LandEffect> effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-            List<LandEffect> validEffects = new List<LandEffect>();
-            foreach (LandEffect landEffect in effects)
-            {
-                if (landEffect.GetType() == typeof(TargetLandConditionEffect) || landEffect.GetType() == typeof(LandElementalThresholdEffect))
-                    continue;
-
-                landEffect.InitializeEffect(card, settings);
-                if (landEffect.IsValid(card, settings) && landEffect.IsValid(fakeCard, settings))
-                {
-                    validEffects.Add(landEffect);
-                }
-            }
-            Effects.Add((LandEffect)ChooseEffect(card, settings, validEffects));
         }
 
         //Estimates the effects own power level
@@ -116,7 +113,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override Effect Duplicate()
         {
             TargetLandConditionEffect dupEffect = new TargetLandConditionEffect();
-            dupEffect.condition = (Condition?)condition?.Duplicate();
+            dupEffect.condition = (LandTypeCondition?)condition?.Duplicate();
+            dupEffect.Context = Context;
             foreach (Effect effect in Effects)
             {
                 dupEffect.Effects.Add((Effect)effect.Duplicate());
@@ -124,21 +122,21 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
             TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
             //Either make the condition easier to meet, or make the effect stronger
-            double roll = settings.rng.NextDouble() * 100;
-            if (roll < 50 && strongerThis.condition.ChooseEasierCondition(card, settings))
+            double roll = Context.rng.NextDouble() * 100;
+            if (roll < 50 && strongerThis.condition.ChooseEasierCondition(UpdateContext()))
             {
                 return strongerThis;
             }
             else
             {
-                Effect effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, settings.rng);
+                Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
-                Effect strongerEffect = effectToStrengthen.Strengthen(card, settings);
-                if (strongerEffect != null)
+                Effect? strongerEffect = effectToStrengthen?.Strengthen();
+                if (strongerEffect != null && effectToStrengthen != null)
                 {
                     strongerThis.Effects.Remove(effectToStrengthen);
                     strongerThis.Effects.Add(strongerEffect);
@@ -151,21 +149,21 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
             TargetLandConditionEffect weakerThis = (TargetLandConditionEffect)Duplicate();
             //Either make the condition easier to meet, or make the effect stronger
-            double roll = settings.rng.NextDouble() * 100;
-            if (roll < 50 && weakerThis.condition.ChooseHarderCondition(card, settings))
+            double roll = Context.rng.NextDouble() * 100;
+            if (roll < 50 && weakerThis.condition.ChooseHarderCondition(UpdateContext()))
             {
                 return weakerThis;
             }
             else
             {
-                Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, settings.rng);
+                Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-                Effect? weakerEffect = effectToWeaken?.Weaken(card, settings);
-                if (weakerEffect != null)
+                Effect? weakerEffect = effectToWeaken?.Weaken();
+                if (weakerEffect != null && effectToWeaken != null)
                 {
                     weakerThis.Effects.Remove(effectToWeaken);
                     weakerThis.Effects.Add(weakerEffect);

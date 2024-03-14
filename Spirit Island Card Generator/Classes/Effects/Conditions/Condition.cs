@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 {
-    public abstract class Condition : IPowerPowerLevel, GeneratorOption
+    public abstract class Condition : IPowerLevel, IGeneratorOption
     {
         public abstract double BaseProbability { get; }
         public abstract double AdjustedProbability { get; set; }
@@ -18,16 +18,21 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
         {
             return 0;
         }
-        public abstract IPowerPowerLevel Duplicate();
-        public abstract bool IsValid(Card card, Settings settings);
+        public abstract IPowerLevel Duplicate();
+        public abstract bool IsValid(Context context);
 
         public abstract double DifficultyMultiplier { get; }
 
         public abstract string ConditionText { get; }
 
-        public abstract void Initialize(Card card, Settings settings);
+        public abstract void Initialize(Context context);
 
-        public abstract bool ChooseHarderCondition(Card card, Settings settings);
-        public abstract bool ChooseEasierCondition(Card card, Settings settings);
+        public abstract bool ChooseHarderCondition(Context context);
+        public abstract bool ChooseEasierCondition(Context context);
+
+        public bool TopLevelEffect()
+        {
+            return false;
+        }
     }
 }

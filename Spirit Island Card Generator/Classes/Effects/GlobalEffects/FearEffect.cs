@@ -1,4 +1,6 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 {
-    public class FearEffect : LandEffect
+    [LandEffect]
+    [SpiritEffect]
+    public class FearEffect : Effect
     {
         public override double BaseProbability { get { return .33; } }
         public override double AdjustedProbability { get { return .33; } set { } }
@@ -30,20 +34,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return fearAmount + " {fear}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Card card, Settings settings)
+        public override bool IsValid(Context context)
         {
-            if (card.ContainsEffect(this.GetType()))
+            if (context.card.ContainsSameEffectType(this))
                 return false;
             else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        public override void InitializeEffect(Card card, Settings settings)
+        protected override void InitializeEffect()
         {
             //TODO: Care about power level
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                fearAmount = settings.rng.Next(1, 4);
+                fearAmount = Context.rng.Next(1, 4);
             } else
             {
                 throw new NotImplementedException();
@@ -64,13 +68,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen(Card card, Settings settings)
+        public override Effect? Strengthen()
         {
-            if (card.CardType == Card.CardTypes.Minor)
+            if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                FearEffect newEffect = new FearEffect();
-                int fearIncrease = 1;
-                newEffect.fearAmount += fearIncrease;
+                FearEffect newEffect = (FearEffect)Duplicate();
+                newEffect.fearAmount += 1;
                 return newEffect;
             } else
             {
@@ -78,11 +81,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             }
         }
 
-        public override Effect? Weaken(Card card, Settings settings)
+        public override Effect? Weaken()
         {
-            FearEffect newEffect = new FearEffect();
-            int fearDecrease = 1;
-            newEffect.fearAmount -= fearDecrease;
+            FearEffect newEffect = (FearEffect)Duplicate();
+            newEffect.fearAmount -= 1;
             if (newEffect.fearAmount <= 0)
                 return null;
             else
@@ -102,6 +104,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public override Effect Duplicate()
         {
             FearEffect effect = new FearEffect();
+            effect.Context = Context;
             effect.fearAmount = fearAmount;
             return effect;
         }

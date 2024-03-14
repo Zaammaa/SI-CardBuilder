@@ -32,14 +32,12 @@ namespace Spirit_Island_Card_Generator.Classes
 
 
             int roll = rng.Next(sum);
-            int i = 0;
             foreach (int weight in position.Keys)
             {
                 if (roll < weight)
                 {
                     return position[weight];
                 }
-                i++;
             }
             return default(T);
 
