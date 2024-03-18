@@ -76,7 +76,7 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public override string ToString()
         {
-            return String.Join(",",Elements.ToArray());
+            return String.Join(",",Elements.ToArray()).ToLower();
         }
     }
 }

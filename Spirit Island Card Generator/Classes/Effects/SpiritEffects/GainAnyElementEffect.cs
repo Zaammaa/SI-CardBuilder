@@ -1,51 +1,39 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
-using Spirit_Island_Card_Generator.Classes.Interfaces;
+using Spirit_Island_Card_Generator.Classes.GameConcepts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
-namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
+namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
-    [LandEffect]
-    internal class RemoveBlightEffect : Effect, ITrackedStat
+    [SpiritEffect]
+    internal class GainAnyElementEffect : Effect
     {
-        public override double BaseProbability { get { return .12; } }
+        public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 1; } }
+        public override int Complexity { get { return 2; } }
 
         public override Regex descriptionRegex
         {
             get
             {
-                return new Regex(@"Remove (\d{1,2}) blight", RegexOptions.IgnoreCase);
+                return new Regex(@"target spirit gains (\d) Any", RegexOptions.IgnoreCase);
             }
         }
-
-        public static string TrackedName => "Blight Removal";
-
-        public static int TargetAmount => 12;
-
-        public bool ExactTarget => false;
-
-        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
-
-        public int removeAmount = 1;
 
         //Writes what goes on the card
         public override string Print()
         {
-            return "Remove " + removeAmount + " {blight}.";
+            return "Target Spirit gains 1 {any}";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            //TODO: At some point This should avoid cards that have a blight add effect too
-            if (context.target.SpiritTarget || context.target.landConditions.Contains(LandConditions.Noblight))
+            if (!context.card.Fast)
                 return false;
             else
                 return true;
@@ -53,13 +41,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
-            removeAmount = 1;
+
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            //TODO: work with the calculated power levels
-            return (double)removeAmount * 1.2;
+            return 0.5;
         }
 
         /// <summary>
@@ -72,30 +59,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <returns></returns>
         public override Effect? Strengthen()
         {
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                RemoveBlightEffect newEffect = (RemoveBlightEffect)Duplicate();
-                newEffect.removeAmount += 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            return null;
         }
 
         public override Effect? Weaken()
         {
-            if (removeAmount > 1)
-            {
-                RemoveBlightEffect newEffect = (RemoveBlightEffect)Duplicate();
-                newEffect.removeAmount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public override bool Scan(string description)
@@ -103,15 +72,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             Match match = descriptionRegex.Match(description);
             if (match.Success)
             {
-                removeAmount = Int32.Parse(match.Groups[1].Value);
+
             }
             return match.Success;
         }
 
         public override Effect Duplicate()
         {
-            RemoveBlightEffect effect = new RemoveBlightEffect();
-            effect.removeAmount = removeAmount;
+            GainAnyElementEffect effect = new GainAnyElementEffect();
             effect.Context = Context.Duplicate();
             return effect;
         }

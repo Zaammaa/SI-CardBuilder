@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Internal;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,25 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
         public bool TopLevelEffect()
         {
             return false;
+        }
+
+        protected bool IsValidForChildren(Context context, Condition condition, Condition? conditionToReplace)
+        {
+            Context possibleContext = context.Duplicate();
+            if (conditionToReplace != null)
+            {
+                possibleContext.conditions.Remove(conditionToReplace);
+            }
+            possibleContext.conditions.Add(condition);
+            List<Effect> children = context.GetSiblings();
+            foreach (Effect child in children)
+            {
+                if (!child.IsValid(context))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

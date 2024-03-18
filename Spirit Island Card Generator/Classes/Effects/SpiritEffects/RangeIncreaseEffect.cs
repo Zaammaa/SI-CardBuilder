@@ -12,8 +12,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class RangeIncreaseEffect : Effect
     {
-        public override double BaseProbability { get { return .2; } }
-        public override double AdjustedProbability { get { return .2; } set { } }
+        public override double BaseProbability { get { return .1; } }
+        public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 3; } }
 
         public override Regex descriptionRegex
@@ -108,7 +108,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             RangeIncreaseEffect effect = new RangeIncreaseEffect();
             effect.rangeAmount = rangeAmount;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

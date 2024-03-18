@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         public override IPowerLevel Duplicate()
         {
             StrifeAddEffect effect = new StrifeAddEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             effect.amount = amount;
             return effect;
         }

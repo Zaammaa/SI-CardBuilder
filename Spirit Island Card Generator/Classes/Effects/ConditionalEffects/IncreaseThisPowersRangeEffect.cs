@@ -109,7 +109,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
         {
             IncreaseThisPowersRangeEffect effect = new IncreaseThisPowersRangeEffect();
             effect.rangeIncrease = rangeIncrease;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

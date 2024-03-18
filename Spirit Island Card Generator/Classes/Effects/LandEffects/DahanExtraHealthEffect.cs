@@ -35,7 +35,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || context.card.Target.landConditions.Contains(LandConditions.NoDahan))
+            if (context.target.SpiritTarget || context.card.Target.landConditions.Contains(LandConditions.NoDahan) || !context.card.Fast)
                 return false;
             else
                 return true;
@@ -102,7 +102,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DahanExtraHealthEffect effect = new DahanExtraHealthEffect();
             effect.extraDahanHealth = extraDahanHealth;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

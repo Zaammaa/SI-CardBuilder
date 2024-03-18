@@ -1,5 +1,8 @@
 ﻿using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects;
+using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
+using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +28,24 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public ElementSet elements { get; set; }
         public List<Effect> effects = new List<Effect>();
-        public string descrition = "Not Set";
+        public string descrition = "";
 
         public string artworkDataString = "";
+
+        public bool HasThreshold { 
+            get
+            {
+                return !thresholdCondition.Equals("");
+            } 
+        }
+
+        public string thresholdCondition = "";
+        public string thresholdDescription = "";
 
         public bool ContainsSameEffectType(Effect otherEffect)
         {
             Type effectType = otherEffect.GetType();
-            foreach (Effect effect in effects)
+            foreach (Effect effect in GetAllEffects())
             {
                 if (effect.GetType() == effectType && !effect.Equals(otherEffect))
                 {
@@ -61,9 +74,7 @@ namespace Spirit_Island_Card_Generator.Classes
             {
                 power += 0.15;
             }
-            //Target
-            //TODO: Different conditions should have different power reductions
-            power -= 0.15 * Target.landConditions.Count;
+
             //Range
             if (Range.range == 0)
             {
@@ -88,6 +99,13 @@ namespace Spirit_Island_Card_Generator.Classes
             {
                 power += effect.CalculatePowerLevel();
             }
+
+            //Target
+            foreach(LandConditon.LandConditions landCondition in Target.landConditions)
+            {
+                power *= LandTypeCondition.conditions[landCondition].multiplier;
+            }
+
             return power;
         }
 
@@ -190,6 +208,34 @@ namespace Spirit_Island_Card_Generator.Classes
                 newCard.effects.Add((Effect)effect.Duplicate());
             }
             return newCard;
+        }
+
+        public List<Effect> GetAllEffects()
+        {
+            List<Effect> allEffects = new List<Effect>();
+            foreach(Effect effect in effects)
+            {
+                allEffects.Add(effect);
+                if (effect.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
+                {
+                    allEffects.AddRange(GetAllChildrenEffects((IParentEffect)effect));
+                }
+            }
+            return allEffects;
+        }
+
+        private List<Effect> GetAllChildrenEffects(IParentEffect parent)
+        {
+            List<Effect> children = new List<Effect>();
+            foreach(Effect child in parent.GetChildren())
+            {
+                children.Add(child);
+                if (child.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
+                {
+                    children.AddRange(GetAllChildrenEffects((IParentEffect)child));
+                }
+            }
+            return children;
         }
     }
 }

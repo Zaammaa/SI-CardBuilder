@@ -50,7 +50,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
 
         public override string Print()
         {
-            return $"Destroy {amount} " + "{"+Piece+"}.";
+            return $"Destroy {amount} " + "{"+Piece.ToString().ToLower() + "}.";
         }
 
         public override bool Scan(string description)

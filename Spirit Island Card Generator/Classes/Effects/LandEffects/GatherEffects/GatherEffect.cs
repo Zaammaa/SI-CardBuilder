@@ -27,6 +27,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         public bool mandatory = false;
         public int amount = 1;
 
+        public override int PrintOrder()
+        {
+            return 4;
+        }
+
         public override Regex descriptionRegex
         {
             get
@@ -56,7 +61,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         {
             string mayText = mandatory ? "" : "up to ";
 
-            return $"Gather {mayText}{amount} {Piece}";
+            return $"Gather {mayText}{amount} " + "{" + Piece.ToString().ToLower()+"}";
         }
 
         public override bool Scan(string description)

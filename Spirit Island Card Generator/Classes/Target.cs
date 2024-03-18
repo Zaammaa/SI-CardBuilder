@@ -40,6 +40,8 @@ namespace Spirit_Island_Card_Generator.Classes
             {"no invaders", LandConditions.NoInvaders},
         };
 
+        
+
         public void AddCondition(string conditionString)
         {
             if (katalogStringToCondition.ContainsKey(conditionString))
@@ -79,7 +81,12 @@ namespace Spirit_Island_Card_Generator.Classes
                 return "Any";
             } else
             {
-                return String.Join("/", landConditions);
+                List<string> convertedConditions = new List<string>();
+                foreach (var condition in landConditions)
+                {
+                    convertedConditions.Add(LandConditon.BuilderConversions[condition]);
+                }
+                return String.Join("/", convertedConditions);
             }
         }
 

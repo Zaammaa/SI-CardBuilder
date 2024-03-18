@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    internal class SpiritWithPresenceMayEffect : Effect
+    internal class SpiritWithPresenceMayEffect : Effect, IParentEffect
     {
-        public override double BaseProbability { get { return .02; } }
+        public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 3; } }
 
@@ -37,7 +38,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override bool IsValid(Context context)
         {
             //I think this is a rare case where we do want to look at the card's target instead of the contextual target.
-            if (context.card.ContainsSameEffectType(this) || context.card.Target.SpiritTarget)
+            if (context.card.Target.SpiritTarget)
                 return false;
             else
                 return true;
@@ -73,22 +74,40 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <returns></returns>
         public override Effect? Strengthen()
         {
-            Effect newEffect = effect.Strengthen();
+            SpiritWithPresenceMayEffect strongerThis = (SpiritWithPresenceMayEffect)Duplicate();
+            Effect? newEffect = strongerThis.effect.Strengthen();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), strongerThis.effect.CalculatePowerLevel());
             }
-            return newEffect;
+            if (newEffect != null)
+            {
+                strongerThis.effect = newEffect;
+                return strongerThis;
+            } else
+            {
+                return null;
+            }
+
         }
 
         public override Effect? Weaken()
         {
-            Effect newEffect = effect.Weaken();
+            SpiritWithPresenceMayEffect weakerThis = (SpiritWithPresenceMayEffect)Duplicate();
+            Effect? newEffect = weakerThis.effect.Weaken();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), weakerThis.effect.CalculatePowerLevel());
             }
-            return newEffect;
+            if (newEffect != null)
+            {
+                weakerThis.effect = newEffect;
+                return weakerThis;
+            } else
+            {
+                return null;
+            }
+
         }
 
         public override bool Scan(string description)
@@ -103,10 +122,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public override Effect Duplicate()
         {
-            SpiritWithPresenceMayEffect effect = new SpiritWithPresenceMayEffect();
-            effect.effect = effect.Duplicate();
-            effect.Context = Context;
-            return effect;
+            SpiritWithPresenceMayEffect newEffect = new SpiritWithPresenceMayEffect();
+            newEffect.effect = (Effect)effect.Duplicate();
+            newEffect.Context = Context.Duplicate();
+            return newEffect;
+        }
+
+        public List<Effect> GetChildren()
+        {
+            return new List<Effect> { effect };
         }
     }
 }

@@ -143,7 +143,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             //    convertedPieceTexts.Add(GamePieces.ToSIBuilderString(pushEffect.piece));
             //}
             //string piecesText = String.Join("/",convertedPieceTexts);
-            return $"Push {mayText}{amount} {Piece}";
+            return $"Push {mayText}{amount} " + "{" + Piece.ToString().ToLower() + "}";
         }
 
         public override bool Scan(string description)

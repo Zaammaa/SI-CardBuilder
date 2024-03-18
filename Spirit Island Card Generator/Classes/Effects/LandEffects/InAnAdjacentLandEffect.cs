@@ -1,30 +1,28 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
-using Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions;
-using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
+namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    [SpiritEffect]
-    internal class CostConditionEffect : Effect, IParentEffect
+    internal class InAnAdjacentLandEffect : Effect, IParentEffect
     {
-        public override double BaseProbability { get { return .15; } }
+        //It's usually more efficient to do something in an another land. Plus it means extra range.
+        protected static double ADJACENCY_MODIFIER = 1.3;
+        public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 4; } }
+        public override int Complexity { get { return 5; } }
 
-        private Condition costCondition;
         public List<Effect> Effects = new List<Effect>();
-        public double minPowerLevel = 0.2;
-        public double maxPowerLevel = 0.5;
 
         public override bool Standalone { get { return false; } }
 
@@ -33,31 +31,24 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             get
             {
                 //This is unlikely to work since the Katalog has a different format from SI builder. The latter being the format the condition text is in currently.
-                return new Regex(costCondition.ConditionText, RegexOptions.IgnoreCase);
+                return new Regex("In an adjacent land", RegexOptions.IgnoreCase);
             }
         }
 
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (context.chain.Count > 0)
-                return false;
             return true;
+        }
+
+        public override int PrintOrder()
+        {
+            return 7;
         }
 
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
-            if (Context.target.SpiritTarget)
-            {
-                costCondition = (Condition?)Context.effectGenerator.ChooseGeneratorOption<Condition>(new List<Attribute>() { new CostConditionAttribute() }, new List<Attribute>() { new LandConditionAttribute() }, UpdateContext());
-            } else
-            {
-                costCondition = (Condition?)Context.effectGenerator.ChooseGeneratorOption<Condition>(new List<Attribute>() { new CostConditionAttribute() }, new List<Attribute>() { new SpiritConditionAttribute() }, UpdateContext());
-            }
-            
-            costCondition.Initialize(UpdateContext());
-            Context.conditions.Add(costCondition);
             Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
         }
 
@@ -67,14 +58,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             double powerLevel = 0;
             foreach (Effect effects in Effects)
             {
-                powerLevel += effects.CalculatePowerLevel() * costCondition.DifficultyMultiplier;
+                powerLevel += effects.CalculatePowerLevel() * ADJACENCY_MODIFIER;
             }
             return powerLevel;
         }
 
         public override string Print()
         {
-            string conditionText = costCondition.ConditionText;
             string effectText = "";
             bool first = true;
             foreach (Effect effect in Effects)
@@ -90,7 +80,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
                 effectText += effect.Print();
             }
 
-            return conditionText + " " + effectText;
+            return "In an adjacent land, " + effectText;
         }
 
         public override bool Scan(string description)
@@ -105,8 +95,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         public override Effect Duplicate()
         {
-            CostConditionEffect dupEffect = new CostConditionEffect();
-            dupEffect.costCondition = (Condition?)costCondition?.Duplicate();
+            InAnAdjacentLandEffect dupEffect = new InAnAdjacentLandEffect();
             dupEffect.Context = Context.Duplicate();
             foreach (Effect effect in Effects)
             {
@@ -117,15 +106,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         public override Effect? Strengthen()
         {
-            CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && strongerThis.costCondition.ChooseEasierCondition(UpdateContext()))
-            {
-                if (strongerThis.AcceptablePowerLevel())
-                    return strongerThis;
-            }
-
+            InAnAdjacentLandEffect strongerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
             Effect? strongerEffect = effectToStrengthen?.Strengthen();
@@ -133,41 +114,44 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 strongerThis.Effects.Remove(effectToStrengthen);
                 strongerThis.Effects.Add(strongerEffect);
-                if (strongerThis.AcceptablePowerLevel())
+                return strongerThis;
+            }
+            else if (effectToStrengthen != null && strongerEffect == null)
+            {
+                strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
+                if (strongerEffect != null)
+                {
+                    strongerThis.Effects.Remove(effectToStrengthen);
+                    strongerThis.Effects.Add(strongerEffect);
                     return strongerThis;
+                }
             }
             return null;
         }
 
         public override Effect? Weaken()
         {
-            CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && weakerThis.costCondition.ChooseHarderCondition(UpdateContext()))
-            {
-                if (weakerThis.AcceptablePowerLevel())
-                    return weakerThis;
-            }
-
+            InAnAdjacentLandEffect weakerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-            Effect? weakerEffect = effectToWeaken?.Weaken();
+            Effect? weakerEffect = effectToWeaken?.Strengthen();
             if (weakerEffect != null && effectToWeaken != null)
             {
                 weakerThis.Effects.Remove(effectToWeaken);
                 weakerThis.Effects.Add(weakerEffect);
-                if (weakerThis.AcceptablePowerLevel())
-                    return weakerThis;
+                return weakerThis;
             }
-
+            else if (effectToWeaken != null && weakerEffect == null)
+            {
+                weakerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
+                if (weakerEffect != null)
+                {
+                    weakerThis.Effects.Remove(effectToWeaken);
+                    weakerThis.Effects.Add(weakerEffect);
+                    return weakerThis;
+                }
+            }
             return null;
-        }
-
-        public bool AcceptablePowerLevel()
-        {
-            double powerLevel = CalculatePowerLevel();
-            return powerLevel >= minPowerLevel && powerLevel <= maxPowerLevel;
         }
 
         public List<Effect> GetChildren()

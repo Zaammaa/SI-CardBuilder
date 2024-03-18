@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium.Internal;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 
         public override int Complexity => 3;
 
-        struct WeightAndMultiplier
+        public struct WeightAndMultiplier
         {
             public double multiplier;
             public int weight;
@@ -30,7 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             }
         }
 
-        static Dictionary<LandConditions, WeightAndMultiplier> conditions = new Dictionary<LandConditions, WeightAndMultiplier>()
+        public static Dictionary<LandConditions, WeightAndMultiplier> conditions = new Dictionary<LandConditions, WeightAndMultiplier>()
         {
             { LandConditions.Inland, new WeightAndMultiplier(0.9, 2)},
             { LandConditions.Coastal, new WeightAndMultiplier(0.7, 2)},
@@ -56,7 +58,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             { LandConditions.Noblight, new WeightAndMultiplier(0.85, 3)},
 
             { LandConditions.Dahan, new WeightAndMultiplier(0.7, 3)},
-            { LandConditions.NoDahan, new WeightAndMultiplier(0.75, 1)},
+            { LandConditions.NoDahan, new WeightAndMultiplier(0.85, 1)},
 
             { LandConditions.Invaders, new WeightAndMultiplier(0.8, 2)},
             { LandConditions.NoInvaders, new WeightAndMultiplier(0.65, 2)},
@@ -111,11 +113,22 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             List<LandConditions> compatibleConditions = LandConditon.GetCompatibleLandConditions(context.target.landConditions);
             foreach (LandConditions condition in conditions.Keys)
             {
-                if (compatibleConditions.Contains(condition))
+                if (compatibleConditions.Contains(condition) && IsValidCondition(context, condition))
                     weights.Add(condition, conditions[condition].weight);
             }
 
             landCondition = Utils.ChooseWeightedOption(weights, context.rng);
+        }
+
+        private bool IsValidCondition(Context context, LandConditions landCondition)
+        {
+            LandTypeCondition? conditionToReplace = null;
+            if (context.conditions.LastOrDefault() == this)
+                conditionToReplace = this;
+
+            LandTypeCondition newCondition = (LandTypeCondition)Duplicate();
+            newCondition.landCondition = landCondition;
+            return IsValidForChildren(context, newCondition, conditionToReplace);
         }
 
         public override bool ChooseHarderCondition(Context context)
@@ -125,7 +138,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 
             foreach (LandConditions condition in conditions.Keys)
             {
-                if (compatibleConditions.Contains(condition) && conditions[condition].multiplier < DifficultyMultiplier)
+                if (compatibleConditions.Contains(condition) && conditions[condition].multiplier < DifficultyMultiplier && IsValidCondition(context, condition))
                     weights.Add(condition, conditions[condition].weight);
             }
 
@@ -146,7 +159,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 
             foreach (LandConditions condition in conditions.Keys)
             {
-                if (compatibleConditions.Contains(condition) && conditions[condition].multiplier > DifficultyMultiplier)
+                if (compatibleConditions.Contains(condition) && conditions[condition].multiplier > DifficultyMultiplier && IsValidCondition(context, condition))
                     weights.Add(condition, conditions[condition].weight);
             }
 

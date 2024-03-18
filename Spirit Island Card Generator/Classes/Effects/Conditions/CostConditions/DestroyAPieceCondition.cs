@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
     [CostCondition]
+    [LandCondition]
     internal class DestroyAPieceCondition : Condition
     {
         public override double BaseProbability => 0.1;
@@ -53,6 +55,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
         };
 
         protected GamePieces.Piece piece;
+        protected Context Context;
 
         public override string ConditionText
         {
@@ -61,16 +64,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
                 if (piece.Equals(GamePieces.Piece.Blight))
                 {
                     return "You may destroy a {blight} (it goes back to the box). If you do,";
-                }
-                else if (piece.Equals(GamePieces.Piece.Presence))
+                } else if (piece.Equals(GamePieces.Piece.Presence) && !Context.target.SpiritTarget)
                 {
-                    return "A spirit in target land may destroy 1 {presence}. If they do,";
-                } else if (piece.Equals(GamePieces.Piece.Disease))
+                    return "A spirit with {presence} in target land may destroy 1 of their {presence}. If they do,";
+                } 
+                else if (piece.Equals(GamePieces.Piece.Disease))
                 {
                     return "Destroy 1 {disease}/{wilds}/{strife}/{badland}. If you do,";
                 } else
                 {
-                    return "Destroy 1 {" + piece.ToString() + "}. If you do,";
+                    return "Destroy 1 {" + piece.ToString().ToLower() + "}. If you do,";
                 }
             }
         }
@@ -81,7 +84,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
             foreach (GamePieces.Piece pieceOption in pieceOptions.Keys)
             {
-                if (pieceOptions[pieceOption].multiplier > DifficultyMultiplier)
+                if (pieceOptions[pieceOption].multiplier > DifficultyMultiplier && IsValidPiece(pieceOption, context))
                     weights.Add(pieceOption, pieceOptions[pieceOption].weight);
             }
 
@@ -119,6 +122,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
             }
         }
 
+        private bool IsValidPiece(GamePieces.Piece piece, Context context)
+        {
+            DestroyAPieceCondition? conditionToReplace = null;
+            if (context.conditions.LastOrDefault() == this)
+                conditionToReplace = this;
+
+            DestroyAPieceCondition newCondition = (DestroyAPieceCondition)Duplicate();
+            newCondition.piece = piece;
+            return IsValidForChildren(context, newCondition, conditionToReplace);
+        }
+
         public override IPowerLevel Duplicate()
         {
             DestroyAPieceCondition condition = new DestroyAPieceCondition();
@@ -137,6 +151,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
             }
 
             piece = Utils.ChooseWeightedOption(weights, context.rng);
+            Context = context;
         }
 
         public override bool IsValid(Context context)

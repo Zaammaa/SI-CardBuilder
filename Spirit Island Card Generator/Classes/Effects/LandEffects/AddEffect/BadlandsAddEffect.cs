@@ -2,6 +2,7 @@
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffects;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         public override IPowerLevel Duplicate()
         {
             BadlandsAddEffect effect = new BadlandsAddEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             effect.amount = amount;
             return effect;
         }

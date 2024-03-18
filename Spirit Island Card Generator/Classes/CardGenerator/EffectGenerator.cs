@@ -1,19 +1,11 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Effects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Serilog;
-using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
-using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
-using System.Reflection.Emit;
 using System.Reflection;
-using static System.Windows.Forms.AxHost;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
-using static System.Windows.Forms.Design.AxImporter;
 using Spirit_Island_Card_Generator.Classes.Attributes;
-using System.Diagnostics;
+using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -116,7 +108,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 attributes.Add(new ConditionalEffectAttribute());
             }
 
-            Effect? effect = (Effect?)ChooseGeneratorOption<Effect>(attributes, context);
+            //TODO remove this
+            if (context.target.SpiritTarget != context.card.Target.SpiritTarget && !context.HasEffectAbove(typeof(InOneOfSpiritLandsEffect)) && !context.HasEffectAbove(typeof(SpiritWithPresenceMayEffect)))
+            {
+                Log.Information("context target and card target are different! (this may or may not be intentional)");
+            }
+
+            Effect? effect = (Effect?)ChooseGeneratorOption<Effect>(attributes, new List<Attribute>(), context);
             effect?.InitializeEffect(context);
             return effect;
         }
@@ -147,10 +145,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public IGeneratorOption? ChooseGeneratorOption<T>(Attribute attribute, Context context) where T : IGeneratorOption
         {
-            return ChooseGeneratorOption<T>(new List<Attribute>() { attribute }, context);
+            return ChooseGeneratorOption<T>(new List<Attribute>() { attribute }, new List<Attribute>(), context);
         }
 
-        public IGeneratorOption ChooseGeneratorOption<T>(List<Attribute> attributes, Context context) where T : IGeneratorOption
+        public IGeneratorOption ChooseGeneratorOption<T>(List<Attribute> attributes, List<Attribute> bannedAttributes, Context context) where T : IGeneratorOption
         {
             List<Type> types = new List<Type>();
             foreach (Attribute attribute in attributes)
@@ -158,7 +156,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 List<Type> allTypes = ReflectionManager.GetAttributeClasses(attribute);
                 foreach(Type type in allTypes)
                 {
-                    if (!types.Contains(type))
+                    if (!types.Contains(type) && !bannedAttributes.Any((bannedAtt) => { return type.GetType().GetCustomAttribute(bannedAtt.GetType()) != null; }))
                     { 
                         types.Add(type);
                     }
@@ -173,7 +171,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 if (option.IsValid(context) && (context.chain.Count == 0 || !option.TopLevelEffect()))
                 {
                     //TODO: change adjusted probability to use int instead.
-                    weightedEffectChances.Add(option, (int)(AdjustedProbabilities[option.GetType()] * 1000));
+                    weightedEffectChances.Add(option, (int)(AdjustedProbabilities[option.GetType()] * 10000));
                 }
             }
             T? choosenEffect = Utils.ChooseWeightedOption<T>(weightedEffectChances, context.rng);
@@ -204,7 +202,9 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public void IncreaseCardComplexity(Context context)
         {
             //TODO, this should potentially touch targeting and range requirements?
-            context.card.effects.Add((Effect?)ChooseEffect(context));
+            Effect? effect = (Effect?)ChooseEffect(context);
+            context.card.effects.Add(effect);
+            Log.Information("added: " + effect);
         }
 
         public void DecreaseCardComplexity(Context context)
@@ -212,6 +212,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             //TODO, this should potentially touch targeting and range requirements?
             Effect? effect = Utils.ChooseRandomListElement(context.card.effects, context.rng);
             context.card.effects.Remove(effect);
+            Log.Information("removed: " + effect);
         }
 
         public void StrengthenCard(Context context)
@@ -229,11 +230,15 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     //TODO: Keep order?
                     card.effects.Remove(effect);
                     card.effects.Add(newEffect);
+                    Log.Information("Strengthened effect: " + newEffect);
+                    
                     return;
                 }
             }
-
-            card.effects.Add((Effect?)ChooseEffect(context));
+            
+            newEffect = (Effect?)ChooseEffect(context);
+            Log.Information($"Strengthen of {effect} failed. Added " + newEffect);
+            context.card.effects.Add(newEffect);
         }
 
         public void WeakenCard(Context context)
@@ -251,11 +256,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     //TODO: Keep order?
                     card.effects.Remove(effect);
                     card.effects.Add(newEffect);
+                    Log.Information("Weakened effect: " + newEffect);
                     return;
                 }
             }
-
+            
             card.effects.Remove(effect);
+            Log.Information("Removed effect: " + effect);
         }
 
         //Update the stats after a card has been finished
@@ -263,7 +270,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         {
 
             //TODO: change Effect to generator options so the tracked stats works for cost targets and the like
-            foreach(Effect effect in card.effects)
+            foreach(Effect effect in card.GetAllEffects())
             {
                 if (timesUsed.ContainsKey(effect.GetType()))
                 {

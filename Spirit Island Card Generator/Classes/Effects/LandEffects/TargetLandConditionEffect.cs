@@ -3,6 +3,7 @@ using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    internal class TargetLandConditionEffect : Effect
+    internal class TargetLandConditionEffect : Effect, IParentEffect
     {
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
@@ -39,7 +40,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
+            if (context.chain.Count > 0)
+                return false;
             return true;
+        }
+
+        public override int PrintOrder()
+        {
+            return 6;
         }
 
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
@@ -47,6 +55,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
            
             condition = (LandTypeCondition?)Context.effectGenerator.ChooseGeneratorOption<LandTypeCondition>(UpdateContext());
+            condition.Initialize(UpdateContext());
             Target target = Context.card.Target.CreateShallowCopy();
             target.landConditions.Add(condition.landCondition);
             Context.target = target;
@@ -114,7 +123,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             TargetLandConditionEffect dupEffect = new TargetLandConditionEffect();
             dupEffect.condition = (LandTypeCondition?)condition?.Duplicate();
-            dupEffect.Context = Context;
+            dupEffect.Context = Context.Duplicate();
             foreach (Effect effect in Effects)
             {
                 dupEffect.Effects.Add((Effect)effect.Duplicate());
@@ -174,6 +183,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                     return null;
                 }
             }
+        }
+
+        public List<Effect> GetChildren()
+        {
+            return Effects;
         }
     }
 }

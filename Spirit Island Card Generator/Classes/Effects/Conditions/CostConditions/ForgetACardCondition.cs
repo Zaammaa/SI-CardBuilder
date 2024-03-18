@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
             }
         }
 
-        public override string ConditionText => "You forget a power card. If you do";
+        public override string ConditionText => "You may forget a power card. If you do";
 
         public override bool ChooseEasierCondition(Context context)
         {

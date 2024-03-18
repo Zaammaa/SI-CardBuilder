@@ -66,6 +66,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 if (effect != null)
                     card.effects.Add(effect);
             } while (card.Complexity() <= settings.MinComplexity);
+            Log.Information("Initial Effects:");
+            Log.Information("{");
+            card.effects.ForEach(c => { Log.Information(c.Print()); });
+            Log.Information("}");
+
+            Log.Information("Refining process:");
+            Log.Information("{");
             //Step 5: Refine Balance
             while (!card.IsValid(context))
             {
@@ -74,24 +81,31 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     Effect? effect = (Effect?)generator.ChooseEffect(context);
                     if (effect != null)
                         card.effects.Add(effect);
+                    Log.Information("card needed another effect due to the only effect being standalone. Added effect: " + effect);
                 } else if (card.Complexity() > settings.MaxComplexity)
                 {
+                    Log.Information("card was too complex. Reducing complexity:");
                     generator.DecreaseCardComplexity(context);
                 } else if (card.Complexity() < settings.MinComplexity) {
+                    Log.Information("card was not complex enough. Increasing complexity:");
                     generator.IncreaseCardComplexity(context);
                 } else if (card.CalculatePowerLevel() >= settings.TargetPowerLevel + settings.PowerLevelVariance)
                 {
+                    Log.Information("card was too strong. Reducing strength:");
                     generator.WeakenCard(context);
                 } else if (card.CalculatePowerLevel() <= settings.TargetPowerLevel - settings.PowerLevelVariance)
                 {
+                    Log.Information("card was not strong enough. Increasing strength:");
                     generator.StrengthenCard(context);
                 } else
                 {
+                    Log.Information("card was otherwise invalid:");
                     //TODO, this should potentially touch targeting and range requirements?
                     Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
                     card.effects.Remove(effect);
                 }
             }
+            Log.Information("}");
             //Step 6: Name
             //Step 7: Art
 

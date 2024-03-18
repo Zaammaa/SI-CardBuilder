@@ -1,10 +1,11 @@
-C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.dll
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\selenium-manager\linux\selenium-manager
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\selenium-manager\macos\selenium-manager
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\selenium-manager\windows\selenium-manager.exe
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.exe
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.deps.json
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.runtimeconfig.json
+C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.dll
+C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.pdb
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\HtmlAgilityPack.dll
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\WebDriver.dll
@@ -22,5 +23,4 @@ C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Genera
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\obj\Debug\net8.0-windows\refint\Spirit Island Card Generator.dll
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\obj\Debug\net8.0-windows\Spirit Island Card Generator.pdb
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\obj\Debug\net8.0-windows\Spirit Island Card Generator.genruntimeconfig.cache
-C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\bin\Debug\net8.0-windows\Spirit Island Card Generator.pdb
 C:\Users\tim\source\repos\Spirit Island Card Generator\Spirit Island Card Generator\obj\Debug\net8.0-windows\ref\Spirit Island Card Generator.dll

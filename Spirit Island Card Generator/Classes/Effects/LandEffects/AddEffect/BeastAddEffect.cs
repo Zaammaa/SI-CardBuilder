@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         {
             { 1, 1.0},
             { 2, 0.9},
-            { 3, 0.8},
         };
 
-        protected override double PieceStrength => 0.45;
+        protected override double PieceStrength => 0.6;
 
         public override IPowerLevel Duplicate()
         {
             BeastAddEffect effect = new BeastAddEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             effect.amount = amount;
             return effect;
         }

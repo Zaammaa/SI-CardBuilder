@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 using Spirit_Island_Card_Generator.Classes.Effects;
+using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -27,10 +28,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             CardGenerator cardGenerator = new CardGenerator();
             
             Dictionary<ElementSet.Element, int> elementCounts = new Dictionary<ElementSet.Element, int>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                Log.Information($"-----------------------------------------Card {i + 1}-----------------------------------------");
+                Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
                 Card card = cardGenerator.GenerateMinorCard(settings);
+                card.Name = i.ToString();
                 deck.Add(card);
 
                 foreach(ElementSet.Element el in card.elements.GetElements())
@@ -50,9 +52,19 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 Log.Information("Cost: " + card.Cost);
                 Log.Information($"Target: {card.Target.Print()}");
                 Log.Information($"Range: {card.Range.Print()}");
+                card.effects.Sort((x, y) => x.PrintOrder().CompareTo(y.PrintOrder()));
                 foreach (Effect effect in card.effects)
                 {
-                    Log.Information($"{effect.Print()}");
+                    if (effect.GetType() != typeof(ElementalThresholdEffect))
+                    {
+                        card.descrition += effect.Print() + "\n";
+                    } else
+                    {
+                        ElementalThresholdEffect thresholdEffect = (ElementalThresholdEffect) effect;
+                        card.thresholdCondition = thresholdEffect.ConditionText;
+                        card.thresholdDescription = thresholdEffect.EffectText;
+                    }
+                    Log.Information($"{effect.Print()} : {effect.CalculatePowerLevel()} ");
                 }
                 Log.Information($"Power level: {card.CalculatePowerLevel()}");
                 Log.Information($"Complexity: {card.Complexity()}");
@@ -65,6 +77,22 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 Log.Information($"{el}: {elementCounts[el]}");
             }
             cardGenerator.generator.LogTrackedStats();
+            CreateBuilderFile();
+        }
+
+        private void CreateBuilderFile()
+        {
+            string fileText = "<style></style>";
+            foreach(Card card in deck)
+            {
+                fileText += $"<quick-card name=\"{card.Name}\" speed=\"{(card.Fast ? "fast" : "slow")}\" cost=\"{card.Cost}\" type=\"{card.CardType}\" range=\"{(card.Range.Print())}\" target=\"{card.Target.Print()}\" elements=\"{card.elements.ToString()}\" image=\"{card.artworkDataString}\" artist-name=\"undefined\"><rules>{card.descrition}</rules>";
+                if (card.HasThreshold)
+                    fileText += $"<threshold condition=\"{card.thresholdCondition}\">{card.thresholdDescription}</threshold>";
+                        
+                fileText += "</quick-card>\n";
+            }
+            fileText += "<spirit-name>Minor Deck</spirit-name>";
+            File.WriteAllText(@"D:\Spirit Island\Minor Power Decks\minor power deck.html", fileText);
         }
     }
 }

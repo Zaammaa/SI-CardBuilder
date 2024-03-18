@@ -40,14 +40,23 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public string Print()
         {
+            if (range < 0)
+                return "--";
+
+            string output = "";
+
             if (sacredSite)
             {
-                return $"{range},sacred-site,{SourceLand.ToString()?.ToLower()}";
+                output += $"sacred-site,{range}";
             } else
             {
-                return $"{range},{SourceLand.ToString()?.ToLower()}";
+                output += range.ToString();
             }
-            
+            if (this.SourceLand != null)
+            {
+                output += $",{SourceLand.ToString().ToLower()}-presence";
+            }
+            return output;
         }
     }
 }

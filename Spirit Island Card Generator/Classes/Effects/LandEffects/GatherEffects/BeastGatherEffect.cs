@@ -2,6 +2,7 @@
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         {
             BeastGatherEffect effect = new BeastGatherEffect();
             effect.amount = amount;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
 

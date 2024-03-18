@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Spirit Island Card Generator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2b0bd57991bdc1214203fd5e1fa6a2ee96d5298")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcc8d7559c938de9610b179ecc3c397c51e442ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("Spirit Island Card Generator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Spirit Island Card Generator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

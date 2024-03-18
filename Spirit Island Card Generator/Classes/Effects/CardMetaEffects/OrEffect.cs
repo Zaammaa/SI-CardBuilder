@@ -2,6 +2,7 @@
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
 {
     [LandEffect]
     [SpiritEffect]
-    internal class OrEffect : Effect
+    internal class OrEffect : Effect, IParentEffect
     {
         public override double BaseProbability { get { return .26; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -33,6 +34,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
                 return new Regex(@"-or-", RegexOptions.IgnoreCase);
             }
         }
+        public override int PrintOrder()
+        {
+            return 8;
+        }
 
         public override bool Standalone { get { return false; } }
         public override bool TopLevelEffect()
@@ -51,7 +56,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
                 return $"Target Spirit chooses to either:\n{choice1.Print()}\n"+"{or}"+$"\n{choice2.Print()}";
             } else
             {
-                return $"{choice1.Print()}\n"+ "{or}" + $"\n{choice2.Print()}";
+                return $"\n{choice1.Print()}\n"+ "{or}" + $"\n{choice2.Print()}";
             }
         }
         //Checks if this should be an option for the card generator
@@ -83,29 +88,68 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
 
         public override Effect? Strengthen()
         {
-            Effect weakerEffect = choice1.CalculatePowerLevel() <= choice2.CalculatePowerLevel() ? choice1 : choice2;
+            //Effect weakerEffect = choice1.CalculatePowerLevel() <= choice2.CalculatePowerLevel() ? choice1 : choice2;
+            //Effect? newEffect = weakerEffect.Strengthen();
+            //if (newEffect != null)
+            //{
+            //    return newEffect;
+            //} else
+            //{
+            //    return Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
+            //}
+
+            OrEffect strongerThis = (OrEffect)Duplicate();
+            Effect weakerEffect = strongerThis.choice1.CalculatePowerLevel() <= strongerThis.choice2.CalculatePowerLevel() ? strongerThis.choice1 : strongerThis.choice2;
             Effect? newEffect = weakerEffect.Strengthen();
             if (newEffect != null)
             {
-                return newEffect;
-            } else
-            {
-                return Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
+                if (weakerEffect.Equals(strongerThis.choice1))
+                    strongerThis.choice1 = newEffect;
+                else
+                    strongerThis.choice2 = newEffect;
+                return strongerThis;
             }
+            else
+            {
+                newEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
+                if (newEffect != null)
+                {
+                    if (weakerEffect.Equals(strongerThis.choice1))
+                        strongerThis.choice1 = newEffect;
+                    else
+                        strongerThis.choice2 = newEffect;
+                    return strongerThis;
+                }
+            }
+            return null;
         }
 
         public override Effect? Weaken()
         {
-            Effect strongerEffect = choice1.CalculatePowerLevel() >= choice2.CalculatePowerLevel() ? choice1 : choice2;
+            OrEffect weakerThis = (OrEffect)Duplicate();
+            Effect strongerEffect = weakerThis.choice1.CalculatePowerLevel() >= weakerThis.choice2.CalculatePowerLevel() ? weakerThis.choice1 : weakerThis.choice2;
             Effect? newEffect = strongerEffect.Weaken();
             if (newEffect != null)
             {
-                return newEffect;
+                if (strongerEffect.Equals(weakerThis.choice1))
+                    weakerThis.choice1 = newEffect;
+                else
+                    weakerThis.choice2 = newEffect;
+                return weakerThis;
             }
             else
             {
-                return Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), strongerEffect.CalculatePowerLevel());
+                newEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), strongerEffect.CalculatePowerLevel());
+                if (newEffect != null)
+                {
+                    if (strongerEffect.Equals(weakerThis.choice1))
+                        weakerThis.choice1 = newEffect;
+                    else
+                        weakerThis.choice2 = newEffect;
+                    return weakerThis;
+                }
             }
+            return null;
         }
 
         public override bool Scan(string description)
@@ -121,10 +165,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         public override Effect Duplicate()
         {
             OrEffect effect = new OrEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             effect.choice1 = (Effect)choice1.Duplicate();
             effect.choice2 = (Effect)choice2.Duplicate();
             return effect;
+        }
+
+        public List<Effect> GetChildren()
+        {
+            return new List<Effect>() { choice1, choice2 };
         }
     }
 }

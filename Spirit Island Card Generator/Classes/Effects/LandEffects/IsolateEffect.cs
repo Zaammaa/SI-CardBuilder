@@ -58,7 +58,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override IsolateEffect Duplicate()
         {
             IsolateEffect effect = new IsolateEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
 

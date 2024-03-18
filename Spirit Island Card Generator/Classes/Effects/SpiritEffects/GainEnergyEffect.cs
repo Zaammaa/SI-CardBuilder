@@ -104,7 +104,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             GainEnergyEffect effect = new GainEnergyEffect();
             effect.energyAmount = energyAmount;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

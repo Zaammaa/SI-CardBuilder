@@ -51,7 +51,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             double power = 0;
             foreach(Effect effect in Context.card.effects)
             {
-                if (effect.Equals(this) || effect.GetType() == typeof(RepeatThisPowerEffect))
+                if (effect.Equals(this) || Context.IsParent(effect))
                     continue;
                 power += effect.CalculatePowerLevel();
             }
@@ -86,7 +86,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
         public override Effect Duplicate()
         {
             RepeatThisPowerEffect effect = new RepeatThisPowerEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

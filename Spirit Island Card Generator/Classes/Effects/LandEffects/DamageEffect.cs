@@ -35,7 +35,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders))
+            if (context.target.SpiritTarget || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders))
                 return false;
             else
                 return true;
@@ -114,7 +114,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DamageEffect effect = new DamageEffect();
             effect.damageAmount = damageAmount;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

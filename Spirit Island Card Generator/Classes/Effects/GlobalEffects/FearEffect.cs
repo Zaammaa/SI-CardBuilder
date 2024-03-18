@@ -26,7 +26,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         public override bool Standalone { get { return false; } }
 
+        public override int PrintOrder()
+        {
+            return 1;
+        }
+
         public int fearAmount = 1;
+        public int maxFear = 3;
 
         //Writes what goes on the card
         public override string Print()
@@ -36,9 +42,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (context.card.ContainsSameEffectType(this))
-                return false;
-            else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
@@ -57,7 +60,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public override double CalculatePowerLevel()
         {
             //TODO: work with the calculated power levels
-            return (double)fearAmount / 3;
+            return (double)fearAmount * 0.4;
         }
 
         /// <summary>
@@ -70,15 +73,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         /// <returns></returns>
         public override Effect? Strengthen()
         {
-            if (Context.card.CardType == Card.CardTypes.Minor)
+            if (fearAmount < maxFear)
             {
                 FearEffect newEffect = (FearEffect)Duplicate();
                 newEffect.fearAmount += 1;
                 return newEffect;
-            } else
-            {
-                throw new NotImplementedException();
             }
+            return null;
         }
 
         public override Effect? Weaken()
@@ -104,7 +105,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public override Effect Duplicate()
         {
             FearEffect effect = new FearEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             effect.fearAmount = fearAmount;
             return effect;
         }

@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
     [CostCondition]
+    [SpiritCondition]
     internal class DestroyPresenceCondition : Condition
     {
         public override double BaseProbability => 0.1;
@@ -27,9 +29,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
         public Dictionary<int, double> multipliers = new Dictionary<int, double>()
         {
-            {1, 0.7},
-            {2, 0.5},
-            {3, 0.3}
+            {1, 0.55},
+            {2, 0.30},
+            {3, 0.15}
         };
 
         public override string ConditionText => $"You may destroy {presenceCost} of your " + "{presence}.\n" + "If you do:";

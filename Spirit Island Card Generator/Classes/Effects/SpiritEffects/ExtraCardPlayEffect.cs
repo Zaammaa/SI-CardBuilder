@@ -32,7 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (!context.target.SpiritTarget)
+            if (!context.target.SpiritTarget || !context.card.Fast)
                 return false;
             else
                 return true;
@@ -45,7 +45,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            return 0.8;
+            return 0.75;
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override Effect Duplicate()
         {
             ExtraCardPlayEffect effect = new ExtraCardPlayEffect();
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

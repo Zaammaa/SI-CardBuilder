@@ -1,6 +1,8 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
-    internal class InOneOfSpiritLandsEffect : Effect
+    internal class InOneOfSpiritLandsEffect : Effect, IParentEffect
     {
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -35,6 +37,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
+            if (context.HasEffectAbove(typeof(SpiritWithPresenceMayEffect)))
+                return false;
             return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
@@ -68,22 +72,40 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         /// <returns></returns>
         public override Effect? Strengthen()
         {
-            Effect? newEffect = (Effect?)effect.Strengthen();
+            InOneOfSpiritLandsEffect strongerThis = (InOneOfSpiritLandsEffect)Duplicate();
+            Effect? newEffect = (Effect?)strongerThis.effect.Strengthen();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), strongerThis.effect.CalculatePowerLevel());
             }
-            return newEffect;
+            if (newEffect != null)
+            {
+                strongerThis.effect = newEffect;
+                return strongerThis;
+            } else
+            {
+                return null;
+            }
+
         }
 
         public override Effect? Weaken()
         {
-            Effect? newEffect = (Effect?)effect.Weaken();
+            InOneOfSpiritLandsEffect weakerThis = (InOneOfSpiritLandsEffect)Duplicate();
+            Effect? newEffect = (Effect?)weakerThis.effect.Weaken();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), weakerThis.effect.CalculatePowerLevel());
             }
-            return newEffect;
+            if (newEffect != null)
+            {
+                weakerThis.effect = newEffect;
+                return weakerThis;
+            } else
+            {
+                return null;
+            }
+
         }
 
         public override bool Scan(string description)
@@ -99,9 +121,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override Effect Duplicate()
         {
             InOneOfSpiritLandsEffect newEffect = new InOneOfSpiritLandsEffect();
-            newEffect.Context = Context;
+            newEffect.Context = Context.Duplicate();
             newEffect.effect = (Effect)effect.Duplicate();
             return newEffect;
+        }
+
+        public List<Effect> GetChildren()
+        {
+            return new List<Effect>() { effect };
         }
     }
 }

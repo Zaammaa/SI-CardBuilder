@@ -57,7 +57,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override double CalculatePowerLevel()
         {
             //TODO: work with the calculated power levels
-            return (double)defendAmount * 0.2;
+            return (double)defendAmount * 0.15;
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             DefendEffect effect = new DefendEffect();
             effect.defendAmount = defendAmount;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }

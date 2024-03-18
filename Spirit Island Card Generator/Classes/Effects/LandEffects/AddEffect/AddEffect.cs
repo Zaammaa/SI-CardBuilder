@@ -51,7 +51,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 
         public override string Print()
         {
-            return $"Add {amount} " + "{" + Piece + "}";
+            string text = $"Add {amount} " + "{" + Piece.ToString().ToLower() + "}";
+            text = text.Replace("destroyedpresence", "destroyed-presence");
+            return text;
         }
 
         public override bool Scan(string description)

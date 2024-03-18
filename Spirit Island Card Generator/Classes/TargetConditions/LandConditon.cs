@@ -110,7 +110,7 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
         }
 
         //Certain conditions have special text that should be saved so it can be turned into icons on Spirit Island Builder
-        private static Dictionary<LandConditions, string> BuilderConversions = new Dictionary<LandConditions, string>() {
+        public static Dictionary<LandConditions, string> BuilderConversions = new Dictionary<LandConditions, string>() {
             {LandConditions.Mountain, "{mountain}" },
             {LandConditions.Jungle, "{jungle}" },
             {LandConditions.Sands, "{sand}" },
@@ -136,6 +136,10 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             {LandConditions.NoBuildings, "{no-town}/{no-city}" },
             {LandConditions.City, "{city}" },
             {LandConditions.NoCity, "{no-city}" },
+            {LandConditions.Invaders, "Invaders" },
+            {LandConditions.NoInvaders, "{no}Invaders" },
+            {LandConditions.Coastal, "Coastal" },
+            {LandConditions.Inland, "Inland" },
         };
 
         public static string Print(LandConditions landConditions)

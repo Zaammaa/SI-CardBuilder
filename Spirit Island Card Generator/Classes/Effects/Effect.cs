@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Internal;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public virtual bool TopLevelEffect()
         {
             return false;
+        }
+        //Most effects can remain at 5 and just let fate decide the order
+        //Certain effects should happen earlier or later though
+        //Fear should be first
+        //Elemental thresholds last (Though I think these will be in an entirely seperate spot once we create the file for the online builder)
+        //Condions and 'or' should be later?
+        public virtual int PrintOrder()
+        {
+            return 5;
         }
 
         //Set the context here so I don't have to worry about forgetting to do it in a million subclasses
@@ -99,16 +109,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
         protected Context UpdateContext()
         {
-            Context newContext = new Context();
-            newContext.rng = Context.rng;
-            newContext.card = Context.card;
-            newContext.settings = Context.settings;
-            newContext.effectGenerator = Context.effectGenerator;
-            newContext.conditions = new List<Conditions.Condition>(Context.conditions);
-            newContext.target = Context.target.CreateShallowCopy();
+            Context newContext = Context.Duplicate();
+            //newContext.rng = Context.rng;
+            //newContext.card = Context.card;
+            //newContext.settings = Context.settings;
+            //newContext.effectGenerator = Context.effectGenerator;
+            //newContext.conditions = new List<Conditions.Condition>(Context.conditions);
+            //newContext.target = Context.target.CreateShallowCopy();
 
-            newContext.chain = new List<IGeneratorOption>(Context.chain);
-            newContext.chain.Add(this);
+            //newContext.chain = new List<IParentEffect>(Context.chain);
+            if (this.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
+                newContext.chain.Add((IParentEffect)this);
+
             return newContext;
         }
     }

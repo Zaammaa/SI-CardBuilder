@@ -36,7 +36,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
             else
             {
-                return $"Target Spirit gains {cardType} Power Card.";
+                return $"Target Spirit gains a {cardType} Power Card.";
             }
         }
         //Checks if this should be an option for the card generator
@@ -145,7 +145,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             GainPowerCardEffect effect = new GainPowerCardEffect();
             effect.cardType = cardType;
-            effect.Context = Context;
+            effect.Context = Context.Duplicate();
             return effect;
         }
     }
