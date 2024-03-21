@@ -32,6 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         {
             BeastGatherEffect effect = new BeastGatherEffect();
             effect.amount = amount;
+            effect.mandatory = mandatory;
             effect.Context = Context.Duplicate();
             return effect;
         }

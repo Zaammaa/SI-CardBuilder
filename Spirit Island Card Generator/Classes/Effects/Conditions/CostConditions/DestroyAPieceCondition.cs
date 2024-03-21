@@ -136,6 +136,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
         public override IPowerLevel Duplicate()
         {
             DestroyAPieceCondition condition = new DestroyAPieceCondition();
+            condition.Context = Context.Duplicate();
             condition.piece = piece;
             return condition;
         }

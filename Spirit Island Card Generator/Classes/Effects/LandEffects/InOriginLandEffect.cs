@@ -27,6 +27,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //If true, the power can choose to do the effect in the target land or the origin land
         public bool originOrTargetLand = false;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Strengthen/Weaken", 80, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose another effect", 100, ChooseStrongerEffect, ChooseWeakerEffect),
+            new DifficultyOption("Origin/Target or Origin", 100, InOriginOrTarget, InOriginLandOnly),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -124,7 +131,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen()
+        protected Effect? StrengthenEffect()
         {
             InOriginLandEffect strongerThis = (InOriginLandEffect)Duplicate();
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
@@ -136,7 +143,31 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 strongerThis.Effects.Add(strongerEffect);
                 return strongerThis;
             }
-            else if (effectToStrengthen != null && strongerEffect == null)
+            return null;
+        }
+
+        protected Effect? WeakenEffect()
+        {
+            InOriginLandEffect weakerThis = (InOriginLandEffect)Duplicate();
+            Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+
+            Effect? weakerEffect = effectToWeaken?.Strengthen();
+            if (weakerEffect != null && effectToWeaken != null)
+            {
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(weakerEffect);
+                return weakerThis;
+            }
+            return null;
+        }
+
+        protected Effect? ChooseStrongerEffect()
+        {
+            InOriginLandEffect strongerThis = (InOriginLandEffect)Duplicate();
+            Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
+
+            Effect? strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
+            if (effectToStrengthen != null && strongerEffect == null)
             {
                 strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
                 if (strongerEffect != null)
@@ -149,19 +180,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return null;
         }
 
-        public override Effect? Weaken()
+        protected Effect? ChooseWeakerEffect()
         {
             InOriginLandEffect weakerThis = (InOriginLandEffect)Duplicate();
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-            Effect? weakerEffect = effectToWeaken?.Weaken();
-            if (weakerEffect != null && effectToWeaken != null)
-            {
-                weakerThis.Effects.Remove(effectToWeaken);
-                weakerThis.Effects.Add(weakerEffect);
-                return weakerThis;
-            }
-            else if (effectToWeaken != null && weakerEffect == null)
+            Effect? weakerEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
+            if (effectToWeaken != null && weakerEffect == null)
             {
                 weakerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
                 if (weakerEffect != null)
@@ -174,6 +199,27 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return null;
         }
 
+        protected Effect? InOriginOrTarget()
+        {
+            if (!originOrTargetLand)
+            {
+                InOriginLandEffect newEffect = (InOriginLandEffect)Duplicate();
+                newEffect.originOrTargetLand = true;
+                return newEffect;
+            }
+            return null;
+        }
+
+        protected Effect? InOriginLandOnly()
+        {
+            if (originOrTargetLand)
+            {
+                InOriginLandEffect newEffect = (InOriginLandEffect)Duplicate();
+                newEffect.originOrTargetLand = false;
+                return newEffect;
+            }
+            return null;
+        }
         public List<Effect> GetChildren()
         {
             return Effects;

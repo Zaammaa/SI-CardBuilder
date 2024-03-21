@@ -26,6 +26,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public override bool Standalone { get { return false; } }
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Strengthen/Weaken", 80, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose another effect", 100, ChooseStrongerEffect, ChooseWeakerEffect),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -104,7 +110,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen()
+        protected Effect? StrengthenEffect()
         {
             InAnAdjacentLandEffect strongerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
@@ -116,7 +122,31 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 strongerThis.Effects.Add(strongerEffect);
                 return strongerThis;
             }
-            else if (effectToStrengthen != null && strongerEffect == null)
+            return null;
+        }
+
+        protected Effect? WeakenEffect() 
+        {
+            InAnAdjacentLandEffect weakerThis = (InAnAdjacentLandEffect)Duplicate();
+            Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+
+            Effect? weakerEffect = effectToWeaken?.Strengthen();
+            if (weakerEffect != null && effectToWeaken != null)
+            {
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(weakerEffect);
+                return weakerThis;
+            }
+            return null;
+        }
+
+        protected Effect? ChooseStrongerEffect()
+        {
+            InAnAdjacentLandEffect strongerThis = (InAnAdjacentLandEffect)Duplicate();
+            Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
+
+            Effect? strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
+            if (effectToStrengthen != null && strongerEffect == null)
             {
                 strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
                 if (strongerEffect != null)
@@ -129,19 +159,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return null;
         }
 
-        public override Effect? Weaken()
+        protected Effect? ChooseWeakerEffect()
         {
             InAnAdjacentLandEffect weakerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-            Effect? weakerEffect = effectToWeaken?.Strengthen();
-            if (weakerEffect != null && effectToWeaken != null)
-            {
-                weakerThis.Effects.Remove(effectToWeaken);
-                weakerThis.Effects.Add(weakerEffect);
-                return weakerThis;
-            }
-            else if (effectToWeaken != null && weakerEffect == null)
+            Effect? weakerEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
+            if (effectToWeaken != null && weakerEffect == null)
             {
                 weakerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
                 if (weakerEffect != null)

@@ -36,6 +36,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public int removeAmount = 1;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
+        };
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -70,7 +75,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen()
+        protected Effect? IncreaseAmount()
         {
             if (Context.card.CardType == Card.CardTypes.Minor)
             {
@@ -84,7 +89,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
             if (removeAmount > 1)
             {

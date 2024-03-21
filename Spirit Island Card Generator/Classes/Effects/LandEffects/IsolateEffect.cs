@@ -24,6 +24,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
+        protected override DifficultyOption[] difficultyOptions => [];
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -60,16 +62,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             IsolateEffect effect = new IsolateEffect();
             effect.Context = Context.Duplicate();
             return effect;
-        }
-
-        public override Effect? Strengthen()
-        {
-            return null;
-        }
-
-        public override Effect? Weaken()
-        {
-            return null;
         }
     }
 }

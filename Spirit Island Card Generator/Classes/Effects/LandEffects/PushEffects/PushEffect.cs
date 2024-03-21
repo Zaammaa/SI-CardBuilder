@@ -28,6 +28,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
         public bool mandatory = false;
         public int amount = 1;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change amounts", 20, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Make Optional/Mandatory", 80, MakeOptional, MakeMandatory),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -131,6 +137,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             {
                 powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
             }
+            if (mandatory)
+            {
+                powerLevel -= 0.05 * amount;
+            }
             return powerLevel;
         }
 
@@ -172,36 +182,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             return match.Success;
         }
 
-        //public override Effect Duplicate()
-        //{
-        //    PushEffect effect = new PushEffect();
-        //    effect.amount = amount;
-        //    foreach (PiecePush piece in pushOptions)
-        //    {
-        //        effect.pushOptions.Add(piece);
-        //    }
-        //    return effect;
-        //}
-
-        public override Effect? Strengthen()
+        protected  Effect? IncreaseAmount()
         {
             if (amount < ExtraPiecesMultiplier.Count)
             {
                 PushEffect newEffect = (PushEffect)Duplicate();
                 newEffect.amount += 1;
-                //if (newEffect.CalculatePowerLevel() > settings.TargetPowerLevel + settings.PowerLevelVariance)
-                //{
-                //    //Add another piece
-                //    newEffect = (PushEffect)Duplicate();
-                //    newEffect.pushOptions.Add(ChooseRandomPushEffect(card, settings));
-                //    //This is not guaranteed to be better, but the card selector will confirm that
-                //    return newEffect;
-
-                //}
-                //else
-                //{
-                //    return newEffect;
-                //}
                 return newEffect;
 
             }
@@ -211,7 +197,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             }
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
             if (amount > 1)
             {
@@ -223,6 +209,28 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             {
                 return null;
             }
+        }
+
+        protected Effect? MakeMandatory()
+        {
+            if (!mandatory)
+            {
+                PushEffect newEffect = (PushEffect)Duplicate();
+                newEffect.mandatory = true;
+                return newEffect;
+            }
+            return null;
+        }
+
+        protected Effect? MakeOptional()
+        {
+            if (mandatory)
+            {
+                PushEffect newEffect = (PushEffect)Duplicate();
+                newEffect.mandatory = false;
+                return newEffect;
+            }
+            return null;
         }
     }
 }

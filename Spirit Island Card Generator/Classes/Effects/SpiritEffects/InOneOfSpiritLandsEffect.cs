@@ -29,6 +29,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         public Effect effect;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+{
+            new DifficultyOption("Change effect strength", 80, StrengthenEffect, WeakenEffect),
+};
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -70,7 +75,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen()
+        protected Effect? StrengthenEffect()
         {
             InOneOfSpiritLandsEffect strongerThis = (InOneOfSpiritLandsEffect)Duplicate();
             Effect? newEffect = (Effect?)strongerThis.effect.Strengthen();
@@ -89,7 +94,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         }
 
-        public override Effect? Weaken()
+        protected Effect? WeakenEffect()
         {
             InOneOfSpiritLandsEffect weakerThis = (InOneOfSpiritLandsEffect)Duplicate();
             Effect? newEffect = (Effect?)weakerThis.effect.Weaken();
@@ -105,7 +110,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             {
                 return null;
             }
-
         }
 
         public override bool Scan(string description)

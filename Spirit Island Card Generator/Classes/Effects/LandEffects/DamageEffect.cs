@@ -27,6 +27,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public int damageAmount = 1;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
+        };
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -56,8 +61,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            //TODO: work with the calculated power levels
-            return (double)damageAmount * 0.9;
+            if (Context.card.Fast)
+                return (double)damageAmount * 0.9;
+            else
+                return (double)(damageAmount * 0.7);
         }
 
         /// <summary>
@@ -68,7 +75,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public override Effect? Strengthen()
+        protected Effect? IncreaseAmount()
         {
             if (Context.card.CardType == Card.CardTypes.Minor)
             {
@@ -82,7 +89,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
             if (damageAmount <= 1)
             {

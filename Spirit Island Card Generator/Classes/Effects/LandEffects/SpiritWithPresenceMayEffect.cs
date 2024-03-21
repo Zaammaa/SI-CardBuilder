@@ -15,7 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class SpiritWithPresenceMayEffect : Effect, IParentEffect
     {
-        public override double BaseProbability { get { return .2; } }
+        public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 3; } }
 
@@ -26,6 +26,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 return new Regex(@"A Spirit with presence in Target Land may", RegexOptions.IgnoreCase);
             }
         }
+
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change Effect Strength", 80, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose Different Effect", 20, ChooseBetterEffect, ChooseWorseEffect),
+        };
 
         public Effect effect;
 
@@ -64,51 +70,57 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return effect.CalculatePowerLevel() * 0.8;
         }
 
-        /// <summary>
-        /// Some conditional effects may want to do a stronger version of what an effect did already. Effects that support this can override this function to choose stronger versions of their effects
-        /// So for example, a card may have a base effect of defend 1. A new effect being generated is trying to add a new effect with the condition: "if the target land is jungle/sands". The new condition wants to upgrade the defend instead of generating a different type of effect
-        /// So it calls this function and if the effect can be upgraded it returns a new effect with a stronger effect, such as defend 4.
-        /// </summary>
-        /// <param name="card">The card so far</param>
-        /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
-        /// <returns></returns>
-        public override Effect? Strengthen()
+        #region DifficultyOptions
+
+        protected Effect? StrengthenEffect()
         {
             SpiritWithPresenceMayEffect strongerThis = (SpiritWithPresenceMayEffect)Duplicate();
             Effect? newEffect = strongerThis.effect.Strengthen();
-            if (newEffect == null)
-            {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), strongerThis.effect.CalculatePowerLevel());
-            }
             if (newEffect != null)
             {
                 strongerThis.effect = newEffect;
                 return strongerThis;
-            } else
-            {
-                return null;
             }
-
+            return null;
         }
 
-        public override Effect? Weaken()
+        protected Effect? ChooseBetterEffect()
+        {
+            SpiritWithPresenceMayEffect strongerThis = (SpiritWithPresenceMayEffect)Duplicate();
+            Effect? newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), strongerThis.effect.CalculatePowerLevel());
+            if (newEffect != null)
+            {
+                strongerThis.effect = newEffect;
+                return strongerThis;
+            }
+            return null;
+        }
+
+        protected Effect? WeakenEffect()
         {
             SpiritWithPresenceMayEffect weakerThis = (SpiritWithPresenceMayEffect)Duplicate();
             Effect? newEffect = weakerThis.effect.Weaken();
-            if (newEffect == null)
-            {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), weakerThis.effect.CalculatePowerLevel());
-            }
             if (newEffect != null)
             {
                 weakerThis.effect = newEffect;
                 return weakerThis;
-            } else
-            {
-                return null;
             }
-
+            return null;
         }
+        protected Effect? ChooseWorseEffect()
+        {
+            SpiritWithPresenceMayEffect weakerThis = (SpiritWithPresenceMayEffect)Duplicate();
+            Effect? newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), weakerThis.effect.CalculatePowerLevel());
+            if (newEffect != null)
+            {
+                weakerThis.effect = newEffect;
+                return weakerThis;
+            }
+            return null;
+        }
+
+
+        #endregion
 
         public override bool Scan(string description)
         {

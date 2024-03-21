@@ -52,12 +52,32 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             return 5;
         }
 
+        protected struct DifficultyOption
+        {
+            public string name;
+            public int weight;
+            public Func<Effect?> Upgrade;
+            public Func<Effect?> Downgrade;
+
+            public DifficultyOption(string n, int w, Func<Effect?> upgrade, Func<Effect?> downgrade)
+            {
+                name = n;
+                weight = w;
+                Upgrade = upgrade;
+                Downgrade = downgrade;
+            }
+        }
+        protected abstract DifficultyOption[] difficultyOptions { get; }
+
         //Set the context here so I don't have to worry about forgetting to do it in a million subclasses
         public void InitializeEffect(Context context)
         {
             Context = context;
             InitializeEffect();
         }
+
+        
+
         /// <summary>
         /// Some conditional effects may want to do a stronger version of what an effect did already. Effects that support this can override this function to choose stronger versions of their effects
         /// So for example, a card may have a base effect of defend 1. A new effect being generated is trying to add a new effect with the condition: "if the target land is jungle/sands". The new condition wants to upgrade the defend instead of generating a different type of effect
@@ -66,14 +86,63 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         /// <param name="card">The card so far</param>
         /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
         /// <returns></returns>
-        public abstract Effect? Strengthen();
+        public Effect? Strengthen()
+        {
+            List<DifficultyOption> untriedOptions = new List<DifficultyOption>(difficultyOptions);
+
+            while(untriedOptions.Count > 0)
+            {
+                Dictionary<DifficultyOption, int> weightedOptions = new Dictionary<DifficultyOption, int>();
+                foreach(DifficultyOption opt in untriedOptions)
+                {
+                    weightedOptions.Add(opt, opt.weight);
+                }
+                DifficultyOption option = Utils.ChooseWeightedOption<DifficultyOption>(weightedOptions, Context.rng);
+
+                Effect? chosenEffect = option.Upgrade();
+                if (chosenEffect != null)
+                {
+                    return chosenEffect;
+                } else
+                {
+                    untriedOptions.Remove(option);
+                }
+            }
+
+            return null;
+        }
         /// <summary>
         /// Similar to Strenthen, but makes the effect weaker instead
         /// </summary>
         /// <param name="card"></param>
         /// <param name="settings"></param>
         /// <returns></returns>
-        public abstract Effect? Weaken();
+        public Effect? Weaken()
+        {
+            List<DifficultyOption> untriedOptions = new List<DifficultyOption>(difficultyOptions);
+
+            while (untriedOptions.Count > 0)
+            {
+                Dictionary<DifficultyOption, int> weightedOptions = new Dictionary<DifficultyOption, int>();
+                foreach (DifficultyOption opt in untriedOptions)
+                {
+                    weightedOptions.Add(opt, opt.weight);
+                }
+                DifficultyOption option = Utils.ChooseWeightedOption<DifficultyOption>(weightedOptions, Context.rng);
+
+                Effect? chosenEffect = option.Downgrade();
+                if (chosenEffect != null)
+                {
+                    return chosenEffect;
+                }
+                else
+                {
+                    untriedOptions.Remove(option);
+                }
+            }
+
+            return null;
+        }
         /// <summary>
         /// Utility function to pick a random generatorOption from a list of possible options
         /// </summary>
@@ -81,43 +150,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         /// <param name="settings"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        //public static IGeneratorOption? ChooseEffect(Context context, IEnumerable<IGeneratorOption> options)
-        //{
-        //    double totalWeight = 0;
-        //    List<IGeneratorOption> validOptions = new List<IGeneratorOption>();
-        //    foreach (IGeneratorOption option in options)
-        //    {
-        //        if (option.IsValid(card, settings))
-        //        {
-        //            totalWeight += option.AdjustedProbability;
-        //            validOptions.Add(option);
-        //        }
-        //    }
 
-        //    double choice = settings.rng.NextDouble() * totalWeight;
-        //    double index = 0;
-        //    foreach (IGeneratorOption option in validOptions)
-        //    {
-        //        if (choice < index + option.AdjustedProbability)
-        //        {
-        //            return option;
-        //        }
-        //        index += option.AdjustedProbability;
-        //    }
-        //    return default(IGeneratorOption);
-        //}
 
         protected Context UpdateContext()
         {
             Context newContext = Context.Duplicate();
-            //newContext.rng = Context.rng;
-            //newContext.card = Context.card;
-            //newContext.settings = Context.settings;
-            //newContext.effectGenerator = Context.effectGenerator;
-            //newContext.conditions = new List<Conditions.Condition>(Context.conditions);
-            //newContext.target = Context.target.CreateShallowCopy();
-
-            //newContext.chain = new List<IParentEffect>(Context.chain);
             if (this.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
                 newContext.chain.Add((IParentEffect)this);
 

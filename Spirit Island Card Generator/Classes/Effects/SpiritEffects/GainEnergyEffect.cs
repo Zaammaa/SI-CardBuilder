@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         }
 
         public int energyAmount = 1;
+
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+{
+            new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
+};
 
         //Writes what goes on the card
         public override string Print()
@@ -58,15 +64,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return (double)energyAmount / 2;
         }
 
-        /// <summary>
-        /// Some conditional effects may want to do a stronger version of what an effect did already. Effects that support this can override this function to choose stronger versions of their effects
-        /// So for example, a card may have a base effect of defend 1. A new effect being generated is trying to add a new effect with the condition: "if the target land is jungle/sands". The new condition wants to upgrade the defend instead of generating a different type of effect
-        /// So it calls this function and if the effect can be upgraded it returns a new effect with a stronger effect, such as defend 4.
-        /// </summary>
-        /// <param name="card">The card so far</param>
-        /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
-        /// <returns></returns>
-        public override Effect? Strengthen()
+        protected Effect? IncreaseAmount()
         {
             if (Context.card.CardType == Card.CardTypes.Minor)
             {
@@ -80,14 +78,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
-            GainEnergyEffect newEffect = (GainEnergyEffect)Duplicate();
-            newEffect.energyAmount -= 1;
-            if (newEffect.energyAmount <= 0)
-                return null;
-            else
+            if (energyAmount > 1)
+            {
+                GainEnergyEffect newEffect = (GainEnergyEffect)Duplicate();
+                newEffect.energyAmount -= 1;
                 return newEffect;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public override bool Scan(string description)

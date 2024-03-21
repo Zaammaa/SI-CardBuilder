@@ -93,6 +93,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             }
         }
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change elements", 20, ReduceElements, IncreaseElements),
+            new DifficultyOption("Strengthen or Weaken effect", 40, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Add/Remove effect", 30, NewEffect, RemoveEffect),
+            new DifficultyOption("Replace with Stronger/Weaker effect", 10, ReplaceWithStrongerEffect, ReplaceWithWeakerEffect),
+        };
+
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
@@ -227,26 +235,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         public override string Print()
         {
-            //string conditionText = "";
-            //foreach(ElementSet.Element el in elements.Keys)
-            //{
-            //    conditionText += $"{elements[el]}-{el},";
-            //}
-            //string effectText = "";
-            //bool first = true;
-            //foreach (Effect effect in Effects)
-            //{
-            //    if (!first)
-            //    {
-            //        effectText += " and ";
-            //    }
-            //    else
-            //    {
-            //        first = false;
-            //    }
-            //    effectText += effect.Print();
-            //}
-
             return ConditionText + ": " + EffectText;
         }
 
@@ -283,12 +271,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen()
+        protected Effect? ReduceElements()
         {
             ElementalThresholdEffect strongerThis = (ElementalThresholdEffect)Duplicate();
-            int roll = Context.rng.Next(0, 100);
-            //Reduce elements
-            if (roll <= 15 && (strongerThis.offElement && CountTotalElements() >= 2 || !strongerThis.offElement && CountTotalElements() >= 3))
+            if (strongerThis.offElement && CountTotalElements() >= 2 || !strongerThis.offElement && CountTotalElements() >= 3)
             {
                 ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, Context.rng);
                 strongerThis.elements[element] -= 1;
@@ -299,106 +285,125 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
                         return null;
                 }
             }
-            //Strengthen effect
-            else if (roll <= 90)
-            {
-                Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
-
-                Effect? strongerEffect = effectToStrengthen?.Strengthen();
-                if (strongerEffect != null && effectToStrengthen != null)
-                {
-                    strongerThis.Effects.Remove(effectToStrengthen);
-                    strongerThis.Effects.Add(strongerEffect);
-                    if (strongerThis.AcceptablePowerLevel())
-                        return strongerThis;
-                    else 
-                        return null;
-                }
-                else
-                {
-                    //Try to add a different, stronger effect
-                    Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), strongerThis.CalculatePowerLevel());
-                    if (effect != null && effectToStrengthen != null)
-                    {
-                        strongerThis.Effects.Remove(effectToStrengthen);
-                        strongerThis.Effects.Add(effect);
-                        if (strongerThis.AcceptablePowerLevel())
-                            return strongerThis;
-                        else
-                            return null;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-            //Add another effect
-            else
-            {
-                List<Effect> options = ReflectionManager.GetInstanciatedSubClasses<Effect>();
-
-                Effect? effect = (Effect?)Context.effectGenerator.ChooseGeneratorOption<Effect>(new LandEffectAttribute(), UpdateContext());
-                effect?.InitializeEffect(UpdateContext());
-
-                if (effect != null)
-                {
-                    strongerThis.Effects.Add(effect);
-                    if (strongerThis.AcceptablePowerLevel())
-                        return strongerThis;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            return strongerThis;
-
+            return null;
         }
 
-        public override Effect? Weaken()
+        protected Effect? IncreaseElements()
         {
             ElementalThresholdEffect weakerThis = (ElementalThresholdEffect)Duplicate();
-            int roll = Context.rng.Next(0, 100);
             //Increase elements
-            if (roll <= 15 && (weakerThis.offElement && CountTotalElements() < 3 || !weakerThis.offElement && CountTotalElements() < 4))
+            if (weakerThis.offElement && CountTotalElements() < 3 || !weakerThis.offElement && CountTotalElements() < 4)
             {
                 ElementSet.Element element = Utils.ChooseRandomListElement(elements.Keys, Context.rng);
                 weakerThis.elements[element] += 1;
+                return weakerThis;
             }
-            //Weaken effect
-            else if (roll <= 90)
-            {
-                Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+            return null;
+        }
 
-                Effect? weakerEffect = effectToWeaken?.Weaken();
-                if (weakerEffect != null && effectToWeaken != null)
-                {
-                    weakerThis.Effects.Remove(effectToWeaken);
-                    weakerThis.Effects.Add(weakerEffect);
-                    return weakerThis;
-                }
-                else
-                {
-                    return null;
-                }
+        protected Effect? StrengthenEffect()
+        {
+            ElementalThresholdEffect strongerThis = (ElementalThresholdEffect)Duplicate();
+            Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
+
+            Effect? strongerEffect = effectToStrengthen?.Strengthen();
+            if (strongerEffect != null && effectToStrengthen != null)
+            {
+                strongerThis.Effects.Remove(effectToStrengthen);
+                strongerThis.Effects.Add(strongerEffect);
+                if (strongerThis.AcceptablePowerLevel())
+                    return strongerThis;
             }
-            //Choose a different, weaker effect
+            return null;
+        }
+
+        protected Effect? WeakenEffect()
+        {
+            ElementalThresholdEffect weakerThis = (ElementalThresholdEffect)Duplicate();
+            Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+
+            Effect? weakerEffect = effectToWeaken?.Weaken();
+            if (weakerEffect != null && effectToWeaken != null)
+            {
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(weakerEffect);
+                return weakerThis;
+            }
             else
             {
-                Effect? effect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), CalculatePowerLevel());
-                if (effect != null && weakerThis.Effects.Count > 0)
-                {
-                    weakerThis.Effects.Remove(Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng));
-                    weakerThis.Effects.Add(effect);
-                    return weakerThis;
-                }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
-            return weakerThis;
+        }
+
+        protected Effect? ReplaceWithStrongerEffect()
+        {
+            ElementalThresholdEffect strongerThis = (ElementalThresholdEffect)Duplicate();
+           
+            Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
+            Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
+            if (effect != null && effectToStrengthen != null)
+            {
+                strongerThis.Effects.Remove(effectToStrengthen);
+                strongerThis.Effects.Add(effect);
+                if (strongerThis.AcceptablePowerLevel())
+                    return strongerThis;
+                else
+                    return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected Effect? ReplaceWithWeakerEffect()
+        {
+            ElementalThresholdEffect weakerThis = (ElementalThresholdEffect)Duplicate();
+
+            Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+            Effect? effect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
+            if (effect != null && effectToWeaken != null)
+            {
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(effect);
+                if (weakerThis.AcceptablePowerLevel())
+                    return weakerThis;
+                else
+                    return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected Effect? NewEffect()
+        {
+            ElementalThresholdEffect strongerThis = (ElementalThresholdEffect)Duplicate();
+            Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
+            if (effect != null)
+            {
+                strongerThis.Effects.Add(effect);
+                return strongerThis;
+            }
+            return null;
+        }
+
+        protected Effect? RemoveEffect()
+        {
+            if(Effects.Count <= 1)
+            {
+                return null;
+            }
+
+            ElementalThresholdEffect weakerThis = (ElementalThresholdEffect)Duplicate();
+            Effect? effect = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+            if (effect != null)
+            {
+                weakerThis.Effects.Remove(effect);
+                return weakerThis;
+            }
+            return null;
         }
 
         public List<Effect> GetChildren()

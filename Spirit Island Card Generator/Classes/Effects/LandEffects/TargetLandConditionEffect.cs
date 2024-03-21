@@ -50,6 +50,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return 6;
         }
 
+        protected override DifficultyOption[] difficultyOptions =>
+        [
+            new DifficultyOption("Change Effect Strength", 80, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose Different Condition", 20, ChooseEasierCondition, ChooseHarderCondition), 
+        ];
+
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
@@ -131,63 +137,73 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen()
-        {
-            TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && strongerThis.condition.ChooseEasierCondition(UpdateContext()))
-            {
-                return strongerThis;
-            }
-            else
-            {
-                Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
-
-                Effect? strongerEffect = effectToStrengthen?.Strengthen();
-                if (strongerEffect != null && effectToStrengthen != null)
-                {
-                    strongerThis.Effects.Remove(effectToStrengthen);
-                    strongerThis.Effects.Add(strongerEffect);
-                    return strongerThis;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public override Effect? Weaken()
-        {
-            TargetLandConditionEffect weakerThis = (TargetLandConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && weakerThis.condition.ChooseHarderCondition(UpdateContext()))
-            {
-                return weakerThis;
-            }
-            else
-            {
-                Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
-
-                Effect? weakerEffect = effectToWeaken?.Weaken();
-                if (weakerEffect != null && effectToWeaken != null)
-                {
-                    weakerThis.Effects.Remove(effectToWeaken);
-                    weakerThis.Effects.Add(weakerEffect);
-                    return weakerThis;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
         public List<Effect> GetChildren()
         {
             return Effects;
         }
+
+        #region DifficultyOptions
+
+        protected Effect? StrengthenEffect()
+        {
+            TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
+
+            Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
+
+            Effect? strongerEffect = effectToStrengthen?.Strengthen();
+            if (strongerEffect != null && effectToStrengthen != null)
+            {
+                strongerThis.Effects.Remove(effectToStrengthen);
+                strongerThis.Effects.Add(strongerEffect);
+                return strongerThis;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected Effect WeakenEffect()
+        {
+            TargetLandConditionEffect weakerThis = (TargetLandConditionEffect)Duplicate();
+            Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+
+            Effect? weakerEffect = effectToWeaken?.Weaken();
+            if (weakerEffect != null && effectToWeaken != null)
+            {
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(weakerEffect);
+                return weakerThis;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected Effect? ChooseEasierCondition()
+        {
+            TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
+            //Either make the condition easier to meet, or make the effect stronger
+            if (strongerThis.condition.ChooseEasierCondition(UpdateContext()))
+            {
+                return strongerThis;
+            }
+            return null;
+        }
+
+        protected Effect? ChooseHarderCondition()
+        {
+            TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
+            //Either make the condition easier to meet, or make the effect stronger
+            if (strongerThis.condition.ChooseHarderCondition(UpdateContext()))
+            {
+                return strongerThis;
+            }
+            return null;
+        }
+
+
+        #endregion
     }
 }

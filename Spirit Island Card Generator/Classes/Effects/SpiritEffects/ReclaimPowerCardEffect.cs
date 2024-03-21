@@ -28,6 +28,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+{
+            new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
+};
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -65,7 +70,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
-        public override Effect? Strengthen()
+        protected Effect? IncreaseAmount()
         {
             ReclaimPowerCardEffect newEffect = (ReclaimPowerCardEffect)Duplicate();
             if (amount <= 1)
@@ -79,7 +84,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return newEffect;
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
             ReclaimPowerCardEffect newEffect = (ReclaimPowerCardEffect)Duplicate();
             if (amount > 1)

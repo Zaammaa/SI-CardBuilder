@@ -48,6 +48,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         public Effect choice1;
         public Effect choice2;
 
+        protected override DifficultyOption[] difficultyOptions =>
+            [
+            new DifficultyOption("Change effect strength", 80, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose new effect", 20, ChooseStrongerEffect, ChooseWeakerEffect),
+        ];
+
         //Writes what goes on the card
         public override string Print()
         {
@@ -86,72 +92,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             return higher * (modifier / normalizer);
         }
 
-        public override Effect? Strengthen()
-        {
-            //Effect weakerEffect = choice1.CalculatePowerLevel() <= choice2.CalculatePowerLevel() ? choice1 : choice2;
-            //Effect? newEffect = weakerEffect.Strengthen();
-            //if (newEffect != null)
-            //{
-            //    return newEffect;
-            //} else
-            //{
-            //    return Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
-            //}
-
-            OrEffect strongerThis = (OrEffect)Duplicate();
-            Effect weakerEffect = strongerThis.choice1.CalculatePowerLevel() <= strongerThis.choice2.CalculatePowerLevel() ? strongerThis.choice1 : strongerThis.choice2;
-            Effect? newEffect = weakerEffect.Strengthen();
-            if (newEffect != null)
-            {
-                if (weakerEffect.Equals(strongerThis.choice1))
-                    strongerThis.choice1 = newEffect;
-                else
-                    strongerThis.choice2 = newEffect;
-                return strongerThis;
-            }
-            else
-            {
-                newEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
-                if (newEffect != null)
-                {
-                    if (weakerEffect.Equals(strongerThis.choice1))
-                        strongerThis.choice1 = newEffect;
-                    else
-                        strongerThis.choice2 = newEffect;
-                    return strongerThis;
-                }
-            }
-            return null;
-        }
-
-        public override Effect? Weaken()
-        {
-            OrEffect weakerThis = (OrEffect)Duplicate();
-            Effect strongerEffect = weakerThis.choice1.CalculatePowerLevel() >= weakerThis.choice2.CalculatePowerLevel() ? weakerThis.choice1 : weakerThis.choice2;
-            Effect? newEffect = strongerEffect.Weaken();
-            if (newEffect != null)
-            {
-                if (strongerEffect.Equals(weakerThis.choice1))
-                    weakerThis.choice1 = newEffect;
-                else
-                    weakerThis.choice2 = newEffect;
-                return weakerThis;
-            }
-            else
-            {
-                newEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), strongerEffect.CalculatePowerLevel());
-                if (newEffect != null)
-                {
-                    if (strongerEffect.Equals(weakerThis.choice1))
-                        weakerThis.choice1 = newEffect;
-                    else
-                        weakerThis.choice2 = newEffect;
-                    return weakerThis;
-                }
-            }
-            return null;
-        }
-
         public override bool Scan(string description)
         {
             Match match = descriptionRegex.Match(description);
@@ -175,5 +115,75 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         {
             return new List<Effect>() { choice1, choice2 };
         }
+
+        #region DifficultyOptions
+
+        protected Effect? StrengthenEffect()
+        {
+            OrEffect strongerThis = (OrEffect)Duplicate();
+            Effect weakerEffect = strongerThis.choice1.CalculatePowerLevel() <= strongerThis.choice2.CalculatePowerLevel() ? strongerThis.choice1 : strongerThis.choice2;
+            Effect? newEffect = weakerEffect.Strengthen();
+            if (newEffect != null)
+            {
+                if (weakerEffect.Equals(strongerThis.choice1))
+                    strongerThis.choice1 = newEffect;
+                else
+                    strongerThis.choice2 = newEffect;
+                return strongerThis;
+            }
+            return null;
+        }
+
+        protected Effect? WeakenEffect()
+        {
+            OrEffect weakerThis = (OrEffect)Duplicate();
+            Effect strongerEffect = weakerThis.choice1.CalculatePowerLevel() >= weakerThis.choice2.CalculatePowerLevel() ? weakerThis.choice1 : weakerThis.choice2;
+            Effect? newEffect = strongerEffect.Weaken();
+            if (newEffect != null)
+            {
+                if (strongerEffect.Equals(weakerThis.choice1))
+                    weakerThis.choice1 = newEffect;
+                else
+                    weakerThis.choice2 = newEffect;
+                return weakerThis;
+            }
+            return null;
+        }
+
+        protected Effect? ChooseStrongerEffect()
+        {
+            OrEffect strongerThis = (OrEffect)Duplicate();
+            Effect weakerEffect = strongerThis.choice1.CalculatePowerLevel() <= strongerThis.choice2.CalculatePowerLevel() ? strongerThis.choice1 : strongerThis.choice2;
+
+            Effect? newEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), weakerEffect.CalculatePowerLevel());
+            if (newEffect != null)
+            {
+                if (weakerEffect.Equals(strongerThis.choice1))
+                    strongerThis.choice1 = newEffect;
+                else
+                    strongerThis.choice2 = newEffect;
+                return strongerThis;
+            }
+            return null;
+        }
+
+        protected Effect? ChooseWeakerEffect()
+        {
+            OrEffect weakerThis = (OrEffect)Duplicate();
+            Effect strongerEffect = weakerThis.choice1.CalculatePowerLevel() >= weakerThis.choice2.CalculatePowerLevel() ? weakerThis.choice1 : weakerThis.choice2;
+
+            Effect? newEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), strongerEffect.CalculatePowerLevel());
+            if (newEffect != null)
+            {
+                if (strongerEffect.Equals(weakerThis.choice1))
+                    weakerThis.choice1 = newEffect;
+                else
+                    weakerThis.choice2 = newEffect;
+                return weakerThis;
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

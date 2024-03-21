@@ -20,6 +20,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public bool viceVersa = false;
         public int amount = 1;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Allow Vice versa", 80, AllowViceVersa, DontAllowViceVersa),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -76,7 +82,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return power;
         }
 
-        public override Effect? Strengthen()
+        protected Effect? IncreaseAmount()
         {
             SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
             if (amount <= 1)
@@ -93,7 +99,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return newEffect;
         }
 
-        public override Effect? Weaken()
+        protected Effect? DecreaseAmount()
         {
             SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
             if (amount > 1)
@@ -105,6 +111,28 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             {
                 return null;
             }
+        }
+
+        protected Effect? AllowViceVersa()
+        {
+            if (!viceVersa)
+            {
+                SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
+                newEffect.viceVersa = true;
+                return newEffect;
+            }
+            return null;
+        }
+
+        protected Effect? DontAllowViceVersa()
+        {
+            if (viceVersa)
+            {
+                SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
+                newEffect.viceVersa = false;
+                return newEffect;
+            }
+            return null;
         }
 
         public override bool Scan(string description)

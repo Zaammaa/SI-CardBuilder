@@ -3,6 +3,7 @@ using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
                 return new Regex(costCondition.ConditionText, RegexOptions.IgnoreCase);
             }
         }
+
+        protected override DifficultyOption[] difficultyOptions =>
+        [
+            new DifficultyOption("Change condition", 20, MakeConditionEasier, MakeConditionHarder),
+            new DifficultyOption("Change effect", 60, MakeEffectStronger, MakeEffectWeaker),
+            new DifficultyOption("Add/Remove effect", 20, NewEffect, RemoveEffect),
+        ];
 
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
@@ -115,17 +123,33 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return dupEffect;
         }
 
-        public override Effect? Strengthen()
+        #region difficultyChangers
+
+        protected Effect? MakeConditionEasier()
         {
             CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && strongerThis.costCondition.ChooseEasierCondition(UpdateContext()))
+            if (strongerThis.costCondition.ChooseEasierCondition(UpdateContext()))
             {
-                if (strongerThis.AcceptablePowerLevel())
-                    return strongerThis;
+                //if (strongerThis.AcceptablePowerLevel())
+                return strongerThis;
             }
+            return null;
+        }
 
+        protected Effect? MakeConditionHarder()
+        {
+            CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
+            if (weakerThis.costCondition.ChooseHarderCondition(UpdateContext()))
+            {
+                //if (strongerThis.AcceptablePowerLevel())
+                return weakerThis;
+            }
+            return null;
+        }
+
+        public Effect? MakeEffectStronger()
+        {
+            CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
             Effect? strongerEffect = effectToStrengthen?.Strengthen();
@@ -133,23 +157,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 strongerThis.Effects.Remove(effectToStrengthen);
                 strongerThis.Effects.Add(strongerEffect);
-                if (strongerThis.AcceptablePowerLevel())
-                    return strongerThis;
+                //if (strongerThis.AcceptablePowerLevel())
+                return strongerThis;
             }
             return null;
         }
 
-        public override Effect? Weaken()
+        public Effect? MakeEffectWeaker()
         {
             CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
-            //Either make the condition easier to meet, or make the effect stronger
-            double roll = Context.rng.NextDouble() * 100;
-            if (roll < 50 && weakerThis.costCondition.ChooseHarderCondition(UpdateContext()))
-            {
-                if (weakerThis.AcceptablePowerLevel())
-                    return weakerThis;
-            }
-
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
             Effect? weakerEffect = effectToWeaken?.Weaken();
@@ -157,12 +173,30 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 weakerThis.Effects.Remove(effectToWeaken);
                 weakerThis.Effects.Add(weakerEffect);
-                if (weakerThis.AcceptablePowerLevel())
-                    return weakerThis;
+                //if (weakerThis.AcceptablePowerLevel())
+                return weakerThis;
             }
 
             return null;
         }
+
+        public Effect? NewEffect()
+        {
+            CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
+            Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
+            strongerThis.Effects.Add(effect);
+            return strongerThis;
+        }
+
+        public Effect? RemoveEffect()
+        {
+            CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
+            Effect? effect = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+            weakerThis.Effects.Remove(effect);
+            return weakerThis;
+        }
+
+        #endregion
 
         public bool AcceptablePowerLevel()
         {

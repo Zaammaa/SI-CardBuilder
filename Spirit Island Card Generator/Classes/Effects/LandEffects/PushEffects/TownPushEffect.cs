@@ -31,6 +31,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
         {
             TownPushEffect effect = new TownPushEffect();
             effect.amount = amount;
+            effect.mandatory = mandatory;
             effect.Context = Context.Duplicate();
             return effect;
         }

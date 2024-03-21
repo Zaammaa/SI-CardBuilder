@@ -23,6 +23,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
         protected abstract double PieceStrength { get; }
         public int amount = 1;
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]   
+        {
+            new DifficultyOption("Change amounts", 100, StrengthenAmount, WeakenAmount),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -63,7 +68,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
             return match.Success;
         }
 
-        public override Effect? Strengthen()
+        public Effect? StrengthenAmount()
         {
             if (amount < ExtraPiecesMultiplier.Count && PieceStrength > 0)
             {
@@ -86,7 +91,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
             }
         }
 
-        public override Effect? Weaken()
+        public Effect? WeakenAmount()
         {
             if (amount > 1 && PieceStrength > 0)
             {

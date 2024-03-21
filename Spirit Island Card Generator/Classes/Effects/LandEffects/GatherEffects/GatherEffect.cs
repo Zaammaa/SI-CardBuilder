@@ -32,6 +32,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             return 4;
         }
 
+        protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
+        {
+            new DifficultyOption("Change amounts", 80, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Make Optional/Mandatory", 20, MakeOptional, MakeMandatory),
+        };
+
         public override Regex descriptionRegex
         {
             get
@@ -54,6 +60,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             {
                 powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
             }
+            if (mandatory)
+            {
+                powerLevel -= 0.05 * amount;
+            }
             return powerLevel;
         }
 
@@ -74,7 +84,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             return match.Success;
         }
 
-        public override Effect? Strengthen()
+        public Effect? IncreaseAmount()
         {
             if (amount < ExtraPiecesMultiplier.Count)
             {
@@ -89,7 +99,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             }
         }
 
-        public override Effect? Weaken()
+        public Effect? DecreaseAmount()
         {
             if (amount > 1)
             {
@@ -102,5 +112,27 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
                 return null;
             }
         }
+
+        protected Effect? MakeMandatory()
+        {
+            if (!mandatory)
+            {
+                GatherEffect newEffect = (GatherEffect)Duplicate();
+                newEffect.mandatory = true;
+                return newEffect;
+            }
+            return null;
+        }
+
+        protected Effect? MakeOptional()
+        {
+            if (mandatory)
+            {
+                GatherEffect newEffect = (GatherEffect)Duplicate();
+                newEffect.mandatory = false;
+                return newEffect;
+            }
+            return null;
+        } 
     }
 }
