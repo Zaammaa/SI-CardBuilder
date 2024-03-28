@@ -137,7 +137,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return dupEffect;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return Effects;
         }
@@ -185,7 +185,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
             //Either make the condition easier to meet, or make the effect stronger
-            if (strongerThis.condition.ChooseEasierCondition(UpdateContext()))
+            if (CalculatePowerLevel() >= 0 && strongerThis.condition.ChooseEasierCondition(UpdateContext()))
+            {
+                return strongerThis;
+            } else if (CalculatePowerLevel() < 0 && strongerThis.condition.ChooseHarderCondition(UpdateContext()))
             {
                 return strongerThis;
             }
@@ -194,11 +197,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         protected Effect? ChooseHarderCondition()
         {
-            TargetLandConditionEffect strongerThis = (TargetLandConditionEffect)Duplicate();
+            TargetLandConditionEffect weakerThis = (TargetLandConditionEffect)Duplicate();
             //Either make the condition easier to meet, or make the effect stronger
-            if (strongerThis.condition.ChooseHarderCondition(UpdateContext()))
+            if (CalculatePowerLevel() >= 0 && weakerThis.condition.ChooseHarderCondition(UpdateContext()))
             {
-                return strongerThis;
+                return weakerThis;
+            } else if (CalculatePowerLevel() < 0 && weakerThis.condition.ChooseEasierCondition(UpdateContext()))
+            {
+                return weakerThis;
             }
             return null;
         }

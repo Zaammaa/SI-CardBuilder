@@ -17,18 +17,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Presence;
 
-        protected override Dictionary<int, double> ExtraPiecesMultiplier => new Dictionary<int, double>()
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0},
-            { 2, 1.1}
+            { 2, 1.1},
+            { 3, 0.8},
         };
 
-        protected override double PieceStrength => 0.5;
+        public override double effectStrength => 0.5;
 
         public override IPowerLevel Duplicate()
         {
             PresenceGatherEffect effect = new PresenceGatherEffect();
-            effect.amount = amount;
+            effect.gatherAmount = gatherAmount;
             effect.mandatory = mandatory;
             effect.Context = Context.Duplicate();
             return effect;
@@ -36,7 +37,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 
         protected override void InitializeEffect()
         {
-            amount = 1;
+            gatherAmount = 1;
         }
 
         public override bool IsValid(Context context)

@@ -17,25 +17,25 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Beast;
 
-        protected override Dictionary<int, double> ExtraPiecesMultiplier => new Dictionary<int, double>()
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0},
             { 2, 0.9},
         };
 
-        protected override double PieceStrength => 0.6;
+        public override double effectStrength => 0.6;
 
         public override IPowerLevel Duplicate()
         {
             BeastAddEffect effect = new BeastAddEffect();
             effect.Context = Context.Duplicate();
-            effect.amount = amount;
+            effect.addAmount = addAmount;
             return effect;
         }
 
         protected override void InitializeEffect()
         {
-            amount = 1;
+            addAmount = 1;
         }
 
         public override bool IsValid(Context context)

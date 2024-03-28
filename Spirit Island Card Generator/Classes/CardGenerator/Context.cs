@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -36,16 +37,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         }
 
         //Checks if the effect is in the chain.
-        public bool IsParent(Effect effect)
+        public bool IsParent(Effect parentEffect, Effect childEffect)
         {
-            if (!effect.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
+            if (!parentEffect.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
             {
                 return false;
             }
             else
             {
-                IParentEffect parent = (IParentEffect) effect;
-                return chain.Contains(parent);
+                IParentEffect parent = (IParentEffect)parentEffect;
+                return parent.GetChildren().Contains(childEffect);
             }
         }
 
@@ -56,7 +57,14 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             if (parent == null)
                 return new List<Effect>();
 
-            return parent.GetChildren();
+            IEnumerable<Effect> children = parent.GetChildren();
+            List<Effect> validChildren = new List<Effect>();
+            foreach(Effect child in children)
+            {
+                if (child != null)
+                    validChildren.Add(child);
+            }
+            return validChildren;
         }
 
         //Not a true duplicate since some of the properties are intentionally deep copies. It still works for anything we'd like to change though

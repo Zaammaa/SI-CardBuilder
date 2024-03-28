@@ -67,6 +67,35 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             costCondition.Initialize(UpdateContext());
             Context.conditions.Add(costCondition);
             Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
+            while (!AcceptablePowerLevel())
+            {
+                if (CalculatePowerLevel() < minPowerLevel)
+                {
+                    if (!UnDuplicate((CostConditionEffect?)Strengthen()))
+                    {
+                        break;
+                    }
+                } else
+                {
+                    if (!UnDuplicate((CostConditionEffect?)Weaken()))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        //Takes another CostConditionEffect as input and sets this property to match
+        //This deep clones the fields since I'm just doing it this way to get around strengthen/weaken returning a new object
+        //I would set this = otherEffect if I could
+        protected bool UnDuplicate(CostConditionEffect? otherEffect)
+        {
+            if (otherEffect == null)
+                return false;
+
+            this.Context = otherEffect.Context;
+            this.costCondition = otherEffect.costCondition;
+            this.Effects = otherEffect.Effects;
+            return true;
         }
 
         //Estimates the effects own power level
@@ -130,8 +159,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
             if (strongerThis.costCondition.ChooseEasierCondition(UpdateContext()))
             {
-                //if (strongerThis.AcceptablePowerLevel())
-                return strongerThis;
+                if (strongerThis.AcceptablePowerLevel())
+                    return strongerThis;
             }
             return null;
         }
@@ -141,8 +170,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
             if (weakerThis.costCondition.ChooseHarderCondition(UpdateContext()))
             {
-                //if (strongerThis.AcceptablePowerLevel())
-                return weakerThis;
+                if (weakerThis.AcceptablePowerLevel())
+                    return weakerThis;
             }
             return null;
         }
@@ -157,8 +186,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 strongerThis.Effects.Remove(effectToStrengthen);
                 strongerThis.Effects.Add(strongerEffect);
-                //if (strongerThis.AcceptablePowerLevel())
-                return strongerThis;
+                if (strongerThis.AcceptablePowerLevel())
+                    return strongerThis;
             }
             return null;
         }
@@ -173,8 +202,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 weakerThis.Effects.Remove(effectToWeaken);
                 weakerThis.Effects.Add(weakerEffect);
-                //if (weakerThis.AcceptablePowerLevel())
-                return weakerThis;
+                if (weakerThis.AcceptablePowerLevel())
+                    return weakerThis;
             }
 
             return null;
@@ -184,8 +213,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         {
             CostConditionEffect strongerThis = (CostConditionEffect)Duplicate();
             Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
-            strongerThis.Effects.Add(effect);
-            return strongerThis;
+            if (effect != null)
+            {
+                strongerThis.Effects.Add(effect);
+                if (strongerThis.AcceptablePowerLevel())
+                    return strongerThis;
+            }
+
+            return null;
         }
 
         public Effect? RemoveEffect()
@@ -193,7 +228,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             CostConditionEffect weakerThis = (CostConditionEffect)Duplicate();
             Effect? effect = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
             weakerThis.Effects.Remove(effect);
-            return weakerThis;
+            if (weakerThis.AcceptablePowerLevel())
+                return weakerThis;
+
+            return null;
         }
 
         #endregion
@@ -204,7 +242,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return powerLevel >= minPowerLevel && powerLevel <= maxPowerLevel;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return Effects;
         }

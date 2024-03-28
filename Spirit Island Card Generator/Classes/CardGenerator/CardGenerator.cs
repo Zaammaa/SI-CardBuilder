@@ -11,6 +11,8 @@ using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static Spirit_Island_Card_Generator.Classes.ElementSet;
 using static Spirit_Island_Card_Generator.Classes.GameConcepts.Lands;
+using static Spirit_Island_Card_Generator.Classes.Card;
+using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -228,19 +230,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     {
                         //Any
                         return target;
-                    } else if (roll <= 98)
-                    {
-                        //TODO: Setup analysis and have the choices weighted
-                        target.landConditions.Add(Utils.ChooseRandomEnumValue<LandConditon.LandConditions>(typeof(LandConditon.LandConditions), rng));
-                        return target;
                     } else
                     {
-                        target.landConditions.Add(Utils.ChooseRandomEnumValue<LandConditon.LandConditions>(typeof(LandConditon.LandConditions), rng));
-                        LandConditon.LandConditions condition = Utils.ChooseRandomEnumValue<LandConditon.LandConditions>(typeof(LandConditon.LandConditions), rng);
-                        if (!target.landConditions.Contains(condition))
+                        Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
+                        foreach(LandConditions land in Card.conditions.Keys)
                         {
-                            target.landConditions.Add(condition);
+                            WeightAndPowerDifference weightAndPowerDifference = Card.conditions[land];
+                            weights.Add(land, weightAndPowerDifference.weight);
                         }
+
+                        target.landConditions.Add(Utils.ChooseWeightedOption(weights, rng));
                         return target;
                     }
                 }

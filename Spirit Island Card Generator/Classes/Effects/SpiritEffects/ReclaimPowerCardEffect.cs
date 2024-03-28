@@ -63,10 +63,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             if (fromPlay)
             {
-                return 1.3 * amount;
+                return 0.7 * amount;
             } else
             {
-                return 1.5 * amount;
+                return 0.8 * amount;
             }
         }
 

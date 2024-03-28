@@ -151,7 +151,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             InOriginLandEffect weakerThis = (InOriginLandEffect)Duplicate();
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-            Effect? weakerEffect = effectToWeaken?.Strengthen();
+            Effect? weakerEffect = effectToWeaken?.Weaken();
             if (weakerEffect != null && effectToWeaken != null)
             {
                 weakerThis.Effects.Remove(effectToWeaken);
@@ -167,15 +167,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
             Effect? strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
-            if (effectToStrengthen != null && strongerEffect == null)
+            if (effectToStrengthen != null && strongerEffect != null)
             {
-                strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
-                if (strongerEffect != null)
-                {
-                    strongerThis.Effects.Remove(effectToStrengthen);
-                    strongerThis.Effects.Add(strongerEffect);
-                    return strongerThis;
-                }
+                strongerThis.Effects.Remove(effectToStrengthen);
+                strongerThis.Effects.Add(strongerEffect);
+                return strongerThis;
             }
             return null;
         }
@@ -186,15 +182,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
             Effect? weakerEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
-            if (effectToWeaken != null && weakerEffect == null)
+            if (effectToWeaken != null && weakerEffect != null)
             {
-                weakerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
-                if (weakerEffect != null)
-                {
-                    weakerThis.Effects.Remove(effectToWeaken);
-                    weakerThis.Effects.Add(weakerEffect);
-                    return weakerThis;
-                }
+                weakerThis.Effects.Remove(effectToWeaken);
+                weakerThis.Effects.Add(weakerEffect);
+                return weakerThis;
             }
             return null;
         }
@@ -220,7 +212,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
             return null;
         }
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return Effects;
         }

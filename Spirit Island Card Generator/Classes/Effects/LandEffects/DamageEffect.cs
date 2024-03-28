@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    public class DamageEffect : Effect
+    public class DamageEffect : AmountEffect
     {
         public override double BaseProbability { get { return .20; } }
         public override double AdjustedProbability { get { return .20; } set { } }
@@ -25,11 +25,29 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
+        [AmountValue]
         public int damageAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
+        };
+
+        public override double effectStrength {
+            get
+            {
+                if (Context != null && Context.card.Fast)
+                    return (double)damageAmount * 0.9;
+                else
+                    return (double)(damageAmount * 0.7);
+            }
+        }
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1 },
+            {2, 1.2 },
+            {3, 1.5 },
         };
 
         //Writes what goes on the card
@@ -65,46 +83,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
                 return (double)damageAmount * 0.9;
             else
                 return (double)(damageAmount * 0.7);
-        }
-
-        /// <summary>
-        /// Some conditional effects may want to do a stronger version of what an effect did already. Effects that support this can override this function to choose stronger versions of their effects
-        /// So for example, a card may have a base effect of defend 1. A new effect being generated is trying to add a new effect with the condition: "if the target land is jungle/sands". The new condition wants to upgrade the defend instead of generating a different type of effect
-        /// So it calls this function and if the effect can be upgraded it returns a new effect with a stronger effect, such as defend 4.
-        /// </summary>
-        /// <param name="card">The card so far</param>
-        /// <param name="settings">Settings for the whole deck generation. This will mostly want the Target power level and the power level variance</param>
-        /// <returns></returns>
-        protected Effect? IncreaseAmount()
-        {
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                DamageEffect newEffect = (DamageEffect)Duplicate();
-                newEffect.damageAmount += 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (damageAmount <= 1)
-            {
-                return null;
-            }
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                DamageEffect newEffect = (DamageEffect)Duplicate();
-                newEffect.damageAmount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public override bool Scan(string description)

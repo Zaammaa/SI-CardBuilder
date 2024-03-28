@@ -116,6 +116,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                 if (compatibleConditions.Contains(condition) && IsValidCondition(context, condition))
                     weights.Add(condition, conditions[condition].weight);
             }
+            if (compatibleConditions.Count == 0)
+            {
+                throw new Exception("No valid conditions! Not really sure what to do here...");
+            }
 
             landCondition = Utils.ChooseWeightedOption(weights, context.rng);
         }
@@ -142,6 +146,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                     weights.Add(condition, conditions[condition].weight);
             }
 
+            if (weights.Count == 0)
+                return false;
+
             LandConditions? newCondition =  Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)
             {
@@ -162,6 +169,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                 if (compatibleConditions.Contains(condition) && conditions[condition].multiplier > DifficultyMultiplier && IsValidCondition(context, condition))
                     weights.Add(condition, conditions[condition].weight);
             }
+
+            if (weights.Count == 0)
+                return false;
 
             LandConditions? newCondition = Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)

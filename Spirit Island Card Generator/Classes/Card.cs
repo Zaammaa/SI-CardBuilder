@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
 namespace Spirit_Island_Card_Generator.Classes
 {
@@ -19,6 +20,55 @@ namespace Spirit_Island_Card_Generator.Classes
             Major,
             Unique
         }
+
+        public struct WeightAndPowerDifference
+        {
+            public double difference;
+            public int weight;
+
+            public WeightAndPowerDifference(double d, int w)
+            {
+                difference = d;
+                weight = w;
+            }
+        }
+
+        public static Dictionary<LandConditions, WeightAndPowerDifference> conditions = new Dictionary<LandConditions, WeightAndPowerDifference>()
+        {
+            { LandConditions.Inland, new WeightAndPowerDifference(0.12, 2)},
+            { LandConditions.Coastal, new WeightAndPowerDifference(0.5, 3)},
+
+            { LandConditions.Mountain, new WeightAndPowerDifference(0.65, 2)},
+            { LandConditions.Jungle, new WeightAndPowerDifference(0.65, 2)},
+            { LandConditions.Sands, new WeightAndPowerDifference(0.65, 2)},
+            { LandConditions.Wetlands, new WeightAndPowerDifference(0.65, 2)},
+
+            { LandConditions.NoMountain, new WeightAndPowerDifference(0.1, 1)},
+            { LandConditions.NoJungle, new WeightAndPowerDifference(0.1, 1)},
+            { LandConditions.NoSands, new WeightAndPowerDifference(0.1, 1)},
+            { LandConditions.NoWetlands, new WeightAndPowerDifference(0.1, 1)},
+
+            { LandConditions.MountainOrJungle, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.MountainOrSands, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.MountainOrWetlands, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.JungleOrSands, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.JungleOrWetlands, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.SandsOrWetlands, new WeightAndPowerDifference(0.2, 20)},
+
+            { LandConditions.Blighted, new WeightAndPowerDifference(0.6, 4)},
+            { LandConditions.Noblight, new WeightAndPowerDifference(0.15, 4)},
+
+            { LandConditions.Dahan, new WeightAndPowerDifference(0.3, 7)},
+            { LandConditions.NoDahan, new WeightAndPowerDifference(0.2, 1)},
+
+            { LandConditions.Invaders, new WeightAndPowerDifference(0.1, 2)},
+            { LandConditions.NoInvaders, new WeightAndPowerDifference(0.4, 2)},
+            { LandConditions.Buildings, new WeightAndPowerDifference(0.3, 4)},
+            { LandConditions.NoBuildings, new WeightAndPowerDifference(0.3, 3)},
+            { LandConditions.City, new WeightAndPowerDifference(0.6, 3)},
+            { LandConditions.NoCity, new WeightAndPowerDifference(0.1, 2)},
+        };
+
         public CardTypes CardType { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
@@ -59,7 +109,7 @@ namespace Spirit_Island_Card_Generator.Classes
         {
             double power = 0;
             //Cost
-            power -= Cost * 0.5;
+            power -= Cost * 0.35;
             //Elements
             if (elements.GetElements().Count == 2)
             {
@@ -72,7 +122,7 @@ namespace Spirit_Island_Card_Generator.Classes
             //Speed
             if (Fast)
             {
-                power += 0.15;
+                power += 0.25;
             }
 
             //Range
@@ -103,7 +153,7 @@ namespace Spirit_Island_Card_Generator.Classes
             //Target
             foreach(LandConditon.LandConditions landCondition in Target.landConditions)
             {
-                power *= LandTypeCondition.conditions[landCondition].multiplier;
+                power -= conditions[landCondition].difference;
             }
 
             return power;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    public class DefendEffect : Effect
+    public class DefendEffect : AmountEffect
     {
         public override double BaseProbability { get { return .30; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -25,11 +25,28 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
+        [AmountValue]
         public int defendAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
+        };
+
+        public override double effectStrength => 0.2;
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 0.6 },
+            {2, 1},
+            {3, 1},
+            {4, 0.9},
+            {5, 0.9},
+            {6, 0.8},
+            {7, 0.7},
+            {8, 0.6},
+            {9, 0.5},
+            {10, 0.4},
         };
 
         //Writes what goes on the card
@@ -63,33 +80,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             //TODO: work with the calculated power levels
             return (double)defendAmount * 0.18;
-        }
-
-        protected Effect? IncreaseAmount()
-        {
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                DefendEffect newEffect = (DefendEffect)Duplicate();
-                newEffect.defendAmount += 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (defendAmount > 1)
-            {
-                DefendEffect effect = (DefendEffect)Duplicate();
-                effect.defendAmount -= 1;
-                return effect;
-            } else
-            {
-                return null;
-            }
         }
 
         public override bool Scan(string description)

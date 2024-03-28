@@ -11,7 +11,7 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    internal class DahanExtraHealthEffect : Effect
+    internal class DahanExtraHealthEffect : AmountEffect
     {
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -25,11 +25,22 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             }
         }
 
+        [AmountValue]
         public int extraDahanHealth = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
+        };
+
+        public override double effectStrength => 0.2;
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1 },
+            {2, 1 },
+            {3, 0.9 },
+            {4, 0.8 },
         };
 
         //Writes what goes on the card
@@ -40,7 +51,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (context.target.SpiritTarget || context.card.Target.landConditions.Contains(LandConditions.NoDahan) || !context.card.Fast)
+            if (context.target.SpiritTarget || context.target.landConditions.Contains(LandConditions.NoDahan) || !context.card.Fast || context.target.landConditions.Contains(LandConditions.NoInvaders))
                 return false;
             else
                 return true;
@@ -49,40 +60,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         protected override void InitializeEffect()
         {
             extraDahanHealth = 2;
-        }
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            //TODO: work with the calculated power levels
-            return (double)extraDahanHealth * 0.2;
-        }
-
-        protected Effect? IncreaseAmount()
-        {
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                DahanExtraHealthEffect newEffect = (DahanExtraHealthEffect)Duplicate();
-                newEffect.extraDahanHealth += 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (extraDahanHealth > 1)
-            {
-                DahanExtraHealthEffect effect = (DahanExtraHealthEffect)Duplicate();
-                effect.extraDahanHealth -= 1;
-                return effect;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public override bool Scan(string description)

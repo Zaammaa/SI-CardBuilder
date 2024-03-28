@@ -15,23 +15,21 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
 {
     [LandEffect]
-    public abstract class PushEffect : Effect
+    public abstract class PushEffect : AmountEffect
     {
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
 
-        //How much stronger/weaker adding additional pieces is compared to the first
-        //This works like tax brackets, so only the later pieces get multiplied by their modifier
-        protected abstract Dictionary<int, double> ExtraPiecesMultiplier { get; }
-        protected abstract double PieceStrength { get; }
         //Must VS. May
         public bool mandatory = false;
-        public int amount = 1;
+        [AmountValue]
+        public int pushAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
-            new DifficultyOption("Change amounts", 20, IncreaseAmount, DecreaseAmount),
-            new DifficultyOption("Make Optional/Mandatory", 80, MakeOptional, MakeMandatory),
+            new DifficultyOption("Change amounts", 30, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Make Optional/Mandatory", 30, MakeOptional, MakeMandatory),
+            new DifficultyOption("Add option", 40, AddOption, RemoveOption),
         };
 
         public override Regex descriptionRegex
@@ -48,98 +46,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             }
         }
 
-        ////Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
-        //protected override void InitializeEffect()
-        //{
-        //    //TODO: Care about power level
-        //    if (card.CardType == Card.CardTypes.Minor)
-        //    {
-        //        int numberOfPieces = settings.rng.Next(1, 4);
-        //        for(int i = 0; i < numberOfPieces; i++)
-        //        {
-        //            pushOptions.Add(ChooseRandomPushEffect(card, settings));
-        //        }
-        //        amount = settings.rng.Next(1, 4);
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        //public bool HasPushType(Piece piece)
-        //{
-        //    foreach (PiecePush pushEffect in pushOptions)
-        //    {
-        //        if (pushEffect.piece == piece)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        //private PiecePush ChooseRandomPushEffect(Context context)
-        //{
-        //    double totalWeight = 0;
-        //    List<PiecePush> pushOptions = ReflectionManager.GetInstanciatedSubClasses<PiecePush>();
-        //    List<PiecePush> validOptions = new List<PiecePush>();
-        //    foreach (PiecePush effect in pushOptions)
-        //    {
-        //        if (!HasPushType(effect.piece) && effect.IsValid(card, settings))
-        //        {
-        //            totalWeight += effect.AdjustedProbability;
-        //            validOptions.Add(effect);
-        //        }
-        //    }
-
-        //    double choice = settings.rng.NextDouble() * totalWeight;
-        //    double index = 0;
-        //    foreach(PiecePush effect in validOptions)
-        //    {
-        //        if (choice < index + effect.AdjustedProbability)
-        //        {
-        //            return effect;
-        //        }
-        //        index += effect.AdjustedProbability;
-        //    }
-        //    throw new Exception("No choice made");
-        //}
 
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            //If there's more than one options, the strongest option will be most of the power level since players will usually do that.
-            //For now, we'll just use a flat power level for each other option.
-            //TODO: If they are close in power, the increase from having more than one option becomes larger.
-            //double powerLevel = 0;
-            //double strongestOptionPower = 0;
-            //foreach (PiecePush pushEffect in pushOptions)
-            //{
-            //    if (pushEffect.CalculatePowerLevel() > strongestOptionPower)
-            //    {
-            //        strongestOptionPower = pushEffect.CalculatePowerLevel() * amount;
-            //    }
-            //}
-            //powerLevel += strongestOptionPower + (0.1 * pushOptions.Count);
-            ////Decrease the power for redundent pieces a bit since there may not be enough pieces to get the full value
-            //if (amount == 2)
-            //{
-            //    powerLevel *= 0.85;
-            //} else if (amount >= 3)
-            //{
-            //    powerLevel *= 0.8;
-            //}
-            //return powerLevel;
-
-            double powerLevel = 0;
-            for (int i = 1; i <= amount; i++)
-            {
-                powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
-            }
+            double powerLevel = base.CalculatePowerLevel();
             if (mandatory)
             {
-                powerLevel -= 0.05 * amount;
+                powerLevel -= 0.05 * pushAmount;
             }
             return powerLevel;
         }
@@ -153,7 +67,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             //    convertedPieceTexts.Add(GamePieces.ToSIBuilderString(pushEffect.piece));
             //}
             //string piecesText = String.Join("/",convertedPieceTexts);
-            return $"Push {mayText}{amount} " + "{" + Piece.ToString().ToLower() + "}";
+            return $"Push {mayText}{pushAmount} " + "{" + Piece.ToString().ToLower() + "}";
         }
 
         public override bool Scan(string description)
@@ -182,35 +96,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             return match.Success;
         }
 
-        protected  Effect? IncreaseAmount()
-        {
-            if (amount < ExtraPiecesMultiplier.Count)
-            {
-                PushEffect newEffect = (PushEffect)Duplicate();
-                newEffect.amount += 1;
-                return newEffect;
-
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (amount > 1)
-            {
-                PushEffect newEffect = (PushEffect)Duplicate();
-                newEffect.amount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         protected Effect? MakeMandatory()
         {
             if (!mandatory)
@@ -230,6 +115,34 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
                 newEffect.mandatory = false;
                 return newEffect;
             }
+            return null;
+        }
+
+        //Intentionally return a MergedPush effect rather than a new PushEffect
+        protected Effect? AddOption()
+        {
+            MergedPushEffect mergedPush = new MergedPushEffect();
+            mergedPush.InitializeEffect(UpdateContext());
+            mergedPush.amount = pushAmount;
+            mergedPush.mandatory = mandatory;
+            mergedPush.pushEffects = [(PushEffect)Duplicate()];
+            PushEffect? newPush = (PushEffect?)Context?.effectGenerator.ChooseGeneratorOption<PushEffect>(UpdateContext());
+            if (newPush != null && (newPush.GetType() != this.GetType()))
+            {
+                newPush.pushAmount = pushAmount;
+                newPush.mandatory = mandatory;
+                newPush.Context = Context.Duplicate();
+                mergedPush.pushEffects.Add(newPush);
+                return mergedPush;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        //We need a counterpart for the effectOption, but it doesn't actually make sense. The MergedGatherEffect has the downgrade if needed
+        protected Effect? RemoveOption()
+        {
             return null;
         }
     }

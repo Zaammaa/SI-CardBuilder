@@ -23,7 +23,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             get
             {
-                return new Regex(@"A Spirit with presence in Target Land may", RegexOptions.IgnoreCase);
+                return new Regex(@"Another Spirit with presence in Target Land may", RegexOptions.IgnoreCase);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return newEffect;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return new List<Effect> { effect };
         }

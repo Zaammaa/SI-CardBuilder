@@ -10,6 +10,6 @@ namespace Spirit_Island_Card_Generator.Classes.Interfaces
     //Interface for Effects that have children effects
     public interface IParentEffect
     {
-        List<Effect> GetChildren();
+        IEnumerable<Effect> GetChildren();
     }
 }

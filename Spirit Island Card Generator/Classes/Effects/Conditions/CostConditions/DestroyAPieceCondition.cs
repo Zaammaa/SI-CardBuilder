@@ -26,7 +26,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
         {
             get
             {
-                return 0.35;
+                return pieceOptions[piece].multiplier;
             }
         }
         protected bool isFast = false;
@@ -87,6 +87,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
                 if (pieceOptions[pieceOption].multiplier > DifficultyMultiplier && IsValidPiece(pieceOption, context))
                     weights.Add(pieceOption, pieceOptions[pieceOption].weight);
             }
+            if (weights.Count == 0)
+                return false;
 
             GamePieces.Piece? newCondition = Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)
@@ -109,6 +111,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
                 if (pieceOptions[pieceOption].multiplier < DifficultyMultiplier)
                     weights.Add(pieceOption, pieceOptions[pieceOption].weight);
             }
+            if (weights.Count == 0)
+                return false;
 
             GamePieces.Piece? newCondition = Utils.ChooseWeightedOption(weights, context.rng);
             if (newCondition.HasValue)

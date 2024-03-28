@@ -66,6 +66,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                 Upgrade = upgrade;
                 Downgrade = downgrade;
             }
+
+            public override string ToString()
+            {
+                return name;
+            }
         }
         protected abstract DifficultyOption[] difficultyOptions { get; }
 
@@ -102,6 +107,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                 Effect? chosenEffect = option.Upgrade();
                 if (chosenEffect != null)
                 {
+                    if (chosenEffect.CalculatePowerLevel() <= CalculatePowerLevel())
+                    {
+                        throw new Exception("Strengthen failed to increase power level");
+                    }
                     return chosenEffect;
                 } else
                 {
@@ -111,12 +120,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
             return null;
         }
-        /// <summary>
-        /// Similar to Strenthen, but makes the effect weaker instead
-        /// </summary>
-        /// <param name="card"></param>
-        /// <param name="settings"></param>
-        /// <returns></returns>
+
         public Effect? Weaken()
         {
             List<DifficultyOption> untriedOptions = new List<DifficultyOption>(difficultyOptions);
@@ -133,6 +137,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                 Effect? chosenEffect = option.Downgrade();
                 if (chosenEffect != null)
                 {
+                    if (chosenEffect.CalculatePowerLevel() >= CalculatePowerLevel())
+                    {
+                        throw new Exception("Weaken failed to reduce power level");
+                    }
                     return chosenEffect;
                 }
                 else

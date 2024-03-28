@@ -13,16 +13,12 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
-    public abstract class AddEffect : Effect
+    public abstract class AddEffect : AmountEffect
     {
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
-
-        //How much stronger/weaker adding additional pieces is compared to the first
-        //This works like tax brackets, so only the later pieces get multiplied by their modifier
-        protected abstract Dictionary<int, double> ExtraPiecesMultiplier { get; }
-        protected abstract double PieceStrength { get; }
-        public int amount = 1;
+        [AmountValue]
+        public int addAmount = 1;
 
         public override Regex descriptionRegex
         {
@@ -42,20 +38,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
         };
 
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            double powerLevel = 0;
-            for (int i = 1; i <= amount; i++)
-            {
-                powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
-            }
-            return powerLevel;
-        }
-
         public override string Print()
         {
-            string text = $"Add {amount} " + "{" + Piece.ToString().ToLower() + "}";
+            string text = $"Add {addAmount} " + "{" + Piece.ToString().ToLower() + "}";
             text = text.Replace("destroyedpresence", "destroyed-presence");
             return text;
         }
@@ -69,56 +54,5 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             }
             return match.Success;
         }
-
-        #region DifficultyOptions
-
-        protected Effect? IncreaseAmount()
-        {
-            if (amount < ExtraPiecesMultiplier.Count && PieceStrength > 0)
-            {
-                AddEffect newEffect = (AddEffect)Duplicate();
-
-                newEffect.amount += 1;
-
-                return newEffect;
-            }
-            else if (amount > 1 && PieceStrength < 0)
-            {
-                AddEffect newEffect = (AddEffect)Duplicate();
-
-                newEffect.amount -= 1;
-
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (amount > 1 && PieceStrength > 0)
-            {
-                AddEffect newEffect = (AddEffect)Duplicate();
-                newEffect.amount -= 1;
-                return newEffect;
-            }
-            else if (amount < ExtraPiecesMultiplier.Count && PieceStrength < 0)
-            {
-                AddEffect newEffect = (AddEffect)Duplicate();
-
-                newEffect.amount += 1;
-
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
-        #endregion
     }
 }

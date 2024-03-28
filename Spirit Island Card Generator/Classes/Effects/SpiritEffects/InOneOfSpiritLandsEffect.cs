@@ -130,7 +130,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return newEffect;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return new List<Effect>() { effect };
         }

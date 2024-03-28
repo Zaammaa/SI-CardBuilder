@@ -19,26 +19,26 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
         public override int Complexity { get { return 1; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Town;
 
-        protected override Dictionary<int, double> ExtraPiecesMultiplier => new Dictionary<int, double>()
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0},
             { 2, 0.8},
             { 3, 0.7},
         };
 
-        protected override double PieceStrength => 1.3;
+        public override double effectStrength => 1.3;
 
         public override IPowerLevel Duplicate()
         {
             TownDestroyEffect effect = new TownDestroyEffect();
-            effect.amount = amount;
+            effect.destroyAmount = destroyAmount;
             effect.Context = Context.Duplicate();
             return effect;
         }
 
         protected override void InitializeEffect()
         {
-            amount = 1;
+            destroyAmount = 1;
         }
 
         public override bool IsValid(Context context)

@@ -87,9 +87,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         {
             //TODO: work with the calculated power levels
             double higher = Math.Max(choice1.CalculatePowerLevel(), choice2.CalculatePowerLevel());
-            double modifier = 1 / (Math.Abs(choice1.CalculatePowerLevel() - choice2.CalculatePowerLevel()) + 1);
-            double normalizer = 1 / (higher + 1);
-            return higher * (modifier / normalizer);
+            double lower = Math.Min(choice1.CalculatePowerLevel(), choice2.CalculatePowerLevel());
+            double otherChoice = Math.Max(0, lower / 5);
+            return higher + otherChoice;
+            //double modifier = 1 / (Math.Abs(choice1.CalculatePowerLevel() - choice2.CalculatePowerLevel()) + 1);
+            //double normalizer = 1 / (higher + 1);
+            //return higher * (modifier / normalizer);
         }
 
         public override bool Scan(string description)
@@ -111,7 +114,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             return effect;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return new List<Effect>() { choice1, choice2 };
         }

@@ -55,7 +55,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             double power = 0;
             foreach(Effect effect in Context.card.effects)
             {
-                if (effect.Equals(this) || Context.IsParent(effect))
+                if (effect.Equals(this) || Context.IsParent(effect, this))
                     continue;
                 power += effect.CalculatePowerLevel();
             }

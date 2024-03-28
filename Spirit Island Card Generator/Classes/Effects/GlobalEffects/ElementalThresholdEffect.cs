@@ -118,6 +118,39 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
             //Choose Effect
             ChooseRandomEffect();
+
+            while (!AcceptablePowerLevel())
+            {
+                if (CalculatePowerLevel() < minPowerLevel)
+                {
+                    if (!UnDuplicate((ElementalThresholdEffect?)Strengthen()))
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (!UnDuplicate((ElementalThresholdEffect?)Weaken()))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        //Takes another CostConditionEffect as input and sets this property to match
+        //This deep clones the fields since I'm just doing it this way to get around strengthen/weaken returning a new object
+        //I would set this = otherEffect if I could
+        protected bool UnDuplicate(ElementalThresholdEffect? otherEffect)
+        {
+            if (otherEffect == null)
+                return false;
+
+            this.Context = otherEffect.Context;
+            this.elements = otherEffect.elements;
+            this.offElement = otherEffect.offElement;
+            this.Effects = otherEffect.Effects;
+            return true;
         }
 
         private void ChooseElements()
@@ -337,6 +370,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         protected Effect? ReplaceWithStrongerEffect()
         {
+            if (Effects.Count == 0)
+                return null;
+
             ElementalThresholdEffect strongerThis = (ElementalThresholdEffect)Duplicate();
            
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
@@ -358,6 +394,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         protected Effect? ReplaceWithWeakerEffect()
         {
+            if (Effects.Count == 0)
+                return null;
             ElementalThresholdEffect weakerThis = (ElementalThresholdEffect)Duplicate();
 
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
@@ -406,7 +444,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return null;
         }
 
-        public List<Effect> GetChildren()
+        public IEnumerable<Effect> GetChildren()
         {
             return Effects;
         }

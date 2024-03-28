@@ -156,7 +156,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 List<Type> allTypes = ReflectionManager.GetAttributeClasses(attribute);
                 foreach(Type type in allTypes)
                 {
-                    if (!types.Contains(type) && !bannedAttributes.Any((bannedAtt) => { return type.GetType().GetCustomAttribute(bannedAtt.GetType()) != null; }))
+                    if (!types.Contains(type) &&
+                        !bannedAttributes.Any((bannedAtt) => { return type.GetType().GetCustomAttribute(bannedAtt.GetType()) != null; }) &&
+                        !context.card.effects.Any((effect) => { return effect.GetType() == type; }) &&
+                        !context.GetSiblings().Any((effect) => { return effect.GetType() == type; })
+                    )
                     { 
                         types.Add(type);
                     }
@@ -182,7 +186,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public Effect? ChooseStrongerEffect(Context context, double minPower)
         {
             Effect? option = (Effect?)ChooseEffect(context);
-            while (option != null && option.CalculatePowerLevel() < minPower)
+            while (option != null && option.CalculatePowerLevel() <= minPower)
             {
                 option = option.Strengthen();
             }
@@ -192,7 +196,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public Effect? ChooseWeakerEffect(Context context, double maxPower)
         {
             Effect? option = (Effect?)ChooseEffect(context);
-            while (option != null && option.CalculatePowerLevel() > maxPower)
+            while (option != null && option.CalculatePowerLevel() >= maxPower)
             {
                 option = option.Weaken();
             }

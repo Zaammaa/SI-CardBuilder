@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
-    internal class GainEnergyEffect : Effect
+    internal class GainEnergyEffect : AmountEffect
     {
         public override double BaseProbability { get { return .25; } }
         public override double AdjustedProbability { get { return .25; } set { } }
@@ -25,13 +25,22 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
                 return new Regex(@"target spirit gains (\d{1,2}) Energy", RegexOptions.IgnoreCase);
             }
         }
-
+        [AmountValue]
         public int energyAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
-{
+        {
             new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
-};
+        };
+
+        public override double effectStrength => 0.35;
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1 },
+            {2, 1.1 },
+            {3, 1.1 },
+        };
 
         //Writes what goes on the card
         public override string Print()
@@ -56,39 +65,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             else
             {
                 throw new NotImplementedException();
-            }
-        }
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            return (double)energyAmount / 2;
-        }
-
-        protected Effect? IncreaseAmount()
-        {
-            if (Context.card.CardType == Card.CardTypes.Minor)
-            {
-                GainEnergyEffect newEffect = (GainEnergyEffect)Duplicate();
-                newEffect.energyAmount += 1;
-                return newEffect;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            if (energyAmount > 1)
-            {
-                GainEnergyEffect newEffect = (GainEnergyEffect)Duplicate();
-                newEffect.energyAmount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
             }
         }
 

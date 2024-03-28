@@ -12,20 +12,16 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffects
 {
-    internal abstract class DestroyEffect : Effect
+    internal abstract class DestroyEffect : AmountEffect
     {
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
-
-        //How much stronger/weaker adding additional pieces is compared to the first
-        //This works like tax brackets, so only the later pieces get multiplied by their modifier
-        protected abstract Dictionary<int, double> ExtraPiecesMultiplier { get; }
-        protected abstract double PieceStrength { get; }
-        public int amount = 1;
+        [AmountValue]
+        public int destroyAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]   
         {
-            new DifficultyOption("Change amounts", 100, StrengthenAmount, WeakenAmount),
+            new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
         };
 
         public override Regex descriptionRegex
@@ -42,20 +38,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
             }
         }
 
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            double powerLevel = 0;
-            for (int i = 1; i <= amount; i++)
-            {
-                powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
-            }
-            return powerLevel;
-        }
-
         public override string Print()
         {
-            return $"Destroy {amount} " + "{"+Piece.ToString().ToLower() + "}.";
+            return $"Destroy {destroyAmount} " + "{"+Piece.ToString().ToLower() + "}.";
         }
 
         public override bool Scan(string description)
@@ -66,50 +51,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
 
             }
             return match.Success;
-        }
-
-        public Effect? StrengthenAmount()
-        {
-            if (amount < ExtraPiecesMultiplier.Count && PieceStrength > 0)
-            {
-                DestroyEffect newEffect = (DestroyEffect)Duplicate();
-
-                newEffect.amount += 1;
-
-                return newEffect;
-            } else if (amount > 1 && PieceStrength < 0)
-            {
-                DestroyEffect newEffect = (DestroyEffect)Duplicate();
-
-                newEffect.amount -= 1;
-
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public Effect? WeakenAmount()
-        {
-            if (amount > 1 && PieceStrength > 0)
-            {
-                DestroyEffect newEffect = (DestroyEffect)Duplicate();
-                newEffect.amount -= 1;
-                return newEffect;
-            } else if (amount < ExtraPiecesMultiplier.Count && PieceStrength < 0)
-            {
-                DestroyEffect newEffect = (DestroyEffect)Duplicate();
-
-                newEffect.amount += 1;
-
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 }

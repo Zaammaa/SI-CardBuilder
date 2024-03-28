@@ -11,19 +11,20 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
-    internal class SpeedBoostEffect : Effect
+    internal class SpeedBoostEffect : AmountEffect
     {
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return .05; } set { } }
         public override int Complexity { get { return 3; } }
 
         public bool viceVersa = false;
-        public int amount = 1;
+        [AmountValue]
+        public int speedBoostAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
-            new DifficultyOption("Allow Vice versa", 80, AllowViceVersa, DontAllowViceVersa),
+            new DifficultyOption("Allow Vice versa", 20, AllowViceVersa, DontAllowViceVersa),
         };
 
         public override Regex descriptionRegex
@@ -34,15 +35,23 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
+        public override double effectStrength => 0.7;
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1 },
+            {2, .5 }
+        };
+
         //Writes what goes on the card
         public override string Print()
         {
             if (viceVersa)
             {
-                return "This turn, Target Spirit may use " + amount + " {slow} power as if it were {fast}, or vice versa.";
+                return "This turn, Target Spirit may use " + speedBoostAmount + " {slow} power as if it were {fast}, or vice versa.";
             } else
             {
-                return "This turn, Target Spirit may use " + amount + " {slow} power as if it were {fast}";
+                return "This turn, Target Spirit may use " + speedBoostAmount + " {slow} power as if it were {fast}";
             }
             
         }
@@ -57,60 +66,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         protected override void InitializeEffect()
         {
             viceVersa = Context.rng.NextDouble() >= 0.75 ? true : false;
-            amount = Context.rng.Next(1, 3);
+            speedBoostAmount = Context.rng.Next(1, 3);
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            double power = 0;
+            double power = base.CalculatePowerLevel();
             if (viceVersa)
             {
                 power += 0.1;
             }
 
-            if (amount == 1)
-            {
-                power += 0.5;
-            } else if (amount == 2)
-            {
-                power += 0.75;
-            } else
-            {
-                power += 1;
-            }
-
             return power;
-        }
-
-        protected Effect? IncreaseAmount()
-        {
-            SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
-            if (amount <= 1)
-            {
-                newEffect.amount += 1;
-            } else if (amount == 2 && Context.rng.NextDouble() >= 0.8)
-            {
-                //getting to 3 fast can be possible, but it should be rare
-                newEffect.amount += 1;
-            } else
-            {
-                return null;
-            }
-            return newEffect;
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            SpeedBoostEffect newEffect = (SpeedBoostEffect)Duplicate();
-            if (amount > 1)
-            {
-                newEffect.amount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         protected Effect? AllowViceVersa()
@@ -148,7 +115,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override Effect Duplicate()
         {
             SpeedBoostEffect effect = new SpeedBoostEffect();
-            effect.amount = amount;
+            effect.speedBoostAmount = speedBoostAmount;
             effect.viceVersa = viceVersa;
             effect.Context = Context.Duplicate();
             return effect;

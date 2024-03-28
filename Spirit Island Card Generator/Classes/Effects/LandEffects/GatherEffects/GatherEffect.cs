@@ -14,18 +14,15 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 {
-    internal abstract class GatherEffect : Effect
+    internal abstract class GatherEffect : AmountEffect
     {
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
 
-        //How much stronger/weaker adding additional pieces is compared to the first
-        //This works like tax brackets, so only the later pieces get multiplied by their modifier
-        protected abstract Dictionary<int, double> ExtraPiecesMultiplier { get; }
-        protected abstract double PieceStrength { get; }
         //Must VS. May
         public bool mandatory = false;
-        public int amount = 1;
+        [AmountValue]
+        public int gatherAmount = 1;
 
         public override int PrintOrder()
         {
@@ -34,8 +31,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
-            new DifficultyOption("Change amounts", 80, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Change amounts", 30, IncreaseAmount, DecreaseAmount),
             new DifficultyOption("Make Optional/Mandatory", 20, MakeOptional, MakeMandatory),
+            new DifficultyOption("Add option", 50, AddOption, RemoveOption),
         };
 
         public override Regex descriptionRegex
@@ -55,14 +53,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            double powerLevel = 0;
-            for (int i = 1; i <= amount; i++)
-            {
-                powerLevel += PieceStrength * ExtraPiecesMultiplier[i];
-            }
+            double powerLevel = base.CalculatePowerLevel();
             if (mandatory)
             {
-                powerLevel -= 0.05 * amount;
+                powerLevel -= 0.05 * gatherAmount;
             }
             return powerLevel;
         }
@@ -71,7 +65,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
         {
             string mayText = mandatory ? "" : "up to ";
 
-            return $"Gather {mayText}{amount} " + "{" + Piece.ToString().ToLower()+"}";
+            return $"Gather {mayText}{gatherAmount} " + "{" + Piece.ToString().ToLower()+"}";
         }
 
         public override bool Scan(string description)
@@ -82,35 +76,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 
             }
             return match.Success;
-        }
-
-        public Effect? IncreaseAmount()
-        {
-            if (amount < ExtraPiecesMultiplier.Count)
-            {
-                GatherEffect newEffect = (GatherEffect)Duplicate();
-                newEffect.amount += 1;
-
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public Effect? DecreaseAmount()
-        {
-            if (amount > 1)
-            {
-                GatherEffect newEffect = (GatherEffect)Duplicate();
-                newEffect.amount -= 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         protected Effect? MakeMandatory()
@@ -134,5 +99,39 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             }
             return null;
         } 
+
+        //Intentionally return a MergedGather effect rather than a new GatherEffect
+        protected Effect? AddOption()
+        {
+            MergedGatherEffect mergedGather = new MergedGatherEffect();
+            mergedGather.InitializeEffect(UpdateContext());
+            mergedGather.amount = gatherAmount;
+            mergedGather.mandatory = mandatory;
+            mergedGather.gatherEffects = [(GatherEffect)Duplicate()];
+            GatherEffect? newGather = (GatherEffect?)Context?.effectGenerator.ChooseGeneratorOption<GatherEffect>(UpdateContext());
+            if (newGather != null)
+            {
+                if (newGather.GetType() != this.GetType())
+                {
+                    newGather.gatherAmount = gatherAmount;
+                    newGather.mandatory = mandatory;
+                    newGather.Context = Context.Duplicate();
+                    mergedGather.gatherEffects.Add(newGather);
+                    return mergedGather;
+                } else
+                {
+                    return null;
+                }
+
+            } else
+            {
+                return null;
+            }
+        }
+        //We need a counterpart for the effectOption, but it doesn't actually make sense. The MergedGatherEffect has the downgrade if needed
+        protected Effect? RemoveOption()
+        {
+            return null;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 {
     [LandEffect]
     [SpiritEffect]
-    public class FearEffect : Effect
+    public class FearEffect : AmountEffect
     {
         public override double BaseProbability { get { return .33; } }
         public override double AdjustedProbability { get { return .33; } set { } }
@@ -28,16 +28,25 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
-            new DifficultyOption("Change Fear", 100, IncreaseFear, DecreaseFear)
+            new DifficultyOption("Change Fear", 100, IncreaseAmount, DecreaseAmount)
         };
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1},
+            {2, 1},
+            {3, 1},
+        };
+
+        public override double effectStrength => 0.3;
 
         public override int PrintOrder()
         {
             return 1;
         }
 
+        [AmountValue]
         public int fearAmount = 1;
-        public int maxFear = 3;
 
         //Writes what goes on the card
         public override string Print()
@@ -60,33 +69,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 throw new NotImplementedException();
             }
-        }
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            //TODO: work with the calculated power levels
-            return (double)fearAmount * 0.4;
-        }
-
-        protected Effect? IncreaseFear()
-        {
-            if (fearAmount < maxFear)
-            {
-                FearEffect newEffect = (FearEffect)Duplicate();
-                newEffect.fearAmount += 1;
-                return newEffect;
-            }
-            return null;
-        }
-
-        protected Effect? DecreaseFear()
-        {
-            FearEffect newEffect = (FearEffect)Duplicate();
-            newEffect.fearAmount -= 1;
-            if (newEffect.fearAmount <= 0)
-                return null;
-            else
-                return newEffect;
         }
 
         public override bool Scan(string description)

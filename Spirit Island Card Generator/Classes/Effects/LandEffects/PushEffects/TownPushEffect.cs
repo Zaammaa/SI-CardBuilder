@@ -18,19 +18,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
         public override int Complexity { get { return 1; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Town;
 
-        protected override Dictionary<int, double> ExtraPiecesMultiplier => new Dictionary<int, double>()
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0},
             { 2, .8},
             { 3, .6},
         };
 
-        protected override double PieceStrength => 0.8;
+        public override double effectStrength => 0.8;
 
         public override IPowerLevel Duplicate()
         {
             TownPushEffect effect = new TownPushEffect();
-            effect.amount = amount;
+            effect.pushAmount = pushAmount;
             effect.mandatory = mandatory;
             effect.Context = Context.Duplicate();
             return effect;
@@ -38,7 +38,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
 
         protected override void InitializeEffect()
         {
-            amount = 1;
+            pushAmount = 1;
         }
 
         public override bool IsValid(Context context)

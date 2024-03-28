@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
-    internal class RangeIncreaseEffect : Effect
+    internal class RangeIncreaseEffect : AmountEffect
     {
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -23,12 +23,21 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
                 return new Regex(@"target spirit (?:gets|gains) \+(\d{1,2}) range", RegexOptions.IgnoreCase);
             }
         }
-        public static int MAX = 3;
+        [AmountValue]
         public int rangeAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
-            new DifficultyOption("Change amount", 80, IncreaseAmount, DecreaseAmount),
+            new DifficultyOption("Change amount", 100, IncreaseAmount, DecreaseAmount),
+        };
+
+        public override double effectStrength => 0.5;
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1, 1 },
+            {2, .7 },
+            {3, .5 },
         };
 
         //Writes what goes on the card
@@ -39,7 +48,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Checks if this should be an option for the card generator
         public override bool IsValid(Context context)
         {
-            if (!context.target.SpiritTarget)
+            if (!context.target.SpiritTarget || !context.card.Fast)
                 return false;
             else
                 return true;
@@ -56,39 +65,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             {
                 throw new NotImplementedException();
             }
-        }
-        //Estimates the effects own power level
-        public override double CalculatePowerLevel()
-        {
-            double power = (double)rangeAmount / 2;
-            if (Context.card.Fast)
-                power /= 2;
-
-            return power;
-        }
-
-        protected Effect? IncreaseAmount()
-        {
-            if (rangeAmount < MAX)
-            {
-                RangeIncreaseEffect newEffect = (RangeIncreaseEffect)Duplicate();
-                newEffect.rangeAmount += 1;
-                return newEffect;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        protected Effect? DecreaseAmount()
-        {
-            RangeIncreaseEffect newEffect = (RangeIncreaseEffect)Duplicate();
-            newEffect.rangeAmount -= 1;
-            if (newEffect.rangeAmount <= 0)
-                return null;
-            else
-                return newEffect;
         }
 
         public override bool Scan(string description)

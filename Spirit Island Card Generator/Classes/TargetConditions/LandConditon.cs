@@ -83,8 +83,8 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
 
             {LandConditions.Invaders, new List<LandConditions>() { LandConditions.NoInvaders} },
             {LandConditions.NoInvaders, new List<LandConditions>() { LandConditions.Invaders, LandConditions.Buildings, LandConditions.City }  },
-            {LandConditions.Buildings, new List<LandConditions>() { LandConditions.NoInvaders} },
-            {LandConditions.City, new List<LandConditions>() { LandConditions.NoInvaders, LandConditions.NoBuildings} },
+            {LandConditions.Buildings, new List<LandConditions>() { LandConditions.NoInvaders, LandConditions.NoBuildings} },
+            {LandConditions.City, new List<LandConditions>() { LandConditions.NoInvaders, LandConditions.NoBuildings, LandConditions.NoCity} },
             {LandConditions.NoCity, new List<LandConditions>() { LandConditions.City} },
 
             {LandConditions.Dahan, new List<LandConditions>() { LandConditions.NoDahan} },
@@ -94,12 +94,12 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             {LandConditions.Inland, new List<LandConditions>() { LandConditions.Coastal} },
             
             //Technically, (Mountains or Jungle) and (Mountain or Sands) aren't logically incompatitble, but it doesn't make any sense to design a card that way.
-            {LandConditions.MountainOrJungle, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoJungle} },
-            {LandConditions.MountainOrSands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoSands} },
-            {LandConditions.MountainOrWetlands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoWetlands} },
-            {LandConditions.JungleOrSands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoJungle, LandConditions.NoSands} },
-            {LandConditions.JungleOrWetlands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoJungle, LandConditions.NoWetlands} },
-            {LandConditions.SandsOrWetlands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoSands, LandConditions.NoWetlands} },
+            {LandConditions.MountainOrJungle, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoJungle, LandConditions.Sands, LandConditions.Wetlands} },
+            {LandConditions.MountainOrSands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoSands, LandConditions.Jungle, LandConditions.Wetlands} },
+            {LandConditions.MountainOrWetlands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoMountain, LandConditions.NoWetlands, LandConditions.Jungle, LandConditions.Sands} },
+            {LandConditions.JungleOrSands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoJungle, LandConditions.NoSands, LandConditions.Mountain, LandConditions.Wetlands} },
+            {LandConditions.JungleOrWetlands, new List<LandConditions>() { LandConditions.SandsOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoJungle, LandConditions.NoWetlands, LandConditions.Mountain, LandConditions.Sands} },
+            {LandConditions.SandsOrWetlands, new List<LandConditions>() { LandConditions.MountainOrJungle, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.NoSands, LandConditions.NoWetlands, LandConditions.Mountain, LandConditions.Jungle} },
             
         };
 
