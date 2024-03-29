@@ -248,7 +248,7 @@ namespace Spirit_Island_Card_Generator.Classes
             newCard.Fast = Fast;
             //Target
             newCard.Target = new Target();
-            newCard.Target.SpiritTarget = Target.SpiritTarget;
+            newCard.Target.targetType = Target.targetType;
             newCard.Target.landConditions = new List<TargetConditions.LandConditon.LandConditions>(Target.landConditions);
             //Range
             newCard.Range = new Range(Range.sacredSite, Range.range, Range.SourceLand);

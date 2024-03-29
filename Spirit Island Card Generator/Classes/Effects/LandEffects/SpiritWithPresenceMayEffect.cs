@@ -59,7 +59,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         {
             Context newContext = UpdateContext();
             Target newTarget = new Target();
-            newTarget.SpiritTarget = true;
+            newTarget.targetType = Target.TargetType.AnotherSpirit;
             newContext.target = newTarget;
             return newContext;
         }

@@ -10,7 +10,18 @@ namespace Spirit_Island_Card_Generator.Classes
 {
     public class Target
     {
-        public bool SpiritTarget = false;
+        public bool SpiritTarget { get { return targetType != TargetType.Land; } }
+
+        public enum TargetType
+        {
+            Land,
+            AnySpirit,
+            AnotherSpirit,
+            Yourself
+        }
+
+        public TargetType targetType;
+
         public List<LandConditions> landConditions = new List<LandConditions>();
 
 
@@ -58,14 +69,17 @@ namespace Spirit_Island_Card_Generator.Classes
         public static Target FromString(string str)
         {
             Target target = new Target();
-            if (str.Contains("Target Spirit", StringComparison.InvariantCultureIgnoreCase) || str.Contains("Another Spirit",StringComparison.InvariantCultureIgnoreCase) || str.Contains("Yourself", StringComparison.InvariantCultureIgnoreCase))
+            if (str.Contains("Target Spirit", StringComparison.InvariantCultureIgnoreCase))
             {
-                target.SpiritTarget = true;
-                //TODO: add the right condition
+                target.targetType = TargetType.AnySpirit;
+            } else if (str.Contains("Another Spirit", StringComparison.InvariantCultureIgnoreCase))
+            {
+                target.targetType = TargetType.AnotherSpirit;
+            } else if (str.Contains("Yourself", StringComparison.InvariantCultureIgnoreCase))
+            {
+                target.targetType = TargetType.Yourself;
             } else
             {
-                target.SpiritTarget = false;
-
                 target.AddCondition(str);
             }
             return target;
@@ -73,9 +87,14 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public string Print()
         {
-            if (SpiritTarget)
+            if (targetType == TargetType.AnotherSpirit)
             {
                 return "Another {spirit}";
+            } else if (targetType == TargetType.AnySpirit) {
+                return "Any {spirit}";
+            } else if (targetType == TargetType.Yourself)
+            {
+                return "Yourself";
             } else if (landConditions.Count == 0)
             {
                 return "Any";
@@ -93,7 +112,7 @@ namespace Spirit_Island_Card_Generator.Classes
         public Target CreateShallowCopy()
         {
             Target newTarget = new Target();
-            newTarget.SpiritTarget = SpiritTarget;
+            newTarget.targetType = targetType;
             newTarget.landConditions = new List<LandConditions>(landConditions);
             return newTarget;
         }

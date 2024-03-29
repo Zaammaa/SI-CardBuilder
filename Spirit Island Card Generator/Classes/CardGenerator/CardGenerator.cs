@@ -216,15 +216,19 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 Target target = new Target();
                 int roll = (int)(rng.NextDouble() * 100) + 1;
-                if (roll <= 15)
+                if (roll <= 3)
                 {
-                    target.SpiritTarget = true;
-                    //TODO: Any vs. Another
+                    target.targetType = Target.TargetType.AnotherSpirit;
+                    return target;
+                }
+                else if (roll <= 15)
+                {
+                    target.targetType = Target.TargetType.AnySpirit;
                     return target;
                 }
                 else
                 {
-                    target.SpiritTarget = false;
+                    target.targetType = Target.TargetType.Land;
                     roll = (int)(rng.NextDouble() * 100) + 1;
                     if (roll <= 46)
                     {
