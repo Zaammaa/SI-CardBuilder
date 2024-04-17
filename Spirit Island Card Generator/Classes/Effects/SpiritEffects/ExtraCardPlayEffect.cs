@@ -6,12 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
     internal class ExtraCardPlayEffect : Effect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air, Element.Sun }; } }
+        public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override double BaseProbability { get { return .07; } }
         public override double AdjustedProbability { get { return .07; } set { } }
         public override int Complexity { get { return 1; } }

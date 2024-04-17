@@ -21,6 +21,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
         public abstract Regex descriptionRegex { get; }
 
+        public virtual List<ElementSet.Element> StronglyAssociatedElements { get { return new List<ElementSet.Element>(); } }
+        public virtual List<ElementSet.Element> WeaklyAssociatedElements { get { return new List<ElementSet.Element>(); } }
+
         protected Context? Context;
         //Whether the effect can be skipped. If it can, it should say "may"
         public bool optional = false;

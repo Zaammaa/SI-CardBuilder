@@ -10,12 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 {
     internal abstract class GatherEffect : AmountEffect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
 

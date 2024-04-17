@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
     internal class SpeedBoostEffect : AmountEffect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air}; } }
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return .05; } set { } }
         public override int Complexity { get { return 3; } }

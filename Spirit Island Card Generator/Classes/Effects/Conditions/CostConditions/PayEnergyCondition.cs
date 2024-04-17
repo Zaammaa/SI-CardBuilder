@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
@@ -17,6 +18,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
         public override double AdjustedProbability { get => BaseProbability; set { } }
 
         public override int Complexity => 2;
+
+        public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun }; } }
 
         public override double DifficultyMultiplier
         {

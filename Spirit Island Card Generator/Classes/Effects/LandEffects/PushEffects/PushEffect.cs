@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     public abstract class PushEffect : AmountEffect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air}; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece Piece { get; }
 

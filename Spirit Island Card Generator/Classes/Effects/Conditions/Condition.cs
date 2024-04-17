@@ -15,6 +15,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
         public abstract double AdjustedProbability { get; set; }
         public abstract int Complexity { get; }
 
+        public virtual List<ElementSet.Element> StronglyAssociatedElements { get { return new List<ElementSet.Element>(); } }
+        public virtual List<ElementSet.Element> WeaklyAssociatedElements { get { return new List<ElementSet.Element>(); } }
+
         public double CalculatePowerLevel()
         {
             return 0;

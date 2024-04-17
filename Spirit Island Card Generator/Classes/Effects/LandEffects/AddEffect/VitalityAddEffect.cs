@@ -7,12 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
     internal class VitalityAddEffect : AddEffect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Plant, Element.Water }; } }
+        public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Earth }; } }
         public override double BaseProbability { get { return .04; } }
         public override int Complexity { get { return 2; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Vitality;

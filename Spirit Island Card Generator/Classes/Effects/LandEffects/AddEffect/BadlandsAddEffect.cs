@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.ElementSet;
 using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
@@ -15,6 +16,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class BadlandsAddEffect : AddEffect
     {
+        public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
+        public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Earth }; } }
         public override double BaseProbability { get { return .07; } }
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Badland;

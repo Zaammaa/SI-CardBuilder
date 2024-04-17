@@ -11,6 +11,9 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
     public class EffectGenerator
     {
+        private static double STRONG_ELEMENT_MODIFIER = 1.65;
+        private static double WEAK_ELEMENT_MODIFIER = 1.3;
+
         private static Dictionary<Type, double> _adjustedProbabilities = new Dictionary<Type, double>();
         public static Dictionary<Type, double> AdjustedProbabilities {
             get { return _adjustedProbabilities; }
@@ -46,10 +49,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 if (type.GetInterfaces().Contains(typeof(ITrackedStat)))
                     trackedStats.Add(type);
             }
-            AdjustWeights();
+            AdjustWeights(new ElementSet(new List<ElementSet.Element>()));
         }
 
-        private void AdjustWeights()
+        private void AdjustWeights(ElementSet elements)
         {
             double deckPercentage = ((double)deckIndex)/ deckMax;
             AdjustedProbabilities.Clear();
@@ -85,7 +88,19 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     {
                         AdjustedProbabilities.Add(option.GetType(), option.BaseProbability);
                     }
+
+
                 }
+                double elementalModifier = 1;
+                foreach (ElementSet.Element element in elements.GetElements())
+                {
+                    if (option.WeaklyAssociatedElements.Contains(element))
+                        elementalModifier *= WEAK_ELEMENT_MODIFIER;
+                    if (option.StronglyAssociatedElements.Contains(element))
+                        elementalModifier *= STRONG_ELEMENT_MODIFIER;
+                }
+
+                AdjustedProbabilities[option.GetType()] *= elementalModifier;
             }
         }
 
@@ -285,7 +300,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 }
             }
             deckIndex++;
-            AdjustWeights();
+            AdjustWeights(card.elements);
         }
 
         public bool IsWithinAcceptablePowerLevel(double min, double max, double value)
