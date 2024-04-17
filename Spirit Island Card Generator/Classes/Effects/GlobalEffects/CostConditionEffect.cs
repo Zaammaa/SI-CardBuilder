@@ -24,8 +24,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         private Condition costCondition;
         public List<Effect> Effects = new List<Effect>();
-        public double minPowerLevel = 0.2;
-        public double maxPowerLevel = 0.5;
+        public override bool HasMinMaxPowerLevel => true;
+        public override double MinPowerLevel => (double)Context?.settings.TargetPowerLevel / 5;
+        public override double MaxPowerLevel => (double)Context?.settings.TargetPowerLevel / 2;
 
         public override bool Standalone { get { return false; } }
 
@@ -46,7 +47,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         ];
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.chain.Count > 0)
                 return false;
@@ -69,7 +70,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
             while (!AcceptablePowerLevel())
             {
-                if (CalculatePowerLevel() < minPowerLevel)
+                if (CalculatePowerLevel() < MinPowerLevel)
                 {
                     if (!UnDuplicate((CostConditionEffect?)Strengthen()))
                     {
@@ -239,12 +240,24 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public bool AcceptablePowerLevel()
         {
             double powerLevel = CalculatePowerLevel();
-            return powerLevel >= minPowerLevel && powerLevel <= maxPowerLevel;
+            return powerLevel >= MinPowerLevel && powerLevel <= MaxPowerLevel;
         }
 
         public IEnumerable<Effect> GetChildren()
         {
             return Effects;
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (this.Effects.Contains(effect))
+            {
+                Effects.Remove(effect);
+                Effects.Add(newEffect);
+            } else
+            {
+                throw new Exception("Replace called without the effect existing");
+            }
         }
     }
 }

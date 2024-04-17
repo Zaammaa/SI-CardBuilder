@@ -19,6 +19,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 2; } }
 
+        public override bool MentionsTarget => true;
+
         public override Regex descriptionRegex
         {
             get
@@ -37,10 +39,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return  $"In one of Target Spirit's lands, " + effect.Print();
+            if (Context.targetMentioned)
+            {
+                return $"In one of their lands, " + effect.Print();
+            } else
+            {
+                return $"In one of Target Spirit's lands, " + effect.Print();
+            }
+            
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.HasEffectAbove(typeof(SpiritWithPresenceMayEffect)))
                 return false;
@@ -133,6 +142,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public IEnumerable<Effect> GetChildren()
         {
             return new List<Effect>() { effect };
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (this.effect.Equals(effect))
+            {
+                this.effect = newEffect;
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
     }
 }

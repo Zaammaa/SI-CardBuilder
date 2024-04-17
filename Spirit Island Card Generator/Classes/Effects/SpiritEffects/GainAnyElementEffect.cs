@@ -30,10 +30,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return "Target Spirit gains 1 {any}";
+            if (Context.targetMentioned) {
+                return "they gain 1 {any}";
+            } else
+            {
+                return "Target Spirit gains 1 {any}";
+            }
+            
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (!context.card.Fast)
                 return false;

@@ -14,6 +14,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         public override int Complexity => 2;
 
+        public override bool MentionsTarget => true;
+
         public override bool TopLevelEffect()
         {
             return true;
@@ -33,7 +35,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             {
                 string effectText = "";
                 bool first = true;
-                foreach (Effect effect in effects)
+                foreach (Effect effect in Effects)
                 {
                     if (!first)
                     {
@@ -56,12 +58,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         };
 
         protected double powerLevelModifier = 0.75;
-        protected List<Effect> effects = new List<Effect>();
+        protected List<Effect> Effects = new List<Effect>();
 
         public override double CalculatePowerLevel()
         {
             double powerLevel = 0;
-            foreach (Effect effect in effects)
+            foreach (Effect effect in Effects)
             {
                 powerLevel += effect.CalculatePowerLevel();
             }
@@ -71,17 +73,28 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override IPowerLevel Duplicate()
         {
             IfYouTargetAnotherSpiritEffect effect = new IfYouTargetAnotherSpiritEffect();
-            effect.effects = new List<Effect>(effects);
+            effect.Effects = new List<Effect>(Effects);
             effect.Context = Context?.Duplicate();
             return effect;
         }
 
         public IEnumerable<Effect> GetChildren()
         {
-            return effects;
+            return Effects;
+        }
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (Effects.Remove(effect))
+            {
+                Effects.Add(newEffect);
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.targetType != Target.TargetType.AnySpirit)
                 return false;
@@ -109,14 +122,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             Effect effect = (Effect)Context.effectGenerator.ChooseEffect(UpdateContext());
             if (effect != null)
             {
-                effects.Add(effect);
+                Effects.Add(effect);
             }
         }
 
         protected Effect? StrengthenEffect()
         {
             IfYouTargetAnotherSpiritEffect strongerThis = (IfYouTargetAnotherSpiritEffect)Duplicate();
-            Effect? effect = Utils.ChooseRandomListElement(strongerThis.effects, Context.rng);
+            Effect? effect = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
             Effect? newEffect = (Effect?)effect?.Strengthen();
             if (newEffect == null)
             {
@@ -124,8 +137,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
             if (newEffect != null)
             {
-                strongerThis.effects.Remove(effect);
-                strongerThis.effects.Add(newEffect);
+                strongerThis.Effects.Remove(effect);
+                strongerThis.Effects.Add(newEffect);
                 return strongerThis;
             }
             else
@@ -138,7 +151,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         protected Effect? WeakenEffect()
         {
             IfYouTargetAnotherSpiritEffect weakerThis = (IfYouTargetAnotherSpiritEffect)Duplicate();
-            Effect? effect = Utils.ChooseRandomListElement(weakerThis.effects, Context.rng);
+            Effect? effect = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
             Effect? newEffect = (Effect?)effect?.Weaken();
             if (newEffect == null)
             {
@@ -146,8 +159,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
             if (newEffect != null)
             {
-                weakerThis.effects.Remove(effect);
-                weakerThis.effects.Add(newEffect);
+                weakerThis.Effects.Remove(effect);
+                weakerThis.Effects.Add(newEffect);
                 return weakerThis;
             }
             else
@@ -162,7 +175,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             Effect? effect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
             if (effect != null)
             {
-                strongerThis.effects.Add(effect);
+                strongerThis.Effects.Add(effect);
                 return strongerThis;
             }
             return null;
@@ -170,11 +183,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         protected Effect? RemoveEffect()
         {
-            if (effects.Count > 1)
+            if (Effects.Count > 1)
             {
                 IfYouTargetAnotherSpiritEffect weakerThis = (IfYouTargetAnotherSpiritEffect)Duplicate();
-                Effect? effect = Utils.ChooseRandomListElement(weakerThis.effects, Context.rng);
-                weakerThis.effects.Remove(effect);
+                Effect? effect = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
+                weakerThis.Effects.Remove(effect);
                 return weakerThis;
             }
             return null;

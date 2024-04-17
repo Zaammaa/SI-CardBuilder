@@ -32,7 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return $"Isolate target land.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.card.ContainsSameEffectType(this) || context.target.SpiritTarget || !context.card.Fast)
                 return false;

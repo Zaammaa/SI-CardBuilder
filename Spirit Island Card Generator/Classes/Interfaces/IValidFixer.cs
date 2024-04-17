@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.Interfaces
 {
-    //Interface for Effects that have children effects
-    public interface IParentEffect
+    public interface IValidFixer
     {
-        IEnumerable<Effect> GetChildren();
-
-        public void ReplaceEffect(Effect oldEffect, Effect newEffect);
+        //Attempts to make the effect valid
+        //If it fails this will return null
+        //If it succeeds, this will return the new effect
+        public Effect? Fix();
     }
 }

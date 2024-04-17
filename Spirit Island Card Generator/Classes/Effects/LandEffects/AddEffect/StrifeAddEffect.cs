@@ -39,7 +39,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             addAmount = 1;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.landConditions.Contains(LandConditon.LandConditions.NoInvaders) || context.target.landConditions.Contains(LandConditon.LandConditions.NoBuildings))
             {

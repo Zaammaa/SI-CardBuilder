@@ -35,17 +35,22 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
+            string targetText = "Target Spirit gains";
+            if (Context.targetMentioned)
+            {
+                targetText = "they gain";
+            }
             if (cardType == PowerCardType.Unspecified)
             {
-                return "Target Spirit gains a Power Card.";
+                return $"{targetText} a Power Card.";
             }
             else
             {
-                return $"Target Spirit gains a {cardType} Power Card.";
+                return $"{targetText} a {cardType} Power Card.";
             }
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (!context.card.Target.SpiritTarget || context.card.ContainsSameEffectType(this))
                 return false;

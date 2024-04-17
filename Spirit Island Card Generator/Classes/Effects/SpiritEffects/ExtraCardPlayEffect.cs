@@ -29,10 +29,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return $"Target Spirit may immediately play another Power Card by paying its cost.";
+            if (Context.targetMentioned)
+            {
+                return $"immediately play another Power Card by paying its cost.";
+            } else
+            {
+                return $"Target Spirit may immediately play another Power Card by paying its cost.";
+            }
+            
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (!context.target.SpiritTarget || !context.card.Fast)
                 return false;

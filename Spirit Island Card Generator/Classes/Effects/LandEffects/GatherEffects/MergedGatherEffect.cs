@@ -126,7 +126,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             return gatherEffects;
         }
 
-        public override bool IsValid(Context context)
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (gatherEffects.Remove(effect))
+            {
+                gatherEffects.Add(newEffect);
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
+        }
+
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }

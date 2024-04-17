@@ -25,7 +25,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             }
         }
 
-        public override bool Standalone { get { return false; } }
+        public override bool Standalone => false;
+        public override bool SelfReferencingPowerLevel => true;
 
         protected override DifficultyOption[] difficultyOptions =>
         [
@@ -37,7 +38,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             return "Repeat this Power.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.card.ContainsSameEffectType(this))
                 return false;
@@ -55,7 +56,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             double power = 0;
             foreach(Effect effect in Context.card.effects)
             {
-                if (effect.Equals(this) || Context.IsParent(effect, this))
+                if (effect.SelfReferencingPowerLevel || Context.IsParent(effect, this))
                     continue;
                 power += effect.CalculatePowerLevel();
             }

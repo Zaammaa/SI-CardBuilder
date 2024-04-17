@@ -102,7 +102,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             return condition;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }

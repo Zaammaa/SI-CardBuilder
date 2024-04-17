@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Internal;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects;
+using Spirit_Island_Card_Generator.Classes.Fixers;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects
 {
@@ -28,7 +30,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         //Initializes effect from a card description.
         public abstract bool Scan(string description);
         //Checks if this should be an option for the card generator
-        public abstract bool IsValid(Context context);
+        public abstract bool IsValidGeneratorOption(Context context);
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected abstract void InitializeEffect();
         //Estimates the effects own power level
@@ -36,7 +38,31 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
         public abstract IPowerLevel Duplicate();
         //If false, the card must have another effect.
+
+        public virtual IValidFixer? IsValid()
+        {
+            if (WithinPowerLevel(this))
+            {
+                return null;
+            } else
+            {
+                return new PowerLevelFixer(this);
+            }
+        }
+
+        public virtual void Fix()
+        {
+            //To be overriden as needed
+        }
+
+        public virtual bool HasMinMaxPowerLevel { get { return false; } }
+
+        public virtual double MinPowerLevel { get { return 0; }  }
+        public virtual double MaxPowerLevel { get { return 0; }  }
+
         public virtual bool Standalone { get { return true; } }
+
+        public virtual bool SelfReferencingPowerLevel {  get { return false; } }
 
         public virtual bool TopLevelEffect()
         {
@@ -50,6 +76,27 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public virtual int PrintOrder()
         {
             return 5;
+        }
+
+        public virtual bool MentionsTarget
+        {
+            get { return false; }
+        }
+
+        public int Level
+        {
+            get { return Context.chain.Count; }
+        }
+
+        public IParentEffect? Parent
+        {
+            get
+            {
+                if (Level == 0)
+                    return null;
+                
+                return Context?.chain.Last();
+            }
         }
 
         protected struct DifficultyOption
@@ -105,11 +152,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                 DifficultyOption option = Utils.ChooseWeightedOption<DifficultyOption>(weightedOptions, Context.rng);
 
                 Effect? chosenEffect = option.Upgrade();
-                if (chosenEffect != null)
+                if (chosenEffect != null && WithinPowerLevel(chosenEffect))
                 {
                     if (chosenEffect.CalculatePowerLevel() <= CalculatePowerLevel())
                     {
-                        throw new Exception("Strengthen failed to increase power level");
+                        Log.Warning("Strengthen failed to increase power level");
+                        //throw new Exception("Strengthen failed to increase power level");
                     }
                     return chosenEffect;
                 } else
@@ -135,11 +183,12 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                 DifficultyOption option = Utils.ChooseWeightedOption<DifficultyOption>(weightedOptions, Context.rng);
 
                 Effect? chosenEffect = option.Downgrade();
-                if (chosenEffect != null)
+                if (chosenEffect != null && WithinPowerLevel(chosenEffect))
                 {
                     if (chosenEffect.CalculatePowerLevel() >= CalculatePowerLevel())
                     {
-                        throw new Exception("Weaken failed to reduce power level");
+                        Log.Warning("Weaken failed to reduce power level");
+                        //throw new Exception("Weaken failed to reduce power level");
                     }
                     return chosenEffect;
                 }
@@ -151,14 +200,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
             return null;
         }
-        /// <summary>
-        /// Utility function to pick a random generatorOption from a list of possible options
-        /// </summary>
-        /// <param name="card"></param>
-        /// <param name="settings"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
 
+        protected bool WithinPowerLevel(Effect chosenEffect)
+        {
+            if (!chosenEffect.HasMinMaxPowerLevel || chosenEffect.Context?.chain.Count > 0)
+            {
+                return true;
+            } else
+            {
+                double powerLevel = chosenEffect.CalculatePowerLevel();
+                return powerLevel >= chosenEffect.MinPowerLevel && powerLevel <= chosenEffect.MaxPowerLevel;
+            }
+        }
 
         protected Context UpdateContext()
         {
@@ -166,7 +219,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             if (this.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
                 newContext.chain.Add((IParentEffect)this);
 
+            if (this.MentionsTarget)
+                newContext.targetMentioned = true;
+
             return newContext;
+        }
+
+        public Context? GetSameContext()
+        {
+            return Context?.Duplicate();
         }
     }
 }

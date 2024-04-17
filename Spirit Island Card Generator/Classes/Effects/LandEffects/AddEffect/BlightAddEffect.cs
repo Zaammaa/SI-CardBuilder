@@ -37,7 +37,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             addAmount = 1;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.Blighted))
                 return false;

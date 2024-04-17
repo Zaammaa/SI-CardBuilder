@@ -29,9 +29,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
         public Dictionary<int, double> multipliers = new Dictionary<int, double>()
         {
-            {1, 0.55},
-            {2, 0.30},
-            {3, 0.15}
+            {1, 0.45},
+            {2, 0.20},
+            {3, 0.1}
         };
 
         public override string ConditionText => $"You may destroy {presenceCost} of your " + "{presence}.\n" + "If you do:";
@@ -76,7 +76,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }

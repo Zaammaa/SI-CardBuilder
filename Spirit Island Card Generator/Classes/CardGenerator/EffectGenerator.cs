@@ -133,7 +133,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             foreach (T effect in options)
             {
                 //effect.InitializeEffect(context.card, context.settings);
-                if (effect.IsValid(context) && (context.chain.Count == 0 || !effect.TopLevelEffect()))
+                if (effect.IsValidGeneratorOption(context) && (context.chain.Count == 0 || !effect.TopLevelEffect()))
                 {
                     //TODO: change adjusted probability to use int instead.
                     weightedEffectChances.Add(effect, (int)(AdjustedProbabilities[effect.GetType()] * 1000));
@@ -172,7 +172,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Dictionary<T, int> weightedEffectChances = new Dictionary<T, int>();
             foreach (T option in options)
             {
-                if (option.IsValid(context) && (context.chain.Count == 0 || !option.TopLevelEffect()))
+                if (option.IsValidGeneratorOption(context) && (context.chain.Count == 0 || !option.TopLevelEffect()))
                 {
                     //TODO: change adjusted probability to use int instead.
                     weightedEffectChances.Add(option, (int)(AdjustedProbabilities[option.GetType()] * 10000));

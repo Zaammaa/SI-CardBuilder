@@ -20,7 +20,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             return 0;
         }
         public abstract IPowerLevel Duplicate();
-        public abstract bool IsValid(Context context);
+        public abstract bool IsValidGeneratorOption(Context context);
 
         public abstract double DifficultyMultiplier { get; }
 
@@ -47,7 +47,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
             List<Effect> children = context.GetSiblings();
             foreach (Effect child in children)
             {
-                if (!child.IsValid(context))
+                if (!child.IsValidGeneratorOption(context))
                 {
                     return false;
                 }

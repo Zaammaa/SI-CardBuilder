@@ -46,10 +46,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return "{dahan}" + $" have +{extraDahanHealth} Health while in target land";
+            if (Context.targetMentioned)
+            {
+                return "{dahan}" + $" have +{extraDahanHealth} Health";
+            }
+            else
+            {
+                return "{dahan}" + $" have +{extraDahanHealth} Health while in target land";
+            }
+            
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.SpiritTarget || context.target.landConditions.Contains(LandConditions.NoDahan) || !context.card.Fast || context.target.landConditions.Contains(LandConditions.NoInvaders))
                 return false;

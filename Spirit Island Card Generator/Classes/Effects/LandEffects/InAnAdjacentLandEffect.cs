@@ -42,7 +42,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }
@@ -173,6 +173,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public IEnumerable<Effect> GetChildren()
         {
             return Effects;
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (Effects.Remove(effect))
+            {
+                Effects.Add(newEffect);
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
     }
 }

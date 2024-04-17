@@ -28,6 +28,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public override bool Standalone { get { return false; } }
 
+        public override bool HasMinMaxPowerLevel => true;
+        public override double MinPowerLevel => (double)Context?.settings.TargetPowerLevel / 5;
+        public override double MaxPowerLevel => (double)Context?.settings.TargetPowerLevel / 2;
+
         public override Regex descriptionRegex
         {
             get
@@ -38,7 +42,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.chain.Count > 0)
                 return false;
@@ -73,7 +77,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             //    if (landEffect.GetType() == typeof(TargetLandConditionEffect) || landEffect.GetType() == typeof(LandElementalThresholdEffect))
             //        continue;
 
-            //    if (landEffect.IsValid(UpdateContext()))
+            //    if (landEffect.IsValidGeneratorOption(UpdateContext()))
             //    {
             //        landEffect.InitializeEffect(UpdateContext());
             //        validEffects.Add(landEffect);
@@ -140,6 +144,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public IEnumerable<Effect> GetChildren()
         {
             return Effects;
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (Effects.Remove(effect))
+            {
+                Effects.Add(newEffect);
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
 
         #region DifficultyOptions

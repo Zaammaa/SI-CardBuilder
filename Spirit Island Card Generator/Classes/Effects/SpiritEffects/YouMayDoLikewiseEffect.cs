@@ -24,11 +24,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
+        public override bool Standalone => false;
+        public override bool SelfReferencingPowerLevel => true;
+
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             
         };
 
+        public override int PrintOrder()
+        {
+            return 9;
+        }
 
         //Writes what goes on the card
         public override string Print()
@@ -36,7 +43,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             return $"You may do likewise";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             //This can only be valid if the target type is another spirit, or if this is under the "If you target another spirit" effect.
             if (!(context.target.targetType == Target.TargetType.AnotherSpirit || context.HasEffectAbove(typeof(IfYouTargetAnotherSpiritEffect))))
@@ -72,7 +79,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             double power = 0;
             foreach (Effect effect in Context.card.effects)
             {
-                if (effect.Equals(this) || Context.IsParent(effect, this))
+                if (effect.SelfReferencingPowerLevel || Context.IsParent(effect, this))
                     continue;
                 power += effect.CalculatePowerLevel();
             }

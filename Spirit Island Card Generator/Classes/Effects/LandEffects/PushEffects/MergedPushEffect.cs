@@ -132,7 +132,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             return pushEffects;
         }
 
-        public override bool IsValid(Context context)
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (pushEffects.Contains(effect))
+            {
+                pushEffects.Remove((PushEffect)effect);
+                pushEffects.Add((PushEffect)newEffect);
+            }
+            else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
+        }
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders) || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.Invaders))
                 return false;

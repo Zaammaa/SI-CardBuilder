@@ -18,6 +18,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         bool TopLevelEffect();
 
-        bool IsValid(Context context);
+        bool IsValidGeneratorOption(Context context);
     }
 }

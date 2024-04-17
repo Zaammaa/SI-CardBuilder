@@ -37,18 +37,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override string Print()
         {
             string powerCardText = amount > 1 ? "Power Cards" : "Power Card";
+            string targetText = Context.targetMentioned ? "they" : "Target Spirit";
+            string reclaimText = Context.targetMentioned ? "Reclaim" : "Reclaims";
             if (fromPlay)
             {
-                return "At the end of turn, Target Spirit may Reclaim " + amount + $" {powerCardText} instead of discarding {(amount > 1 ? "them" : "it")}";
+                return $"At the end of turn, {targetText} may Reclaim " + amount + $" {powerCardText} instead of discarding {(amount > 1 ? "them" : "it")}";
             }
             else
             {
-                return "Target Spirit Reclaims " + amount + $" {powerCardText}.";
+                return $"{targetText} {reclaimText} " + amount + $" {powerCardText}.";
             }
 
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }

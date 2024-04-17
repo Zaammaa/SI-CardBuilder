@@ -189,7 +189,7 @@ namespace Spirit_Island_Card_Generator.Classes
             return complexity;
         }
 
-        public bool IsValid(Context context)
+        public bool IsValidGeneratorOption(Context context)
         {
             Settings settings = context.settings;
             if (CalculatePowerLevel() >= settings.TargetPowerLevel + settings.PowerLevelVariance) {
@@ -222,7 +222,7 @@ namespace Spirit_Island_Card_Generator.Classes
 
             //foreach (Effect effect in effects)
             //{
-            //    if (!effect.IsValid(context)) { 
+            //    if (!effect.IsValidGeneratorOption(context)) { 
             //        return false;
             //    }
             //}

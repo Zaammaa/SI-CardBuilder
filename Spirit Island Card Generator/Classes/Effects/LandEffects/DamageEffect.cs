@@ -56,7 +56,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return damageAmount + " Damage.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.SpiritTarget || context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoInvaders))
                 return false;

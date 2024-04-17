@@ -38,7 +38,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
             return "This power may be {fast}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             foreach(Condition c in context.conditions) { 
                 //Powers don't target until the slow phase, so land targeting conditions don't make sense

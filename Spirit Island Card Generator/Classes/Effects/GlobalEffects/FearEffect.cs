@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 {
     [LandEffect]
-    [SpiritEffect]
     public class FearEffect : AmountEffect
     {
         public override double BaseProbability { get { return .33; } }
@@ -54,7 +53,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             return fearAmount + " {fear}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
                 return true;
         }

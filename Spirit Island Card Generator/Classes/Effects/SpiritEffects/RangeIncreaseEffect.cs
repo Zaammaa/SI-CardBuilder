@@ -43,10 +43,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return "Target Spirit gets +{range-" + rangeAmount + "} Range with all their Powers.";
+            if (Context.targetMentioned)
+            {
+                return "They get +{range-" + rangeAmount + "} Range with all their Powers.";
+            } else
+            {
+                return "Target Spirit gets +{range-" + rangeAmount + "} Range with all their Powers.";
+            }
+            
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (!context.target.SpiritTarget || !context.card.Fast)
                 return false;

@@ -47,7 +47,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return "Remove " + removeAmount + " {blight}.";
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             //TODO: At some point This should avoid cards that have a blight add effect too
             if (context.target.SpiritTarget || context.target.landConditions.Contains(LandConditions.Noblight))
@@ -64,7 +64,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override double CalculatePowerLevel()
         {
             //TODO: work with the calculated power levels
-            return (double)removeAmount * 1.2;
+            return (double)removeAmount * 1.5;
         }
 
         /// <summary>

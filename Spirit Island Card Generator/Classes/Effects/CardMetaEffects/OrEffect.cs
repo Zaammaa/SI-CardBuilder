@@ -2,6 +2,7 @@
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+using Spirit_Island_Card_Generator.Classes.Fixers;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             return 8;
         }
 
+        public override bool MentionsTarget {
+            get
+            {
+                if (Context.target.targetType == Target.TargetType.Land)
+                    return false;
+                else
+                    return true;
+            }
+        }
         public override bool Standalone { get { return false; } }
         public override bool TopLevelEffect()
         {
@@ -57,7 +67,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         //Writes what goes on the card
         public override string Print()
         {
-            if (Context.target.SpiritTarget)
+            if (Context.target.SpiritTarget && !Context.targetMentioned)
             {
                 return $"Target Spirit chooses to either:\n{choice1.Print()}\n"+"{or}"+$"\n{choice2.Print()}";
             } else
@@ -66,7 +76,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             }
         }
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.card.ContainsSameEffectType(this))
                 return false;
@@ -80,7 +90,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             {
                 choice1 = (Effect)Context.effectGenerator.ChooseEffect(UpdateContext());
                 choice2 = (Effect)Context.effectGenerator.ChooseEffect(UpdateContext());
-            } while (choice1 != null && choice2 != null && choice1.GetType() == choice2.GetType());
+            } while (choice1 != null && choice2 != null && choice1.GetType() == choice2.GetType() && choice1.CalculatePowerLevel() > 0 && choice2.CalculatePowerLevel() > 0);
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
@@ -117,6 +127,48 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         public IEnumerable<Effect> GetChildren()
         {
             return new List<Effect>() { choice1, choice2 };
+        }
+
+        public override IValidFixer? IsValid()
+        {
+            if (choice1.CalculatePowerLevel() < 0)
+            {
+                return new GenericFixer(() =>
+                {
+                    OrEffect fixedThis = (OrEffect)Duplicate();
+                    fixedThis.choice1 = Context?.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
+                    return fixedThis;
+                });
+            } else if (choice2.CalculatePowerLevel() < 0)
+            {
+                return new GenericFixer(() =>
+                {
+                    OrEffect fixedThis = (OrEffect)Duplicate();
+                    fixedThis.choice2 = Context?.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
+                    return fixedThis;
+                });
+            }
+            else if (!WithinPowerLevel(this))
+            {
+                return new PowerLevelFixer(this);
+            } else
+            {
+                return null;
+            }
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (choice1.Equals(effect))
+            {
+                choice1 = newEffect;
+            } else if (choice2.Equals(effect))
+            {
+                choice2 = newEffect;
+            } else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
 
         #region DifficultyOptions

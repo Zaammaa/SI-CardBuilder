@@ -159,8 +159,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
             Context = context;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
+            if (context.target.targetType != Target.TargetType.Land)
+                return false;
             return true;
         }
     }

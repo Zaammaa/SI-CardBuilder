@@ -42,7 +42,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             pushAmount = 2;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.landConditions.Contains(LandConditon.LandConditions.NoDahan))
                 return false;

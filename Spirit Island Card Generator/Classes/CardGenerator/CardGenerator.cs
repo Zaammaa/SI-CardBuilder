@@ -13,6 +13,7 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 using static Spirit_Island_Card_Generator.Classes.GameConcepts.Lands;
 using static Spirit_Island_Card_Generator.Classes.Card;
 using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
+using Spirit_Island_Card_Generator.Classes.Interfaces;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -76,7 +77,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Log.Information("Refining process:");
             Log.Information("{");
             //Step 5: Refine Balance
-            while (!card.IsValid(context))
+            while (!card.IsValidGeneratorOption(context))
             {
                 if (card.effects.Count == 1 && !card.effects.First().Standalone)
                 {
@@ -106,6 +107,40 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     Effect? effect = Utils.ChooseRandomListElement(card.effects, settings.rng);
                     card.effects.Remove(effect);
                 }
+
+                //Check effect validity
+                foreach (Effect effect in card.GetAllEffects())
+                {
+                    IValidFixer? fixer;
+                    fixer = effect.IsValid();
+                    Effect? newEffect = fixer?.Fix();
+                    if (newEffect != null)
+                    {
+                        if (card.effects.Contains(effect)) {
+                            card.effects.Remove(effect);
+                            card.effects.Add(newEffect);
+                        } else
+                        {
+                            IParentEffect? ParentEffect = effect.GetSameContext()?.Parent;
+                            if (ParentEffect != null)
+                            {
+                                ParentEffect.ReplaceEffect(effect, newEffect);
+                            }
+                        }
+                        break;
+                    } else if (newEffect == null && fixer != null)
+                    {
+                        Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
+                        if (topLevelEffect != null)
+                        {
+                            card.effects.Remove(topLevelEffect);
+                        } else
+                        {
+                            card.effects.Remove(effect);
+                        }
+                    }
+                }
+
             }
             Log.Information("}");
             //Step 6: Name
@@ -310,7 +345,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         //    foreach (Effect effect in effects)
         //    {
         //        effect.InitializeEffect(card, settings);
-        //        if (effect.IsValid(card, settings))
+        //        if (effect.IsValidGeneratorOption(card, settings))
         //        {
         //            //TODO: change adjusted probability to use int instead.
         //            weightedEffectChances.Add(effect, (int)(effect.AdjustedProbability * 100));

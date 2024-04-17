@@ -30,8 +30,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
                 return complexity;
             }
         }
-        public double minPowerLevel = 0.2;
-        public double maxPowerLevel = 0.5;
+
+        public override bool HasMinMaxPowerLevel => true;
+        public override double MinPowerLevel => (double)Context?.settings.TargetPowerLevel/5;
+        public override double MaxPowerLevel => (double)Context?.settings.TargetPowerLevel/2;
 
         public override int PrintOrder()
         {
@@ -102,7 +104,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         };
 
         //Checks if this should be an option for the card generator
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             //If there's more than 5 elements it's probably some specially made elemental card
             if (context.card.ContainsSameEffectType(new ElementalThresholdEffect()) || context.card.elements.GetElements().Count >= 5 || context.card.elements.GetElements().Count <= 1)
@@ -121,7 +123,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
             while (!AcceptablePowerLevel())
             {
-                if (CalculatePowerLevel() < minPowerLevel)
+                if (CalculatePowerLevel() < MinPowerLevel)
                 {
                     if (!UnDuplicate((ElementalThresholdEffect?)Strengthen()))
                     {
@@ -228,7 +230,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public bool AcceptablePowerLevel()
         {
             double powerLevel = CalculatePowerLevel();
-            return powerLevel >= minPowerLevel && powerLevel <= maxPowerLevel;
+            return powerLevel >= MinPowerLevel && powerLevel <= MaxPowerLevel;
         }
 
         private double CalculateElementalThresholdDifficulty()
@@ -447,6 +449,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         public IEnumerable<Effect> GetChildren()
         {
             return Effects;
+        }
+
+        public void ReplaceEffect(Effect effect, Effect newEffect)
+        {
+            if (Effects.Remove(effect))
+            {
+                Effects.Add(newEffect);
+            } else
+            {
+                throw new Exception("Replace called without the old effect existing");
+            }
         }
     }
 }

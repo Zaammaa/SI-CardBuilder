@@ -74,7 +74,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
             
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             return true;
         }

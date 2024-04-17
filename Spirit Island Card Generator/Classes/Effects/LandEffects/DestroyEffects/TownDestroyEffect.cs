@@ -41,7 +41,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
             destroyAmount = 1;
         }
 
-        public override bool IsValid(Context context)
+        public override bool IsValidGeneratorOption(Context context)
         {
             if (context.target.landConditions.Contains(LandConditions.NoInvaders) || context.target.landConditions.Contains(LandConditions.NoBuildings))
                 return false;
