@@ -25,8 +25,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         private Condition costCondition;
         public List<Effect> Effects = new List<Effect>();
         public override bool HasMinMaxPowerLevel => true;
-        public override double MinPowerLevel => (double)Context?.settings.TargetPowerLevel / 5;
-        public override double MaxPowerLevel => (double)Context?.settings.TargetPowerLevel / 2;
+        public override double MinPowerLevel => (double)Context?.settings.TargetPowerLevel * 0.3;
+        public override double MaxPowerLevel => (double)Context?.settings.TargetPowerLevel * 0.75;
 
         public override bool Standalone { get { return false; } }
 

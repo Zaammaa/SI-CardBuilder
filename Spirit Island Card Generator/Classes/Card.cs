@@ -1,4 +1,5 @@
-﻿using Spirit_Island_Card_Generator.Classes.CardGenerator;
+﻿using Spirit_Island_Card_Generator.Classes.ArtGeneration;
+using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 
@@ -71,6 +73,7 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public CardTypes CardType { get; set; }
         public string Name { get; set; }
+        public string ArtDataString { get; set; }
         public int Cost { get; set; }
         public bool Fast { get; set; }
         public Range Range { get; set; }
@@ -286,6 +289,20 @@ namespace Spirit_Island_Card_Generator.Classes
                 }
             }
             return children;
+        }
+
+        public void OnArtFinished(object sender, SimpleEventArgs e)
+        {
+            StableDiffusionResponse response = (StableDiffusionResponse)e.data;
+
+            ArtDataString = "data:image/png;base64," + response.images.First();
+
+            Match match = Regex.Match(response.info, @"PowerCard, ([^,]*), artwork by", RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                string title = match.Groups[1].Value;
+                Name = title;
+            }
         }
     }
 }

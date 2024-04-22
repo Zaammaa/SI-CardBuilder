@@ -25,7 +25,10 @@ namespace Spirit_Island_Card_Generator.Classes
         public int MaxComplexity = 20;
         public int MinComplexity = 8;
 
-        public int seed = 0;
+        public string workspace = @"D:\Spirit Island\Minor Power Decks";
+        public string deckName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+
+        public int seed = -1;
         private Random _rng;
         public Random rng { 
             get { 
@@ -33,7 +36,7 @@ namespace Spirit_Island_Card_Generator.Classes
                 {
                     return _rng;
                 }
-                else if (seed == 0)
+                else if (seed == -1)
                 {
                     _rng = new Random();
                     return _rng;
