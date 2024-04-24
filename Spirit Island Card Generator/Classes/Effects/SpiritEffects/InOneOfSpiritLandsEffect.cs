@@ -29,6 +29,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             }
         }
 
+        public EffectGeneratorSettings effectSettings
+        {
+            get
+            {
+                EffectGeneratorSettings effectSettings = EffectGeneratorSettings.GetStandardEffectSettings(CreateNewContext());
+                effectSettings.bannedAttributes.Add(new UnspecificLandAttribute());
+                return effectSettings;
+            }
+        }
+
         public Effect effect;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
@@ -59,7 +69,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         protected override void InitializeEffect()
         {
             Context newContext = CreateNewContext();
-            effect = (Effect)Context.effectGenerator.ChooseEffect(newContext);
+            effect = (Effect)Context.effectGenerator.ChooseEffect(effectSettings);
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
@@ -90,7 +100,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             Effect? newEffect = (Effect?)strongerThis.effect.Strengthen();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(CreateNewContext(), strongerThis.effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseStrongerEffect(effectSettings, strongerThis.effect.CalculatePowerLevel());
             }
             if (newEffect != null)
             {
@@ -109,7 +119,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             Effect? newEffect = (Effect?)weakerThis.effect.Weaken();
             if (newEffect == null)
             {
-                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(CreateNewContext(), weakerThis.effect.CalculatePowerLevel());
+                newEffect = (Effect?)Context?.effectGenerator.ChooseWeakerEffect(effectSettings, weakerThis.effect.CalculatePowerLevel());
             }
             if (newEffect != null)
             {

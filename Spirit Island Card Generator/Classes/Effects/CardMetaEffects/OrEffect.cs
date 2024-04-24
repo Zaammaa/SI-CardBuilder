@@ -129,7 +129,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
             return new List<Effect>() { choice1, choice2 };
         }
 
-        public override IValidFixer? IsValid()
+        protected override IValidFixer? CustomIsValid()
         {
             if (choice1.CalculatePowerLevel() < 0)
             {
@@ -137,7 +137,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
                 {
                     OrEffect fixedThis = (OrEffect)Duplicate();
                     fixedThis.choice1 = Context?.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
-                    return fixedThis;
+                    if (fixedThis.choice1 != null)
+                        return new FixerResult(FixerResult.FixResult.UpdateEffect, fixedThis);
+                    else return new FixerResult(FixerResult.FixResult.FixFailed, null);
                 });
             } else if (choice2.CalculatePowerLevel() < 0)
             {
@@ -145,7 +147,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
                 {
                     OrEffect fixedThis = (OrEffect)Duplicate();
                     fixedThis.choice2 = Context?.effectGenerator.ChooseStrongerEffect(UpdateContext(), 0);
-                    return fixedThis;
+                    if (fixedThis.choice2 != null)
+                        return new FixerResult(FixerResult.FixResult.UpdateEffect, fixedThis);
+                    else return new FixerResult(FixerResult.FixResult.FixFailed, null);
                 });
             }
             else if (!WithinPowerLevel(this))

@@ -17,7 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Fixers
             this.effect = effect;
         }
 
-        public Effect? Fix()
+        public FixerResult Fix()
         {
             Effect? newEffect = (Effect?)effect.Duplicate();
             while (newEffect != null && newEffect.CalculatePowerLevel() > newEffect.MaxPowerLevel)
@@ -28,7 +28,14 @@ namespace Spirit_Island_Card_Generator.Classes.Fixers
             {
                 newEffect = newEffect.Strengthen();
             }
-            return newEffect;
+            if (newEffect != null)
+            {
+                return new FixerResult(FixerResult.FixResult.UpdateEffect, newEffect);
+            } else
+            {
+                return new FixerResult(FixerResult.FixResult.FixFailed, null);
+            }
+            
         }
     }
 }

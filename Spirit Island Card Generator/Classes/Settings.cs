@@ -25,6 +25,9 @@ namespace Spirit_Island_Card_Generator.Classes
         public int MaxComplexity = 20;
         public int MinComplexity = 8;
 
+        //Generate Artworks
+        public bool GenerateArt = false;
+
         public string workspace = @"D:\Spirit Island\Minor Power Decks";
         public string deckName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 

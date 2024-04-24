@@ -57,14 +57,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
+            EffectGeneratorSettings effectSettings = new EffectGeneratorSettings(UpdateContext());
+            effectSettings.attributes.Add(new CostConditionAttribute());
             if (Context.target.SpiritTarget)
             {
-                costCondition = (Condition?)Context.effectGenerator.ChooseGeneratorOption<Condition>(new List<Attribute>() { new CostConditionAttribute() }, new List<Attribute>() { new LandConditionAttribute() }, UpdateContext());
+                effectSettings.bannedAttributes.Add(new LandConditionAttribute());
             } else
             {
-                costCondition = (Condition?)Context.effectGenerator.ChooseGeneratorOption<Condition>(new List<Attribute>() { new CostConditionAttribute() }, new List<Attribute>() { new SpiritConditionAttribute() }, UpdateContext());
+                effectSettings.bannedAttributes.Add(new SpiritConditionAttribute());
             }
-            
+            costCondition = (Condition?)Context.effectGenerator.ChooseGeneratorOption<Condition>(effectSettings);
             costCondition.Initialize(UpdateContext());
             Context.conditions.Add(costCondition);
             Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));

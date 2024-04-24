@@ -1,6 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
+using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
+    [UnspecificLand]
     internal class InAnAdjacentLandEffect : Effect, IParentEffect
     {
         //It's usually more efficient to do something in an another land. Plus it means extra range.
@@ -25,6 +27,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public List<Effect> Effects = new List<Effect>();
 
         public override bool Standalone { get { return false; } }
+
+        public EffectGeneratorSettings effectSettings
+        {
+            get
+            {
+                EffectGeneratorSettings effectSettings = EffectGeneratorSettings.GetStandardEffectSettings(UpdateContext());
+                effectSettings.bannedAttributes.Add(new UnspecificLandAttribute());
+                return effectSettings;
+            }
+        }
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
@@ -55,7 +67,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
-            Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
+
+            Effects.Add((Effect)Context.effectGenerator.ChooseEffect(effectSettings));
         }
 
         //Estimates the effects own power level
@@ -145,7 +158,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             InAnAdjacentLandEffect strongerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToStrengthen = Utils.ChooseRandomListElement(strongerThis.Effects, Context.rng);
 
-            Effect? strongerEffect = Context.effectGenerator.ChooseStrongerEffect(UpdateContext(), effectToStrengthen.CalculatePowerLevel());
+            Effect? strongerEffect = Context.effectGenerator.ChooseStrongerEffect(effectSettings, effectToStrengthen.CalculatePowerLevel());
             if (effectToStrengthen != null && strongerEffect != null)
             {
                 strongerThis.Effects.Remove(effectToStrengthen);
@@ -160,7 +173,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             InAnAdjacentLandEffect weakerThis = (InAnAdjacentLandEffect)Duplicate();
             Effect? effectToWeaken = Utils.ChooseRandomListElement(weakerThis.Effects, Context.rng);
 
-            Effect? weakerEffect = Context.effectGenerator.ChooseWeakerEffect(UpdateContext(), effectToWeaken.CalculatePowerLevel());
+            Effect? weakerEffect = Context.effectGenerator.ChooseWeakerEffect(effectSettings, effectToWeaken.CalculatePowerLevel());
             if (effectToWeaken != null && weakerEffect != null)
             {
                 weakerThis.Effects.Remove(effectToWeaken);

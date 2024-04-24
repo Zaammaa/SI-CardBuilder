@@ -1,4 +1,6 @@
+using Spirit_Island_Card_Generator.Classes;
 using Spirit_Island_Card_Generator.Classes.Analysis;
+using Spirit_Island_Card_Generator.Classes.ArtGeneration;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 
 namespace Spirit_Island_Card_Generator
@@ -17,7 +19,22 @@ namespace Spirit_Island_Card_Generator
 
         private void generateDeckBtn_Click(object sender, EventArgs e)
         {
-            DeckGenerator generator = new DeckGenerator(new Classes.Settings());
+            Settings settings = new Settings();
+
+            settings.GenerateArt = generateArtChkBox.Checked;
+            if (settings.GenerateArt && !Automatic1111Client.stableDiffusionClient.IsStableDiffusionRunning().Result)
+            {
+                MessageBox.Show("Stable Diffusion is not running. No art will be Generated");
+                settings.GenerateArt = false;
+            }
+
+            settings.TargetPowerLevel = (double)targetPowerLevelBox.Value;
+            settings.PowerLevelVariance = (double)varianceBox.Value;
+
+            if (!deckNameBox.Text.Equals(""))
+                settings.deckName = deckNameBox.Text;
+
+            DeckGenerator generator = new DeckGenerator(settings);
             generator.GenerateDeck();
         }
     }

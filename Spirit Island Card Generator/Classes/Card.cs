@@ -108,6 +108,18 @@ namespace Spirit_Island_Card_Generator.Classes
             return false;
         }
 
+        public bool ContainsSameEffectType(Type effectType)
+        {
+            foreach (Effect effect in GetAllEffects())
+            {
+                if (effect.GetType() == effectType)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public double CalculatePowerLevel()
         {
             double power = 0;
@@ -139,9 +151,12 @@ namespace Spirit_Island_Card_Generator.Classes
                 power += 0.15;
             }
 
-            if (Range.sacredSite)
+            if (Range.sacredSite && Range.range > 0)
             {
                 power -= 0.15;
+            } else if (Range.sacredSite)
+            {
+                power -= 0.4;
             }
 
             if (Range.SourceLand.HasValue) {

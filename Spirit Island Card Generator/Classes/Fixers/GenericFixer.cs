@@ -10,12 +10,12 @@ namespace Spirit_Island_Card_Generator.Classes.Fixers
 {
     internal class GenericFixer : IValidFixer
     {
-        public Func<Effect?> fixer = delegate { return null; };
-        public GenericFixer(Func<Effect?> fix) { 
+        public Func<FixerResult> fixer = delegate { return null; };
+        public GenericFixer(Func<FixerResult> fix) { 
             fixer = fix;
         }
 
-        public Effect? Fix()
+        public FixerResult Fix()
         {
             return fixer.Invoke();
         }

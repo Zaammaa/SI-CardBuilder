@@ -76,14 +76,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         public override double CalculatePowerLevel()
         {
-            double power = 0;
-            foreach (Effect effect in Context.card.effects)
-            {
-                if (effect.SelfReferencingPowerLevel || Context.IsParent(effect, this))
-                    continue;
-                power += effect.CalculatePowerLevel();
-            }
-            return power;
+            //double power = 0;
+            //foreach (Effect effect in Context.card.effects)
+            //{
+            //    if (effect.SelfReferencingPowerLevel || Context.IsParent(effect, this))
+            //        continue;
+            //    power += effect.CalculatePowerLevel();
+            //}
+            //return power;
+            return Context.settings.TargetPowerLevel / 2;
         }
     }
 }

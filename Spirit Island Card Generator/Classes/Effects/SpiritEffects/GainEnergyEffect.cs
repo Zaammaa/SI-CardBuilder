@@ -50,7 +50,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             if (Context.targetMentioned)
             {
-                return $"gain {energyAmount} Energy.";
+                return $"gains {energyAmount} Energy.";
             } else
             {
                 return $"Target Spirit gains {energyAmount} Energy.";

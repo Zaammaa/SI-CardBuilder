@@ -24,6 +24,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public virtual List<ElementSet.Element> StronglyAssociatedElements { get { return new List<ElementSet.Element>(); } }
         public virtual List<ElementSet.Element> WeaklyAssociatedElements { get { return new List<ElementSet.Element>(); } }
 
+        //Effects that cannot be on the same card as this effect
+        public virtual List<Type> IncompatibleEffects {  get { return new List<Type>(); } }
+        //Effects that this effect depends on. If those effects are removed, this effect is no longer valid
+        public List<Effect> LinkedEffects = new List<Effect>();
+
         protected Context? Context;
         //Whether the effect can be skipped. If it can, it should say "may"
         public bool optional = false;
@@ -42,15 +47,32 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public abstract IPowerLevel Duplicate();
         //If false, the card must have another effect.
 
-        public virtual IValidFixer? IsValid()
+        public IValidFixer? IsValid()
         {
-            if (WithinPowerLevel(this))
-            {
-                return null;
-            } else
+
+
+            //Standard checks
+            if (!WithinPowerLevel(this))
             {
                 return new PowerLevelFixer(this);
+            } else if (Context.card.GetAllEffects().Any((effect) => { return IncompatibleEffects.Contains(effect.GetType()); }))
+            {
+                return new IncompatableEffectsFixer(this);
+            } else if (LinkedEffects.Any((effect) => { return !Context.card.GetAllEffects().Contains(effect); }))
+            {
+                return new LinkedEffectFixer(this);
             }
+
+            IValidFixer? fixer = CustomIsValid();
+            if (fixer != null)
+                return fixer;
+
+            return null;
+        }
+
+        protected virtual IValidFixer? CustomIsValid()
+        {
+            return null;
         }
 
         public virtual void Fix()
@@ -80,6 +102,31 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         {
             return 5;
         }
+
+        public int StackPrintOrder()
+        {
+            int highestPrintOrder = 1;
+            foreach(Effect effect in GetAllEffectsInChain())
+            {
+                if (effect.PrintOrder() > highestPrintOrder)
+                    highestPrintOrder = effect.PrintOrder();
+            }
+            return highestPrintOrder;
+        }
+        public List<Effect> GetAllEffectsInChain()
+        {
+            List<Effect> effects = [this];
+            if (this.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
+            {
+                IParentEffect parentEffect = (IParentEffect)this;
+                foreach(Effect childEffects in parentEffect.GetChildren())
+                {
+                    effects.AddRange(childEffects.GetAllEffectsInChain());
+                }
+            }
+            return effects;
+        }
+
 
         public virtual bool MentionsTarget
         {

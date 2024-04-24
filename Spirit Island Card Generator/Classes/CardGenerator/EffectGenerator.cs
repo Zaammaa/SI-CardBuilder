@@ -106,31 +106,14 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public IGeneratorOption? ChooseEffect(Context context)
         {
-            IEnumerable<Effect> effects;
-            List<Attribute> attributes = new List<Attribute>();
+            EffectGeneratorSettings effectSettings = EffectGeneratorSettings.GetStandardEffectSettings(context);
+            return ChooseEffect(effectSettings);
+        }
 
-            if (context.target.SpiritTarget)
-            {
-                attributes.Add(new SpiritEffectAttribute());
-            }
-            else
-            {
-                attributes.Add(new LandEffectAttribute());
-            }
-
-            if (context.conditions.Count > 0)
-            {
-                attributes.Add(new ConditionalEffectAttribute());
-            }
-
-            //TODO remove this
-            if (context.target.SpiritTarget != context.card.Target.SpiritTarget && !context.HasEffectAbove(typeof(InOneOfSpiritLandsEffect)) && !context.HasEffectAbove(typeof(SpiritWithPresenceMayEffect)))
-            {
-                Log.Information("context target and card target are different! (this may or may not be intentional)");
-            }
-
-            Effect? effect = (Effect?)ChooseGeneratorOption<Effect>(attributes, new List<Attribute>(), context);
-            effect?.InitializeEffect(context);
+        public IGeneratorOption ChooseEffect(EffectGeneratorSettings effectSettings)
+        {
+            Effect? effect = (Effect?)ChooseGeneratorOption<Effect>(effectSettings);
+            effect?.InitializeEffect(effectSettings.context);
             return effect;
         }
 
@@ -160,22 +143,20 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public IGeneratorOption? ChooseGeneratorOption<T>(Attribute attribute, Context context) where T : IGeneratorOption
         {
-            return ChooseGeneratorOption<T>(new List<Attribute>() { attribute }, new List<Attribute>(), context);
+            EffectGeneratorSettings effectSettings = new EffectGeneratorSettings(context);
+            effectSettings.attributes.Add(attribute);
+            return ChooseGeneratorOption<T>(effectSettings);
         }
 
-        public IGeneratorOption ChooseGeneratorOption<T>(List<Attribute> attributes, List<Attribute> bannedAttributes, Context context) where T : IGeneratorOption
+        public IGeneratorOption ChooseGeneratorOption<T>(EffectGeneratorSettings effectSettings) where T : IGeneratorOption
         {
             List<Type> types = new List<Type>();
-            foreach (Attribute attribute in attributes)
+            foreach (Attribute attribute in effectSettings.attributes)
             {
                 List<Type> allTypes = ReflectionManager.GetAttributeClasses(attribute);
                 foreach(Type type in allTypes)
                 {
-                    if (!types.Contains(type) &&
-                        !bannedAttributes.Any((bannedAtt) => { return type.GetType().GetCustomAttribute(bannedAtt.GetType()) != null; }) &&
-                        !context.card.effects.Any((effect) => { return effect.GetType() == type; }) &&
-                        !context.GetSiblings().Any((effect) => { return effect.GetType() == type; })
-                    )
+                    if (!types.Contains(type) && effectSettings.Matches(type))
                     { 
                         types.Add(type);
                     }
@@ -187,20 +168,31 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Dictionary<T, int> weightedEffectChances = new Dictionary<T, int>();
             foreach (T option in options)
             {
-                if (option.IsValidGeneratorOption(context) && (context.chain.Count == 0 || !option.TopLevelEffect()))
+                if (option.IsValidGeneratorOption(effectSettings.context) && (effectSettings.context.chain.Count == 0 || !option.TopLevelEffect()))
                 {
                     //TODO: change adjusted probability to use int instead.
                     weightedEffectChances.Add(option, (int)(AdjustedProbabilities[option.GetType()] * 10000));
                 }
             }
-            T? choosenEffect = Utils.ChooseWeightedOption<T>(weightedEffectChances, context.rng);
+            T? choosenEffect = Utils.ChooseWeightedOption<T>(weightedEffectChances, effectSettings.context.rng);
             return choosenEffect;
         }
 
         //Choose a random effect and upgrade it until it is stronger than a given amount, or until it cannot be made stronger. If the later happens, return null
         public Effect? ChooseStrongerEffect(Context context, double minPower)
         {
-            Effect? option = (Effect?)ChooseEffect(context);
+            return ChooseStrongerEffect(EffectGeneratorSettings.GetStandardEffectSettings(context), minPower);
+        }
+        //Choose an effect and downgrade it until it is weaker than a given amount, or until it cannot be made weaker. If the later happens, return null
+        public Effect? ChooseWeakerEffect(Context context, double maxPower)
+        {
+            return ChooseWeakerEffect(EffectGeneratorSettings.GetStandardEffectSettings(context), maxPower);
+        }
+
+        //Choose a random effect and upgrade it until it is stronger than a given amount, or until it cannot be made stronger. If the later happens, return null
+        public Effect? ChooseStrongerEffect(EffectGeneratorSettings effectSettings, double minPower)
+        {
+            Effect? option = (Effect?)ChooseEffect(effectSettings);
             while (option != null && option.CalculatePowerLevel() <= minPower)
             {
                 option = option.Strengthen();
@@ -208,9 +200,9 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return option;
         }
         //Choose an effect and downgrade it until it is weaker than a given amount, or until it cannot be made weaker. If the later happens, return null
-        public Effect? ChooseWeakerEffect(Context context, double maxPower)
+        public Effect? ChooseWeakerEffect(EffectGeneratorSettings effectSettings, double maxPower)
         {
-            Effect? option = (Effect?)ChooseEffect(context);
+            Effect? option = (Effect?)ChooseEffect(effectSettings);
             while (option != null && option.CalculatePowerLevel() >= maxPower)
             {
                 option = option.Weaken();

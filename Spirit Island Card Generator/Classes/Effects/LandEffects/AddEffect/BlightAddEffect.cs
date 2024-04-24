@@ -19,6 +19,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Blight;
 
+        public override List<Type> IncompatibleEffects {  get { return new List<Type>() { typeof(VitalityAddEffect), typeof(RemoveBlightEffect)}; } }
+
         protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0 }
@@ -41,7 +43,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 
         public override bool IsValidGeneratorOption(Context context)
         {
-            if (context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.Blighted))
+            if (context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.Blighted) || context.card.Range.range == 0)
                 return false;
             return true;
         }

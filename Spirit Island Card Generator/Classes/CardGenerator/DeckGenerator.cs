@@ -39,7 +39,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
                 PostProcessCard(card);
                 deck.Add(card);
-                QueueArtwork(card, i);
+                if (settings.GenerateArt)
+                    QueueArtwork(card, i);
             }
             Log.Information("---------------------------Finished Deck---------------------------");
             Log.Information("Element Counts:");
@@ -48,6 +49,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 Log.Information($"{el}: {elementCounts[el]}");
             }
             cardGenerator.generator.LogTrackedStats();
+
+            if (!settings.GenerateArt)
+            {
+                CreateBuilderFile();
+                Cleanup();
+            }
         }
 
         private void SetupWorkSpace()
@@ -113,7 +120,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Log.Information("Cost: " + card.Cost);
             Log.Information($"Target: {card.Target.Print()}");
             Log.Information($"Range: {card.Range.Print()}");
-            card.effects.Sort((x, y) => x.PrintOrder().CompareTo(y.PrintOrder()));
+            card.effects.Sort((x, y) => x.StackPrintOrder().CompareTo(y.StackPrintOrder()));
             foreach (Effect effect in card.effects)
             {
                 if (effect.GetType() != typeof(ElementalThresholdEffect))

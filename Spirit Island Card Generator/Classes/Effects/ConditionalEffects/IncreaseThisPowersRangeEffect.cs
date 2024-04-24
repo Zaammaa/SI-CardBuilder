@@ -12,6 +12,7 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
 {
     [ConditionalEffect]
+    [UnspecificLand]
     internal class IncreaseThisPowersRangeEffect : Effect
     {
         public override double BaseProbability { get { return .1; } }

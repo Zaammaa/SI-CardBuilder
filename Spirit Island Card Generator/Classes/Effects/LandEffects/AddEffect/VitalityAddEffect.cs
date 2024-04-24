@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects;
 using Spirit_Island_Card_Generator.Classes.GameConcepts;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
@@ -18,6 +19,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Earth }; } }
         public override double BaseProbability { get { return .04; } }
         public override int Complexity { get { return 2; } }
+
+        public override List<Type> IncompatibleEffects { get { return new List<Type>() { typeof(BlightAddEffect), typeof(BlightGatherEffect) }; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Vitality;
 
         protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()

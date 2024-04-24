@@ -14,6 +14,7 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.Lands;
 using static Spirit_Island_Card_Generator.Classes.Card;
 using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
+using Spirit_Island_Card_Generator.Classes.Fixers;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -113,31 +114,50 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 {
                     IValidFixer? fixer;
                     fixer = effect.IsValid();
-                    Effect? newEffect = fixer?.Fix();
-                    if (newEffect != null)
+                    if (fixer == null)
+                        continue;
+
+                    FixerResult result = fixer.Fix();
+                    if (result.result == FixerResult.FixResult.UpdateEffect)
                     {
+                        Effect updatedEffect = (Effect)result.resultObj;
                         if (card.effects.Contains(effect)) {
                             card.effects.Remove(effect);
-                            card.effects.Add(newEffect);
+                            card.effects.Add(updatedEffect);
                         } else
                         {
                             IParentEffect? ParentEffect = effect.GetSameContext()?.Parent;
                             if (ParentEffect != null)
                             {
-                                ParentEffect.ReplaceEffect(effect, newEffect);
+                                ParentEffect.ReplaceEffect(effect, updatedEffect);
                             }
                         }
-                        break;
-                    } else if (newEffect == null && fixer != null)
+                    } else if (result.result == FixerResult.FixResult.RemoveEffect)
                     {
-                        Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
+                        Effect effectToRemove = (Effect)result.resultObj;
+                        Effect? topLevelEffect = (Effect?)effectToRemove.GetSameContext()?.chain.FirstOrDefault();
                         if (topLevelEffect != null)
                         {
                             card.effects.Remove(topLevelEffect);
                         } else
                         {
+                            card.effects.Remove(effectToRemove);
+                        }
+                    } else if (result.result == FixerResult.FixResult.FixFailed)
+                    {
+                        Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
+                        if (topLevelEffect != null)
+                        {
+                            card.effects.Remove(topLevelEffect);
+                        }
+                        else
+                        {
                             card.effects.Remove(effect);
                         }
+                            
+                    } else if (result.result == FixerResult.FixResult.FixError)
+                    {
+                        Log.Warning("Fix result had an error");
                     }
                 }
 

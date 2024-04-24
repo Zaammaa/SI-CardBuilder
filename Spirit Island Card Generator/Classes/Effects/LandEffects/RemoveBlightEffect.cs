@@ -1,5 +1,7 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override double BaseProbability { get { return .10; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 1; } }
+
+        public override List<Type> IncompatibleEffects { get { return new List<Type>() { typeof(BlightAddEffect), typeof(BlightPushEffect) }; } }
 
         public override Regex descriptionRegex
         {

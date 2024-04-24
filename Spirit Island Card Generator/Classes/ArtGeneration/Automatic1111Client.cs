@@ -116,7 +116,7 @@ namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
 
         public async Task<bool> IsStableDiffusionRunning()
         {
-            var response = await client.GetAsync(@"http://127.0.0.1:7860/internal/ping");
+            var response = client.GetAsync(@"http://127.0.0.1:7860/internal/ping").Result;
             return response.StatusCode == HttpStatusCode.OK;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Effects;
+using Spirit_Island_Card_Generator.Classes.Fixers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace Spirit_Island_Card_Generator.Classes.Interfaces
         //Attempts to make the effect valid
         //If it fails this will return null
         //If it succeeds, this will return the new effect
-        public Effect? Fix();
+        public FixerResult Fix();
     }
 }
