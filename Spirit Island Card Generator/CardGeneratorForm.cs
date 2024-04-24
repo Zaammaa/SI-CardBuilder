@@ -31,6 +31,8 @@ namespace Spirit_Island_Card_Generator
             settings.TargetPowerLevel = (double)targetPowerLevelBox.Value;
             settings.PowerLevelVariance = (double)varianceBox.Value;
 
+            settings.CustomEffectLevel = (int)customEffectLevelBox.Value;
+
             if (!deckNameBox.Text.Equals(""))
                 settings.deckName = deckNameBox.Text;
 

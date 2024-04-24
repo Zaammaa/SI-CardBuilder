@@ -1,7 +1,9 @@
-﻿using Spirit_Island_Card_Generator.Classes.ArtGeneration;
+﻿using OpenQA.Selenium.Internal;
+using Spirit_Island_Card_Generator.Classes.ArtGeneration;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
+using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
@@ -234,6 +236,12 @@ namespace Spirit_Island_Card_Generator.Classes
                 //{
                 //    return false;
                 //}
+                return false;
+            }
+
+            //Standalone should not count elemental threshold effects
+            List<Effect> nonElementalThresholdEffects = effects.FindAll((effect) => { return !effect.GetType().Equals(typeof(ElementalThresholdEffect)); });
+            if (nonElementalThresholdEffects.Count < effects.Count && nonElementalThresholdEffects.Count == 1 && nonElementalThresholdEffects.First().Standalone){
                 return false;
             }
 

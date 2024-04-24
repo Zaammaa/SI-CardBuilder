@@ -12,6 +12,7 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 {
     [SpiritEffect]
+    [CustomEffect(1)]
     internal class GainAnyElementEffect : Effect
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Moon}; } }

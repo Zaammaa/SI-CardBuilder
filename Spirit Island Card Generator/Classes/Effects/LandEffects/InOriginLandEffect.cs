@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
     [UnspecificLand]
+    [CustomEffect(1)]
     internal class InOriginLandEffect : Effect, IParentEffect
     {
         //It's usually more efficient to do something in an another land. Plus it means extra range.

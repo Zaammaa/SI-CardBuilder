@@ -13,6 +13,7 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
+    [CustomEffect(1)]
     internal class VitalityAddEffect : AddEffect
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Plant, Element.Water }; } }

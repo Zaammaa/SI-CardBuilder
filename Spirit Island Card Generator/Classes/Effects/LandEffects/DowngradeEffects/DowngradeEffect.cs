@@ -12,6 +12,7 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffects
 {
     [LandEffect]
+    [CustomEffect(1)]
     internal class DowngradeEffect : AmountEffect
     {
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Moon, Element.Water }; } }

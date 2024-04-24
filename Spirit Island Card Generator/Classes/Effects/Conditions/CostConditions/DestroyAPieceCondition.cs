@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
     [CostCondition]
     [LandCondition]
+    [CustomEffect(3)]
     internal class DestroyAPieceCondition : Condition
     {
         public override double BaseProbability => 0.1;

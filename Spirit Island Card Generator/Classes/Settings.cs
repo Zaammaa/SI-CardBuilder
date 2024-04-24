@@ -25,6 +25,9 @@ namespace Spirit_Island_Card_Generator.Classes
         public int MaxComplexity = 20;
         public int MinComplexity = 8;
 
+        //Weirdness of custom effects goes from 1-5. Each level includes all the ones below it
+        public int CustomEffectLevel = 3;
+
         //Generate Artworks
         public bool GenerateArt = false;
 

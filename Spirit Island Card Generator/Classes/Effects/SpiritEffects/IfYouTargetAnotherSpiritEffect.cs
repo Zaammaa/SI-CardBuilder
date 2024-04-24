@@ -8,7 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class IfYouTargetAnotherSpiritEffect : Effect, IParentEffect
     {
-        public override double BaseProbability => 0.05;
+        public override double BaseProbability => 0.1;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }
 

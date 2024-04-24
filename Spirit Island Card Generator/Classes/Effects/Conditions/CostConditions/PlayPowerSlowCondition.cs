@@ -11,6 +11,7 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
     [CostCondition]
+    [CustomEffect(3)]
     internal class PlayPowerSlowCondition : Condition
     {
         public override double BaseProbability => 0.05;

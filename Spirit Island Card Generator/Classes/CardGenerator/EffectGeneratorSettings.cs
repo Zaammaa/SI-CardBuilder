@@ -25,8 +25,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public bool Matches(Type type)
         {
+            CustomEffectAttribute? customAtt = type.GetCustomAttribute<CustomEffectAttribute>();
+            int customLevel = customAtt == null ? 0 : customAtt.level;
+
             if (
                 !bannedAttributes.Any((bannedAtt) => { return type.GetCustomAttribute(bannedAtt.GetType()) != null; }) &&
+                customLevel <= context.settings.CustomEffectLevel &&
                 !context.card.effects.Any((effect) => { return effect.GetType() == type; }) &&
                 !context.GetSiblings().Any((effect) => { return effect.GetType() == type; }) &&
                 !blacklist.Contains(type) &&
@@ -57,6 +61,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 attributes.Add(new ConditionalEffectAttribute());
             }
             effectSettings.attributes.AddRange(attributes);
+            
 
             return effectSettings;
         }

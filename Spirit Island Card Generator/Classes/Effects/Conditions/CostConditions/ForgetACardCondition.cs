@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 {
     [CostCondition]
+    [CustomEffect(4)]
     internal class ForgetACardCondition : Condition
     {
         public override double BaseProbability => 0.05;

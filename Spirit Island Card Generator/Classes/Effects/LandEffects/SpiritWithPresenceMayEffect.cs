@@ -13,6 +13,7 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
+    [CustomEffect(3)]
     internal class SpiritWithPresenceMayEffect : Effect, IParentEffect
     {
         public override double BaseProbability { get { return .02; } }

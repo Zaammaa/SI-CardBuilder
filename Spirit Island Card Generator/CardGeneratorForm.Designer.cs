@@ -32,25 +32,28 @@
             generateDeckBtn = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label5 = new Label();
+            deckNameBox = new TextBox();
+            numericUpDown1 = new NumericUpDown();
+            label3 = new Label();
+            label4 = new Label();
+            numericUpDown2 = new NumericUpDown();
             varianceBox = new NumericUpDown();
             label2 = new Label();
             label1 = new Label();
             targetPowerLevelBox = new NumericUpDown();
             generateArtChkBox = new CheckBox();
             tabPage2 = new TabPage();
-            numericUpDown1 = new NumericUpDown();
-            label3 = new Label();
-            label4 = new Label();
-            numericUpDown2 = new NumericUpDown();
-            deckNameBox = new TextBox();
-            label5 = new Label();
+            customEffectLevelBox = new NumericUpDown();
+            label6 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)varianceBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)targetPowerLevelBox).BeginInit();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).BeginInit();
             SuspendLayout();
             // 
             // scanBtn
@@ -85,6 +88,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(customEffectLevelBox);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(deckNameBox);
             tabPage1.Controls.Add(numericUpDown1);
@@ -104,6 +109,57 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 14);
+            label5.Name = "label5";
+            label5.Size = new Size(68, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Deck Name";
+            // 
+            // deckNameBox
+            // 
+            deckNameBox.Location = new Point(6, 32);
+            deckNameBox.Name = "deckNameBox";
+            deckNameBox.Size = new Size(100, 23);
+            deckNameBox.TabIndex = 11;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Increment = new decimal(new int[] { 0, 0, 0, 0 });
+            numericUpDown1.Location = new Point(132, 123);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(120, 23);
+            numericUpDown1.TabIndex = 10;
+            numericUpDown1.Value = new decimal(new int[] { 20, 0, 0, 0 });
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(132, 105);
+            label3.Name = "label3";
+            label3.Size = new Size(94, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Max Complexity";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 105);
+            label4.Name = "label4";
+            label4.Size = new Size(92, 15);
+            label4.TabIndex = 8;
+            label4.Text = "Min Complexity";
+            // 
+            // numericUpDown2
+            // 
+            numericUpDown2.Location = new Point(6, 123);
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(120, 23);
+            numericUpDown2.TabIndex = 7;
+            numericUpDown2.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // varianceBox
             // 
@@ -164,56 +220,23 @@
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // customEffectLevelBox
             // 
-            numericUpDown1.Increment = new decimal(new int[] { 0, 0, 0, 0 });
-            numericUpDown1.Location = new Point(132, 123);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
-            numericUpDown1.TabIndex = 10;
-            numericUpDown1.Value = new decimal(new int[] { 20, 0, 0, 0 });
+            customEffectLevelBox.Location = new Point(6, 171);
+            customEffectLevelBox.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            customEffectLevelBox.Name = "customEffectLevelBox";
+            customEffectLevelBox.Size = new Size(120, 23);
+            customEffectLevelBox.TabIndex = 13;
+            customEffectLevelBox.Value = new decimal(new int[] { 3, 0, 0, 0 });
             // 
-            // label3
+            // label6
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(132, 105);
-            label3.Name = "label3";
-            label3.Size = new Size(94, 15);
-            label3.TabIndex = 9;
-            label3.Text = "Max Complexity";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(6, 105);
-            label4.Name = "label4";
-            label4.Size = new Size(92, 15);
-            label4.TabIndex = 8;
-            label4.Text = "Min Complexity";
-            // 
-            // numericUpDown2
-            // 
-            numericUpDown2.Location = new Point(6, 123);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(120, 23);
-            numericUpDown2.TabIndex = 7;
-            numericUpDown2.Value = new decimal(new int[] { 8, 0, 0, 0 });
-            // 
-            // deckNameBox
-            // 
-            deckNameBox.Location = new Point(6, 32);
-            deckNameBox.Name = "deckNameBox";
-            deckNameBox.Size = new Size(100, 23);
-            deckNameBox.TabIndex = 11;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(6, 14);
-            label5.Name = "label5";
-            label5.Size = new Size(68, 15);
-            label5.TabIndex = 12;
-            label5.Text = "Deck Name";
+            label6.AutoSize = true;
+            label6.Location = new Point(4, 153);
+            label6.Name = "label6";
+            label6.Size = new Size(112, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Custom Effect Level";
             // 
             // CardGeneratorForm
             // 
@@ -226,11 +249,12 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)varianceBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)targetPowerLevelBox).EndInit();
             tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -252,5 +276,7 @@
         private NumericUpDown numericUpDown2;
         private Label label5;
         private TextBox deckNameBox;
+        private Label label6;
+        private NumericUpDown customEffectLevelBox;
     }
 }
