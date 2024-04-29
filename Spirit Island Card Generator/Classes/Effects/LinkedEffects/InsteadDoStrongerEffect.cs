@@ -19,7 +19,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LinkedEffects
 
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
 
-        public override int Complexity => 3;
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 4;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         protected override DifficultyOption[] difficultyOptions => [
             new DifficultyOption("ChangeStrength", 100, StrengthenEffect, WeakenEffect)

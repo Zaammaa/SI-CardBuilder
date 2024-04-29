@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 using static Spirit_Island_Card_Generator.Classes.GameConcepts.Lands;
 
 namespace Spirit_Island_Card_Generator.Classes.TargetConditions
@@ -133,7 +135,7 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             {LandConditions.Dahan, "{dahan}" },
             {LandConditions.NoDahan, "{no-dahan}" },
             {LandConditions.Buildings, "{town}/{city}" },
-            {LandConditions.NoBuildings, "{no-town}/{no-city}" },
+            {LandConditions.NoBuildings, "{no-town}{no-city}" },
             {LandConditions.City, "{city}" },
             {LandConditions.NoCity, "{no-city}" },
             {LandConditions.Invaders, "Invaders" },
@@ -141,6 +143,60 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             {LandConditions.Coastal, "Coastal" },
             {LandConditions.Inland, "Inland" },
         };
+
+        public static Dictionary<Piece, List<LandConditions>> PieceImplications = new Dictionary<Piece, List<LandConditions>>() {
+            {Piece.Blight, new List<LandConditions>() {LandConditions.Blighted} },
+            {Piece.City, new List<LandConditions>() {LandConditions.City, LandConditions.Invaders, LandConditions.Buildings} },
+            {Piece.Town, new List<LandConditions>() {LandConditions.Invaders, LandConditions.Buildings} },
+            {Piece.Explorer, new List<LandConditions>() {LandConditions.Invaders} },
+            {Piece.Dahan, new List<LandConditions>() {LandConditions.Dahan} },
+            {Piece.Invader, new List<LandConditions>() {LandConditions.Invaders} },
+            {Piece.Wilds, new List<LandConditions>() {} },
+            {Piece.Beast, new List<LandConditions>() {} },
+            {Piece.Disease, new List<LandConditions>() {} },
+            {Piece.Strife, new List<LandConditions>() {} },
+            {Piece.Badland, new List<LandConditions>() {} },
+            {Piece.Vitality, new List<LandConditions>() {} },
+            {Piece.Presence, new List<LandConditions>() {} },
+            {Piece.SacredSite, new List<LandConditions>() {} },
+            {Piece.DestroyedPresence, new List<LandConditions>() {} },
+            {Piece.NoPiece, new List<LandConditions>() {LandConditions.Noblight, LandConditions.NoBuildings, LandConditions.NoCity, LandConditions.NoDahan, LandConditions.NoInvaders} },
+        };
+
+
+        //Reads a list of conditions and find which pieces are invalid
+        public static IEnumerable<Piece> ConditionToInvalidPieces(List<LandConditions> conditions)
+        {
+            HashSet<Piece> inValidPieces = new HashSet<Piece>();
+            foreach(LandConditions condition in conditions)
+            {
+                switch (condition)
+                {
+                    case LandConditions.Noblight:
+                        inValidPieces.Add(Piece.Blight);
+                        break;
+                    case LandConditions.NoCity:
+                        inValidPieces.Add(Piece.City);
+                        break;
+                    case LandConditions.NoDahan:
+                        inValidPieces.Add(Piece.Dahan);
+                        break;
+                    case LandConditions.NoInvaders:
+                        inValidPieces.Add(Piece.Explorer);
+                        inValidPieces.Add(Piece.Town);
+                        inValidPieces.Add(Piece.City);
+                        inValidPieces.Add(Piece.Invader);
+                        break;
+                    case LandConditions.NoBuildings:
+                        inValidPieces.Add(Piece.Town);
+                        inValidPieces.Add(Piece.City);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return inValidPieces;
+        }
 
         public static string Print(LandConditions landConditions)
         {

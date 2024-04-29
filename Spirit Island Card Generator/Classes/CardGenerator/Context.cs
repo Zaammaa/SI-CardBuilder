@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public Card card;
         public Random rng;
         public EffectGenerator effectGenerator;
+        public CardTargets targetContext;
 
         public enum CardTargets
         {
@@ -26,6 +27,39 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Land,
             AdjacentLand,
             OriginLand
+        }
+
+        public string GetTargetString(CardTargets target)
+        {
+            switch (targetContext)
+            {
+                case CardTargets.NONE:
+                    return "";
+                case CardTargets.You:
+                    return "you";
+                case CardTargets.TargetSpirit:
+                    if (targetMentioned && target == targetContext)
+                        return "they";
+                    else
+                        return "Target Spirit";
+                case CardTargets.Land:
+                    if (targetMentioned && target == targetContext)
+                        return "that land";
+                    else
+                        return "target Land";
+                case CardTargets.AdjacentLand:
+                    if (targetMentioned && target == targetContext)
+                        return "in that land";
+                    else
+                        return "in an adjacent land";
+                case CardTargets.OriginLand:
+                    if (targetMentioned && target == targetContext)
+                        return "in that land";
+                    else
+                        return "in the origin land";
+                default:
+                    return "[target]";
+            }
         }
 
         //Whether we are targeting a spirit or a land. This is different from the card target in some cases. Either a spirit targeting card with a term like "in one of target spirit's lands (do land effect)", or a land targeting card with a clause like "A spirit in target land may (do spirit effect)"
@@ -112,6 +146,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             newContext.conditions = new List<Effects.Conditions.Condition>(this.conditions);
             newContext.target = this.target.CreateShallowCopy();
             newContext.targetMentioned = this.targetMentioned;
+            newContext.targetContext = this.targetContext;
 
             newContext.chain = new List<IParentEffect>(this.chain);
 

@@ -46,10 +46,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
         Dictionary<GamePieces.Piece, WeightAndMultiplier> pieceOptions = new Dictionary<GamePieces.Piece, WeightAndMultiplier>()
         {
-            {GamePieces.Piece.Dahan, new WeightAndMultiplier(0.6, 50) },
-            {GamePieces.Piece.Beast, new WeightAndMultiplier(0.7, 20) },
+            {GamePieces.Piece.Dahan, new WeightAndMultiplier(0.5, 50) },
+            {GamePieces.Piece.Beast, new WeightAndMultiplier(0.55, 20) },
             {GamePieces.Piece.Blight, new WeightAndMultiplier(0.9, 10) }, //Needs special text
-            {GamePieces.Piece.Presence, new WeightAndMultiplier(0.5, 20) }, //Needs special text
+            {GamePieces.Piece.Presence, new WeightAndMultiplier(0.45, 20) }, //Needs special text
             //I'm going to treat this one as Disease/Wilds/Strife/Badlands
             {GamePieces.Piece.Disease, new WeightAndMultiplier(0.55, 20) }, //Needs special text
 

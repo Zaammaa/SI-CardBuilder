@@ -21,7 +21,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     {
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
-        public override int Complexity { get { return 6; } }
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         private LandTypeCondition? condition;
         public List<Effect> Effects = new List<Effect>();
@@ -57,7 +65,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         protected override DifficultyOption[] difficultyOptions =>
         [
             new DifficultyOption("Change Effect Strength", 80, StrengthenEffect, WeakenEffect),
-            new DifficultyOption("Choose Different Condition", 20, ChooseEasierCondition, ChooseHarderCondition), 
+            //Disabling this for now. I don't trust the context chain to update with how it works right now
+            //new DifficultyOption("Choose Different Condition", 20, ChooseEasierCondition, ChooseHarderCondition), 
         ];
 
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
@@ -69,7 +78,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             Target target = Context.card.Target.CreateShallowCopy();
             target.landConditions.Add(condition.landCondition);
             Context.target = target;
-            
+
             //List<Effect> effects = ReflectionManager.GetInstanciatedSubClasses<Effect>();
             //List<Effect> validEffects = new List<Effect>();
             //foreach (Effect landEffect in effects)
@@ -83,6 +92,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             //        validEffects.Add(landEffect);
             //    }
             //}
+
             Effects.Add((Effect)Context.effectGenerator.ChooseEffect(UpdateContext()));
 
         }

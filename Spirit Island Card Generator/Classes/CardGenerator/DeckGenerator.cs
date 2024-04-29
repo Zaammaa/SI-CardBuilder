@@ -125,7 +125,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 if (effect.GetType() != typeof(ElementalThresholdEffect))
                 {
-                    card.descrition += effect.Print() + "\n";
+                    card.descrition += effect.Print() + ".\n";
                 }
                 else
                 {

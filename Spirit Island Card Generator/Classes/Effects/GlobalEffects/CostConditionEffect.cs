@@ -1,4 +1,5 @@
-﻿using Spirit_Island_Card_Generator.Classes.Attributes;
+﻿using OpenQA.Selenium.Internal;
+using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions;
@@ -18,9 +19,29 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [SpiritEffect]
     internal class CostConditionEffect : Effect, IParentEffect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                if (Context.target.SpiritTarget)
+                {
+                    return Context.CardTargets.TargetSpirit;
+                }
+                else
+                {
+                    return Context.CardTargets.Land;
+                }
+            }
+        }
         public override double BaseProbability { get { return .15; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 4; } }
+        public override int Complexity { get 
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         private Condition costCondition;
         public List<Effect> Effects = new List<Effect>();

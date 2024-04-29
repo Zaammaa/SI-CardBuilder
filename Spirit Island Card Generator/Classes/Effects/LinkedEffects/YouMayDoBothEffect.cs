@@ -15,6 +15,13 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LinkedEffects
     [UnspecificLand]
     internal class YouMayDoBothEffect : Effect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                return Context.CardTargets.You;
+            }
+        }
         public override double BaseProbability => 0.75;
 
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

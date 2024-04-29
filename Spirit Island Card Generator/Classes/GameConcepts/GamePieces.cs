@@ -28,7 +28,8 @@ namespace Spirit_Island_Card_Generator.Classes.GameConcepts
             DestroyedPresence,
             //Other
             Blight,
-            Dahan
+            Dahan,
+            NoPiece
         }
 
         public static string ToSIBuilderString(Piece piece)

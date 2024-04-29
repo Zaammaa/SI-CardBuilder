@@ -8,11 +8,29 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class IfYouTargetAnotherSpiritEffect : Effect, IParentEffect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                return Context.CardTargets.TargetSpirit;
+            }
+        }
+
+        public override bool Standalone => false;
+
         public override double BaseProbability => 0.1;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }
 
-        public override int Complexity => 2;
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         public override bool MentionsTarget => true;
 

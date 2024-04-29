@@ -50,10 +50,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             if (viceVersa)
             {
-                return "This turn, Target Spirit may use " + speedBoostAmount + " {slow} power as if it were {fast}, or vice versa.";
+                return $"This turn, {Context.GetTargetString(TargetType)} may use " + speedBoostAmount + " {slow} power as if it were {fast}, or vice versa.";
             } else
             {
-                return "This turn, Target Spirit may use " + speedBoostAmount + " {slow} power as if it were {fast}";
+                return $"This turn, {Context.GetTargetString(TargetType)} may use " + speedBoostAmount + " {slow} power as if it were {fast}";
             }
             
         }

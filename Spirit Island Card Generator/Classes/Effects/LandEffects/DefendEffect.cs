@@ -39,8 +39,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
-            {1, 0.6 },
-            {2, 1},
+            {1, 0.4 },
+            {2, 0.6},
             {3, 1},
             {4, 0.9},
             {5, 0.9},
@@ -54,7 +54,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return $"Defend {defendAmount}.";
+            return $"Defend {defendAmount}";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

@@ -17,11 +17,24 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
     [SpiritEffect]
     internal class OrEffect : Effect, IParentEffect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                if (Context.target.SpiritTarget)
+                {
+                    return Context.CardTargets.TargetSpirit;
+                } else
+                {
+                    return Context.CardTargets.Land;
+                }
+            }
+        }
         public override double BaseProbability { get { return .26; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { 
             get {
-                int complexity = 4;
+                int complexity = 2;
                 complexity += choice1.Complexity;
                 complexity += choice2.Complexity;
                 return complexity;
@@ -69,7 +82,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
         {
             if (Context.target.SpiritTarget && !Context.targetMentioned)
             {
-                return $"Target Spirit chooses to either:\n{choice1.Print()}\n"+"{or}"+$"\n{choice2.Print()}";
+                return $"{Context.GetTargetString(TargetType)} chooses to either:\n{choice1.Print()}\n"+"{or}"+$"\n{choice2.Print()}";
             } else
             {
                 return $"\n{choice1.Print()}\n"+ "{or}" + $"\n{choice2.Print()}";

@@ -19,9 +19,25 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //It's usually more efficient to do something in an another land. Plus it means extra range.
         protected static double MODIFIER_FOR_ORIGIN_ONLY = 1.1;
         protected static double MODIFIER_FOR_ORIGIN_OR_TARGET = 1.2;
+
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                return Context.CardTargets.OriginLand;
+            }
+        }
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 5; } }
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         public List<Effect> Effects = new List<Effect>();
 

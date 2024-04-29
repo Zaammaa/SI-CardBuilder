@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
     [UnspecificLand]
     internal class RepeatThisPowerEffect : Effect
     {
-        public override double BaseProbability { get { return .05; } }
+        public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 2; } }
+        public override int Complexity { get { return 4; } }
 
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Moon, Element.Air }; } }
@@ -45,7 +46,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)
         {
-            if (context.card.ContainsSameEffectType(this))
+            if (context.card.ContainsSameEffectType(this)|| context.Parent.GetType().Equals(typeof(OrEffect)))
                 return false;
             else
                 return true;

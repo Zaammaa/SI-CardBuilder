@@ -48,14 +48,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            if (Context.targetMentioned)
-            {
-                return $"gains {energyAmount} Energy.";
-            } else
-            {
-                return $"Target Spirit gains {energyAmount} Energy.";
-            }
-            
+            return $"{Context.GetTargetString(TargetType)} gains {energyAmount} Energy";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

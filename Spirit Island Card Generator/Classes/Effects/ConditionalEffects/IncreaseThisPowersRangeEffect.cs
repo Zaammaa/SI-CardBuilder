@@ -17,7 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
     {
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 1; } }
+        public override int Complexity { get { return 3; } }
 
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air}; } }
 

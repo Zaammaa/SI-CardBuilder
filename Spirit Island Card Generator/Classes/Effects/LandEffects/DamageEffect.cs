@@ -40,7 +40,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             get
             {
                 if (Context != null && Context.card.Fast)
-                    return (double)damageAmount * 0.9;
+                    return (double)damageAmount * 0.8;
                 else
                     return (double)(damageAmount * 0.7);
             }

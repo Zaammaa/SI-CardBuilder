@@ -33,7 +33,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
         {
             {1, 0.6},
             {2, 0.45},
-            {3, 0.2}
         };
 
         public override string ConditionText => $"You may pay {energyAmount} Energy to";
@@ -54,7 +53,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.CostConditions
 
         public override bool ChooseHarderCondition(Context context)
         {
-            if (energyAmount < multipliers.Count)
+            if (energyAmount < multipliers.Count && context.settings.CustomEffectLevel > 2)
             {
                 energyAmount += 1;
                 return true;

@@ -86,6 +86,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
                     case LandConditon.LandConditions.City:
                     case LandConditon.LandConditions.Buildings:
                     case LandConditon.LandConditions.Invaders:
+                    case LandConditon.LandConditions.NoInvaders:
                         return "If target land has " + LandConditon.Print(landCondition) + ",";
                     default:
                         return "If target land is " + LandConditon.Print(landCondition) + ",";

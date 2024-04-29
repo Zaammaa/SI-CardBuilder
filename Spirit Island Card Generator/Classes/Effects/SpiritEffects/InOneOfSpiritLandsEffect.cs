@@ -17,7 +17,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     {
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 2; } }
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         public override bool MentionsTarget => true;
 
@@ -54,7 +62,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
                 return $"In one of their lands, " + effect.Print();
             } else
             {
-                return $"In one of Target Spirit's lands, " + effect.Print();
+                return $"In one of {Context.GetTargetString(TargetType)}'s lands, " + effect.Print();
             }
             
         }

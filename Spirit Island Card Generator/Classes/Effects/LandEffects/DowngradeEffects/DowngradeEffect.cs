@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.TargetConditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,30 +27,32 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
         protected struct DowngradeOption
         {
             public int weight;
-            public string pieces;
+            public Piece[] pieces;
+            public string text;
             public double strength;
 
-            public DowngradeOption(int w, string pieces, double strength)
+            public DowngradeOption(int w,Piece[] pieces, string text, double strength)
             {
                 weight = w;
-                this.pieces = pieces; 
+                this.pieces = pieces;
+                this.text = text; 
                 this.strength = strength;
             }
         }
 
         protected List<DowngradeOption> downGradeOptions = new List<DowngradeOption>() { 
-            new DowngradeOption(10, "Invader", 1),
-            new DowngradeOption(30, "{explorer}/{town}", 0.8),
-            new DowngradeOption(30, "{town}/{city}", 0.7),
-            new DowngradeOption(10, "{town}", 0.5),
-            new DowngradeOption(3, "{city}", 0.6),
-            new DowngradeOption(3, "{explorer}/{city}", 0.85),
+            new DowngradeOption(10, [Piece.Invader], "Invader", 0.9),
+            new DowngradeOption(30, [Piece.Explorer, Piece.Town], "{explorer}/{town}", 0.8),
+            new DowngradeOption(30, [Piece.Town, Piece.City], "{town}/{city}", 0.7),
+            new DowngradeOption(10, [Piece.Town], "{town}", 0.5),
+            new DowngradeOption(3, [Piece.City], "{city}", 0.6),
+            new DowngradeOption(3, [Piece.Explorer, Piece.City], "{explorer}/{city}", 0.85),
         };
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
             new DifficultyOption("Change amounts", 30, IncreaseAmount, DecreaseAmount),
-            new DifficultyOption("Change amounts", 70, ChooseBetterPieces, ChooseWorsePieces),
+            new DifficultyOption("Choose different pieces", 70, ChooseBetterPieces, ChooseWorsePieces),
         };
 
         public override Regex descriptionRegex
@@ -75,7 +78,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
 
         public override string Print()
         {
-            return $"Downgrade {downgradeAmount} " + $"{chosenOption.pieces}.";
+            return $"Downgrade {downgradeAmount} " + $"{chosenOption.text}.";
         }
 
         public override bool Scan(string description)
@@ -97,13 +100,16 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
 
         protected override void InitializeEffect()
         {
+            List<Piece> inValidPieces = LandConditon.ConditionToInvalidPieces(Context.target.landConditions).ToList();
+            foreach (Piece piece in inValidPieces)
+            {
+                if (inValidPieces.Contains(piece))
+                    downGradeOptions.RemoveAll((mod) => mod.pieces.Contains(piece));
+            }
             Dictionary<DowngradeOption, int> weights = new Dictionary<DowngradeOption, int>();
             foreach (DowngradeOption option in downGradeOptions)
             {
-                if (option.strength > chosenOption.strength)
-                {
-                    weights.Add(option, (int)(option.strength * 1000));
-                }
+               weights.Add(option, (int)(option.weight * 1000));
             }
             chosenOption = Utils.ChooseWeightedOption<DowngradeOption>(weights, Context.rng);
         }
@@ -113,7 +119,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
             DowngradeEffect effect = new DowngradeEffect();
             effect.Context = Context;
             effect.downgradeAmount = downgradeAmount;
-            effect.chosenOption = new DowngradeOption(chosenOption.weight, chosenOption.pieces, chosenOption.strength);
+            effect.chosenOption = new DowngradeOption(chosenOption.weight, chosenOption.pieces, chosenOption.text, chosenOption.strength);
             return effect;
         }
 
@@ -124,7 +130,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
             {
                 if (option.strength > chosenOption.strength)
                 {
-                    weights.Add(option, (int)(option.strength * 1000));
+                    weights.Add(option, (int)(option.weight * 1000));
                 }
             }
             if (weights.Count == 0)
@@ -142,7 +148,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
             {
                 if (option.strength < chosenOption.strength)
                 {
-                    weights.Add(option, (int)(option.strength * 1000));
+                    weights.Add(option, (int)(option.weight * 1000));
                 }
             }
             if (weights.Count == 0)

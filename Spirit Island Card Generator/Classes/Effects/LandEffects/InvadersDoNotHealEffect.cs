@@ -32,7 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return $"Invaders do not heal Damage at end of turn";
+            return $"in {Context.GetTargetString(TargetType)}, Invaders do not heal Damage at end of turn";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

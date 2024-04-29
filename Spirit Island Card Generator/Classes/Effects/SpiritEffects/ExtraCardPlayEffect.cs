@@ -15,8 +15,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air, Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
-        public override double BaseProbability { get { return .07; } }
-        public override double AdjustedProbability { get { return .07; } set { } }
+        public override double BaseProbability { get { return .05; } }
+        public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 1; } }
 
         protected override DifficultyOption[] difficultyOptions => [];
@@ -32,14 +32,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            if (Context.targetMentioned)
-            {
-                return $"immediately play another Power Card by paying its cost.";
-            } else
-            {
-                return $"Target Spirit may immediately play another Power Card by paying its cost.";
-            }
-            
+            return $"{Context.GetTargetString(TargetType)} may immediately play another Power Card by paying its cost.";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

@@ -38,11 +38,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Writes what goes on the card
         public override string Print()
         {
-            string targetText = "Target Spirit gains";
-            if (Context.targetMentioned)
-            {
-                targetText = "they gain";
-            }
+            string targetText = $"{Context.GetTargetString(TargetType)} gains";
             if (cardType == PowerCardType.Unspecified)
             {
                 return $"{targetText} a Power Card.";

@@ -56,6 +56,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             ChooseCost(card, settings.rng);
             card.Target = ChooseTarget(card, settings.rng);
             context.target = card.Target;
+            if (context.target.SpiritTarget)
+                context.targetContext = Context.CardTargets.TargetSpirit;
+            else
+                context.targetContext = Context.CardTargets.Land;
             //context.conditions = card.Target.landConditions;
             card.Range = ChooseRange(card, settings.rng);
             //Step 3: Template

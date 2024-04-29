@@ -10,11 +10,25 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Serilog;
+using Spirit_Island_Card_Generator.Classes.Attributes;
 
 namespace Spirit_Island_Card_Generator.Classes.Effects
 {
     public abstract class Effect : IGeneratorOption, IPowerLevel
     {
+        public virtual Context.CardTargets TargetType { get { 
+                if (this.GetType().GetCustomAttributes(typeof(LandEffectAttribute), true) != null)
+                {
+                    return Context.CardTargets.Land;
+                } else if (this.GetType().GetCustomAttributes(typeof(SpiritEffectAttribute), true) != null)
+                {
+                    return Context.CardTargets.TargetSpirit;
+                } else
+                {
+                    return Context.CardTargets.NONE;
+                }
+            }
+        }
         public abstract double BaseProbability { get; }
         public abstract double AdjustedProbability { get; set; }
         public abstract int Complexity { get; }
@@ -46,6 +60,36 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
         public abstract IPowerLevel Duplicate();
         //If false, the card must have another effect.
+
+        public virtual bool HasMinMaxPowerLevel { get { return false; } }
+
+        public virtual double MinPowerLevel { get { return 0; } }
+        public virtual double MaxPowerLevel { get { return 0; } }
+
+        public virtual bool Standalone { get { return true; } }
+
+        public virtual bool SelfReferencingPowerLevel { get { return false; } }
+
+        public virtual bool MentionsTarget
+        {
+            get { return false; }
+        }
+
+        public int Level
+        {
+            get { return Context.chain.Count; }
+        }
+
+        public IParentEffect? Parent
+        {
+            get
+            {
+                if (Level == 0)
+                    return null;
+
+                return Context?.chain.Last();
+            }
+        }
 
         public IValidFixer? IsValid()
         {
@@ -80,14 +124,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             //To be overriden as needed
         }
 
-        public virtual bool HasMinMaxPowerLevel { get { return false; } }
 
-        public virtual double MinPowerLevel { get { return 0; }  }
-        public virtual double MaxPowerLevel { get { return 0; }  }
-
-        public virtual bool Standalone { get { return true; } }
-
-        public virtual bool SelfReferencingPowerLevel {  get { return false; } }
 
         public virtual bool TopLevelEffect()
         {
@@ -128,26 +165,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         }
 
 
-        public virtual bool MentionsTarget
-        {
-            get { return false; }
-        }
 
-        public int Level
-        {
-            get { return Context.chain.Count; }
-        }
-
-        public IParentEffect? Parent
-        {
-            get
-            {
-                if (Level == 0)
-                    return null;
-                
-                return Context?.chain.Last();
-            }
-        }
 
         protected struct DifficultyOption
         {
@@ -271,6 +289,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
             if (this.MentionsTarget)
                 newContext.targetMentioned = true;
+
+            newContext.targetContext = TargetType;
 
             return newContext;
         }

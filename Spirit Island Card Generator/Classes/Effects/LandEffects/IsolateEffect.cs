@@ -29,7 +29,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return $"Isolate target land.";
+            return $"Isolate {Context.GetTargetString(TargetType)}";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

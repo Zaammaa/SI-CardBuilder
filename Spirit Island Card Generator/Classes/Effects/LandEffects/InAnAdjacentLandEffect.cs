@@ -18,11 +18,24 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [UnspecificLand]
     internal class InAnAdjacentLandEffect : Effect, IParentEffect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                return Context.CardTargets.AdjacentLand;
+            }
+        }
         //It's usually more efficient to do something in an another land. Plus it means extra range.
         protected static double ADJACENCY_MODIFIER = 1.3;
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 5; } }
+        public override int Complexity { 
+            get {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         public List<Effect> Effects = new List<Effect>();
 

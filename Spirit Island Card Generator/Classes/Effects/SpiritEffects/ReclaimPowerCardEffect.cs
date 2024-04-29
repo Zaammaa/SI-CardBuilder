@@ -39,7 +39,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override string Print()
         {
             string powerCardText = amount > 1 ? "Power Cards" : "Power Card";
-            string targetText = Context.targetMentioned ? "they" : "Target Spirit";
+            string targetText = Context.GetTargetString(TargetType);
             string reclaimText = Context.targetMentioned ? "Reclaim" : "Reclaims";
             if (fromPlay)
             {

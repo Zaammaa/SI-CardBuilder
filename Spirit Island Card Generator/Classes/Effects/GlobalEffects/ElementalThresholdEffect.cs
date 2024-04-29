@@ -120,39 +120,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
             //Choose Effect
             ChooseRandomEffect();
-
-            while (!AcceptablePowerLevel())
-            {
-                if (CalculatePowerLevel() < MinPowerLevel)
-                {
-                    if (!UnDuplicate((ElementalThresholdEffect?)Strengthen()))
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    if (!UnDuplicate((ElementalThresholdEffect?)Weaken()))
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        //Takes another CostConditionEffect as input and sets this property to match
-        //This deep clones the fields since I'm just doing it this way to get around strengthen/weaken returning a new object
-        //I would set this = otherEffect if I could
-        protected bool UnDuplicate(ElementalThresholdEffect? otherEffect)
-        {
-            if (otherEffect == null)
-                return false;
-
-            this.Context = otherEffect.Context;
-            this.elements = otherEffect.elements;
-            this.offElement = otherEffect.offElement;
-            this.Effects = otherEffect.Effects;
-            return true;
         }
 
         private void ChooseElements()
@@ -239,8 +206,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
             {
                 {1, 0.8 },
                 {2, 0.6 },
-                {3, 0.3 },
-                {4, 0.15 },
+                {3, 0.4 },
+                {4, 0.2 },
             };
             double multiplier = 1;
             if (offElement)

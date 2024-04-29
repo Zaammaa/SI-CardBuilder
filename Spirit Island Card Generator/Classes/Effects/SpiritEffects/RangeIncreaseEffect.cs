@@ -51,7 +51,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
                 return "They get +{range-" + rangeAmount + "} Range with all their Powers.";
             } else
             {
-                return "Target Spirit gets +{range-" + rangeAmount + "} Range with all their Powers.";
+                return Context.GetTargetString(TargetType) + " gets +{range-" + rangeAmount + "} Range with all their Powers.";
             }
             
         }

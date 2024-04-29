@@ -18,7 +18,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     {
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
-        public override int Complexity { get { return 3; } }
+        public override int Complexity
+        {
+            get
+            {
+                int complexity = 2;
+                complexity += GetChildren().Sum((effect) => effect.Complexity);
+                return complexity;
+            }
+        }
 
         public override bool MentionsTarget => true;
 
