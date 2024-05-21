@@ -12,8 +12,12 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
-    internal class DahanAddEffect : AddEffect
+    internal class DahanAddEffect : AddEffect, ITrackedStat
     {
+        public static string TrackedName => "Add Dahan";
+        public static int TargetAmount => 1;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Water }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Animal, Element.Moon }; } }
         public override double BaseProbability { get { return .015; } }

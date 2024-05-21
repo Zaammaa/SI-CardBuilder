@@ -43,8 +43,14 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             Buildings,
             NoBuildings,
             City,
-            NoCity
+            NoCity,
             //TODO: add more
+            Beast,
+            Disease,
+            Strife,
+            Wilds,
+            Badlands,
+            Vitality,
         }
 
         //If a card has the targeting condition in the key, it implies the conditions in the list are always met.
@@ -142,6 +148,13 @@ namespace Spirit_Island_Card_Generator.Classes.TargetConditions
             {LandConditions.NoInvaders, "{no}Invaders" },
             {LandConditions.Coastal, "Coastal" },
             {LandConditions.Inland, "Inland" },
+            //Tokens
+            {LandConditions.Beast, "{beast}" },
+            {LandConditions.Disease, "{disease}" },
+            {LandConditions.Strife, "{strife}" },
+            {LandConditions.Wilds, "{wilds}" },
+            {LandConditions.Badlands, "{badlands}" },
+            {LandConditions.Vitality, "{vitality}" },
         };
 
         public static Dictionary<Piece, List<LandConditions>> PieceImplications = new Dictionary<Piece, List<LandConditions>>() {

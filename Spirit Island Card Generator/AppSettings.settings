@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Spirit_Island_Card_Generator" GeneratedClassName="AppSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CardOutputDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Spirit Island</Value>
+    </Setting>
+    <Setting Name="StableDiffusionUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://127.0.0.1:7860</Value>
+    </Setting>
+    <Setting Name="CSSPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Spirit Island\spirit-island-template-master</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

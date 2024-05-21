@@ -52,18 +52,25 @@ namespace Spirit_Island_Card_Generator.Classes
             { LandConditions.NoSands, new WeightAndPowerDifference(0.1, 1)},
             { LandConditions.NoWetlands, new WeightAndPowerDifference(0.1, 1)},
 
-            { LandConditions.MountainOrJungle, new WeightAndPowerDifference(0.2, 20)},
-            { LandConditions.MountainOrSands, new WeightAndPowerDifference(0.2, 20)},
-            { LandConditions.MountainOrWetlands, new WeightAndPowerDifference(0.2, 20)},
-            { LandConditions.JungleOrSands, new WeightAndPowerDifference(0.2, 20)},
-            { LandConditions.JungleOrWetlands, new WeightAndPowerDifference(0.2, 20)},
-            { LandConditions.SandsOrWetlands, new WeightAndPowerDifference(0.2, 20)},
+            { LandConditions.MountainOrJungle, new WeightAndPowerDifference(0.35, 20)},
+            { LandConditions.MountainOrSands, new WeightAndPowerDifference(0.35, 20)},
+            { LandConditions.MountainOrWetlands, new WeightAndPowerDifference(0.35, 20)},
+            { LandConditions.JungleOrSands, new WeightAndPowerDifference(0.35, 20)},
+            { LandConditions.JungleOrWetlands, new WeightAndPowerDifference(0.35, 20)},
+            { LandConditions.SandsOrWetlands, new WeightAndPowerDifference(0.35, 20)},
 
             { LandConditions.Blighted, new WeightAndPowerDifference(0.6, 4)},
             { LandConditions.Noblight, new WeightAndPowerDifference(0.15, 4)},
 
             { LandConditions.Dahan, new WeightAndPowerDifference(0.3, 7)},
             { LandConditions.NoDahan, new WeightAndPowerDifference(0.2, 1)},
+
+            { LandConditions.Beast, new WeightAndPowerDifference(0.5, 1)},
+            { LandConditions.Disease, new WeightAndPowerDifference(0.6, 1)},
+            { LandConditions.Strife, new WeightAndPowerDifference(0.6, 1)},
+            { LandConditions.Wilds, new WeightAndPowerDifference(0.6, 1)},
+            { LandConditions.Badlands, new WeightAndPowerDifference(0.6, 1)},
+            { LandConditions.Vitality, new WeightAndPowerDifference(1.2, 1)},
 
             { LandConditions.Invaders, new WeightAndPowerDifference(0.1, 2)},
             { LandConditions.NoInvaders, new WeightAndPowerDifference(0.4, 2)},
@@ -83,6 +90,7 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public ElementSet elements { get; set; }
         public List<Effect> effects = new List<Effect>();
+        public Settings settings;
         public string descrition = "";
 
         public string artworkDataString = "";
@@ -130,7 +138,7 @@ namespace Spirit_Island_Card_Generator.Classes
             //Elements
             if (elements.GetElements().Count == 2)
             {
-                power -= 0.1;
+                power -= 0.18;
             } else if (elements.GetElements().Count == 4)
             {
                 power += 0.1;
@@ -139,18 +147,18 @@ namespace Spirit_Island_Card_Generator.Classes
             //Speed
             if (Fast)
             {
-                power += 0.25;
+                power += 0.15;
             }
 
             //Range
             if (Range.range == 0)
             {
-                power -= 0.2;
+                power -= 0.25;
             } else if (Range.range == 2) {
-                power += 0.1;
+                power += 0.15;
             } else if (Range.range >= 3)
             {
-                power += 0.15;
+                power += 0.2;
             }
 
             if (Range.sacredSite && Range.range > 0)
@@ -174,6 +182,11 @@ namespace Spirit_Island_Card_Generator.Classes
             foreach(LandConditon.LandConditions landCondition in Target.landConditions)
             {
                 power -= conditions[landCondition].difference;
+            }
+
+            if (Target.SpiritTarget)
+            {
+                power -= settings.SpiritEffectBuff;
             }
 
             return power;

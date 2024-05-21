@@ -6,6 +6,7 @@ using Spirit_Island_Card_Generator.Classes.Effects.Conditions;
 using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
 using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
+using System.Linq;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -70,6 +71,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     int targetAmount = (int)trackedStat.GetType().GetProperty("TargetAmount", BindingFlags.Static | BindingFlags.Public).GetValue(null);
                     int left = targetAmount - used;
                     double chance = (double)left / (deckMax - deckIndex);
+                    chance *= 5;
                     //This gets weird since I set the probability based on how likely it is to be on a card, but the EffectGenerator uses it as a weight PER EFFECT.
                     //So as an example, if about 12 minor cards have defense, I set the weight to .12. But more than one effect can be on a card. Since all the effects have a weight, that should balance the relative amount still under normal conditions
                     //However for tracked stats, we try to set the probability as a percentage of cards remaining. This will result in the effect comming up more often than it should.
@@ -156,7 +158,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 List<Type> allTypes = ReflectionManager.GetAttributeClasses(attribute);
                 foreach(Type type in allTypes)
                 {
-                    if (!types.Contains(type) && effectSettings.Matches(type))
+                    if (!types.Contains(type) && effectSettings.Matches(type) && type.IsSubclassOf(typeof(T)))
                     { 
                         types.Add(type);
                     }
@@ -241,6 +243,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     //TODO: Keep order?
                     card.effects.Remove(effect);
                     card.effects.Add(newEffect);
+                    if (context.card.GetAllEffects().Any((eff) => eff.LinkedEffects.Contains(effect)))
+                    {
+                        Effect EffectLinkingToThis = context.card.GetAllEffects().Find((eff) => eff.LinkedEffects.Contains(effect));
+                        EffectLinkingToThis.LinkedEffects.Remove(effect);
+                        EffectLinkingToThis.LinkedEffects.Add(newEffect);
+                    }
                     Log.Information("Strengthened effect: " + newEffect);
                     
                     return;
@@ -255,7 +263,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public void WeakenCard(Context context)
         {
             Card card = context.card;
-            Effect? effect = Utils.ChooseRandomListElement(card.effects, context.rng);
+
+            //Stronger options tend to be removed more often since they are harder to slot in with other effects
+            //This is an attempt to counteract that by making weaker effects be selected more often
+            Dictionary<Effect, int> weights = new Dictionary<Effect, int>();
+            foreach (Effect e in card.effects)
+            {
+                weights.Add(e, (int)(Math.Pow(1 / e.CalculatePowerLevel(), 1.0) * 10000));
+            }
+
+            Effect? effect = Utils.ChooseWeightedOption(weights, context.rng);
             Effect? newEffect = effect?.Weaken();
             if (newEffect != null && effect != null && newEffect.CalculatePowerLevel() < effect.CalculatePowerLevel())
             {
@@ -267,6 +284,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     //TODO: Keep order?
                     card.effects.Remove(effect);
                     card.effects.Add(newEffect);
+                    if (context.card.GetAllEffects().Any((eff) => eff.LinkedEffects.Contains(effect)))
+                    {
+                        Effect EffectLinkingToThis = context.card.GetAllEffects().Find((eff) => eff.LinkedEffects.Contains(effect));
+                        EffectLinkingToThis.LinkedEffects.Remove(effect);
+                        EffectLinkingToThis.LinkedEffects.Add(newEffect);
+                    }
                     Log.Information("Weakened effect: " + newEffect);
                     return;
                 }

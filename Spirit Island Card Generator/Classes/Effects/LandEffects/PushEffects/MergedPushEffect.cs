@@ -14,7 +14,7 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
 {
     [LandEffect]
-    internal class MergedPushEffect : Effect, IParentEffect
+    internal class MergedPushEffect : AmountEffect, IParentEffect
     {
         public override double BaseProbability => 0.1;
 
@@ -79,6 +79,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             }
         }
         private int _amount = 1;
+        [AmountValue]
         public int amount {
             get { return _amount; }
             set {
@@ -90,6 +91,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
                 }
             }
         }
+
+        public override double effectStrength => pushEffects.Max(push => push.CalculatePowerLevel());
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1,1},
+            {2,1},
+            {3,1},
+            {4,1},
+        };
+
         public List<PushEffect> pushEffects = new List<PushEffect>();
 
         public override double CalculatePowerLevel()

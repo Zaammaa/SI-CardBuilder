@@ -28,10 +28,13 @@ namespace Spirit_Island_Card_Generator.Classes
         //Weirdness of custom effects goes from 1-5. Each level includes all the ones below it
         public int CustomEffectLevel = 3;
 
+        //Spirit targeting powers can be intentionally made a bit stronger to encourage cooperation
+        public double SpiritEffectBuff = 0.1;
+
         //Generate Artworks
         public bool GenerateArt = false;
 
-        public string workspace = @"D:\Spirit Island\Minor Power Decks";
+        public string workspace = AppSettings.Default.CardOutputDir;
         public string deckName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
         public int seed = -1;

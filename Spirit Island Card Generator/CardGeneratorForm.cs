@@ -2,6 +2,8 @@ using Spirit_Island_Card_Generator.Classes;
 using Spirit_Island_Card_Generator.Classes.Analysis;
 using Spirit_Island_Card_Generator.Classes.ArtGeneration;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.DeckManagement;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 
 namespace Spirit_Island_Card_Generator
 {
@@ -10,6 +12,11 @@ namespace Spirit_Island_Card_Generator
         public CardGeneratorForm()
         {
             InitializeComponent();
+
+            string filePath = Path.Combine(AppSettings.Default.CardOutputDir, "Minor Power Decks", "2024-05-03-11-27-40", "Cards", "A Flame of Dread and Exaltation.html");
+            string fileText = File.ReadAllText(filePath);
+            webBrowser1.ScriptErrorsSuppressed = true;
+            webBrowser1.DocumentText = fileText;
         }
 
         private void scanBtn_Click(object sender, EventArgs e)
@@ -31,13 +38,37 @@ namespace Spirit_Island_Card_Generator
             settings.TargetPowerLevel = (double)targetPowerLevelBox.Value;
             settings.PowerLevelVariance = (double)varianceBox.Value;
 
+            settings.MinComplexity = (int)minComplexityBox.Value;
+            settings.MaxComplexity = (int)maxComplexityBox.Value;
+
             settings.CustomEffectLevel = (int)customEffectLevelBox.Value;
+
+            settings.SpiritEffectBuff = (double) spiritTargetBuffBox.Value;
 
             if (!deckNameBox.Text.Equals(""))
                 settings.deckName = deckNameBox.Text;
 
             DeckGenerator generator = new DeckGenerator(settings);
             generator.GenerateDeck();
+        }
+
+        private void loadDeckbtn_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.InitialDirectory = AppSettings.Default.CardOutputDir;
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Deck deck = Deck.LoadDeck(folderBrowserDialog1.SelectedPath);
+                int blightRemoveCount = 0;
+                foreach(Card card in deck.deck)
+                {
+                    if (card.GetAllEffects().Any((eff) => eff.GetType().Equals(typeof(RemoveBlightEffect))))
+                    {
+                        blightRemoveCount++;
+                    }
+                }
+                MessageBox.Show($"BlightRemoval: {blightRemoveCount}");
+            }
         }
     }
 }

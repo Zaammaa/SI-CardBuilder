@@ -25,7 +25,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         {
             get
             {
-                return new Regex(@"+1 Damage with each Damage dealing Power they use this turn", RegexOptions.IgnoreCase);
+                return new Regex(@"\+1 Damage with each Damage dealing Power they use this turn", RegexOptions.IgnoreCase);
             }
         }
 

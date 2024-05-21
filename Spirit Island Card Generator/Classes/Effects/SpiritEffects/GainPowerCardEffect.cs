@@ -41,11 +41,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             string targetText = $"{Context.GetTargetString(TargetType)} gains";
             if (cardType == PowerCardType.Unspecified)
             {
-                return $"{targetText} a Power Card.";
+                return $"{targetText} a Power Card";
             }
             else
             {
-                return $"{targetText} a {cardType} Power Card.";
+                return $"{targetText} a {cardType} Power Card";
             }
         }
         //Checks if this should be an option for the card generator
@@ -75,11 +75,11 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
             switch (cardType)
             {
                 case PowerCardType.Unspecified:
-                    return 2.5;
-                case PowerCardType.Major:
                     return 2;
+                case PowerCardType.Major:
+                    return 1.5;
                 case PowerCardType.Minor:
-                    return 1.2;
+                    return 1.1;
                 default:
                     throw new NotImplementedException("Invalid card type");
             }

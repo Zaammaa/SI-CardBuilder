@@ -13,7 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
     //An effect with a simple amount
     public abstract class AmountEffect : Effect
     {
-        public int amount {
+        private int amount {
             get {
                 Type type = this.GetType();
                 FieldInfo[] properties = type.GetFields().Where(p => Attribute.IsDefined(p, typeof(AmountValue))).ToArray();

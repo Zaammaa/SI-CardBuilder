@@ -19,7 +19,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Water, Element.Plant}; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Earth }; } }
-        public override double BaseProbability { get { return .10; } }
+        public override double BaseProbability { get { return .12; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 1; } }
 
@@ -71,7 +71,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override double CalculatePowerLevel()
         {
             //TODO: work with the calculated power levels
-            return (double)removeAmount * 1.5;
+            return (double)removeAmount * 1.6;
         }
 
         /// <summary>

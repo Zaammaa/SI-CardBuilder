@@ -100,7 +100,7 @@ namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
         private async Task SwitchModel(StableDiffusionSettings settings)
         {
 
-            string url = "http://127.0.0.1:7860";
+            string url = AppSettings.Default.StableDiffusionUrl;
 
             string option_payload = "{\"sd_model_checkpoint\": \"" + settings.model + "\"}";
 

@@ -15,6 +15,9 @@ using static Spirit_Island_Card_Generator.Classes.Card;
 using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 using Spirit_Island_Card_Generator.Classes.Interfaces;
 using Spirit_Island_Card_Generator.Classes.Fixers;
+using Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOptions;
+using Spirit_Island_Card_Generator.Classes.GameConcepts;
+using Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetOptions;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -42,6 +45,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public Card GenerateMinorCard(Settings settings)
         {
             Card card = new Card();
+            card.settings = settings;
             card.CardType = Card.CardTypes.Minor;
             Context context = new Context();
             context.rng = settings.rng;
@@ -54,14 +58,14 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             //Step 2: Speed/Cost/Target/Range
             ChooseSpeed(card, settings.rng);
             ChooseCost(card, settings.rng);
-            card.Target = ChooseTarget(card, settings.rng);
+            card.Target = ChooseTarget(context);
             context.target = card.Target;
             if (context.target.SpiritTarget)
                 context.targetContext = Context.CardTargets.TargetSpirit;
             else
                 context.targetContext = Context.CardTargets.Land;
             //context.conditions = card.Target.landConditions;
-            card.Range = ChooseRange(card, settings.rng);
+            card.Range = ChooseRange(context);
             //Step 3: Template
             //TODO use other templates
             EffectTemplate template = EffectTemplate.Standard;
@@ -114,56 +118,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 }
 
                 //Check effect validity
-                foreach (Effect effect in card.GetAllEffects())
-                {
-                    IValidFixer? fixer;
-                    fixer = effect.IsValid();
-                    if (fixer == null)
-                        continue;
-
-                    FixerResult result = fixer.Fix();
-                    if (result.result == FixerResult.FixResult.UpdateEffect)
-                    {
-                        Effect updatedEffect = (Effect)result.resultObj;
-                        if (card.effects.Contains(effect)) {
-                            card.effects.Remove(effect);
-                            card.effects.Add(updatedEffect);
-                        } else
-                        {
-                            IParentEffect? ParentEffect = effect.GetSameContext()?.Parent;
-                            if (ParentEffect != null)
-                            {
-                                ParentEffect.ReplaceEffect(effect, updatedEffect);
-                            }
-                        }
-                    } else if (result.result == FixerResult.FixResult.RemoveEffect)
-                    {
-                        Effect effectToRemove = (Effect)result.resultObj;
-                        Effect? topLevelEffect = (Effect?)effectToRemove.GetSameContext()?.chain.FirstOrDefault();
-                        if (topLevelEffect != null)
-                        {
-                            card.effects.Remove(topLevelEffect);
-                        } else
-                        {
-                            card.effects.Remove(effectToRemove);
-                        }
-                    } else if (result.result == FixerResult.FixResult.FixFailed)
-                    {
-                        Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
-                        if (topLevelEffect != null)
-                        {
-                            card.effects.Remove(topLevelEffect);
-                        }
-                        else
-                        {
-                            card.effects.Remove(effect);
-                        }
-                            
-                    } else if (result.result == FixerResult.FixResult.FixError)
-                    {
-                        Log.Warning("Fix result had an error");
-                    }
-                }
+                EnforceValidity(card);
 
             }
             Log.Information("}");
@@ -172,6 +127,79 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
             generator.CardChosen(card);
             return card;
+        }
+
+        public void EnforceValidity(Card card)
+        {
+            //foreach (Effect effect in card.GetAllEffects())
+            while(card.GetAllEffects().Any((effect) => effect.IsValid() != null))
+            {
+                IValidFixer? fixer;
+                Effect? effect = card.GetAllEffects().Find((effect) => effect.IsValid() != null);
+                fixer = effect?.IsValid();
+                //if (fixer == null || !card.GetAllEffects().Contains(effect))
+                //    continue;
+
+                FixerResult result = fixer.Fix();
+                if (result.result == FixerResult.FixResult.UpdateEffect)
+                {
+                    Effect updatedEffect = (Effect)result.resultObj;
+                    if (card.effects.Contains(effect))
+                    {
+                        card.effects.Remove(effect);
+                        card.effects.Add(updatedEffect);
+                    }
+                    else
+                    {
+                        IParentEffect? ParentEffect = effect.GetSameContext()?.Parent;
+                        if (ParentEffect != null)
+                        {
+                            ParentEffect.ReplaceEffect(effect, updatedEffect);
+                        }
+                    }
+                    //EnforceValidity(card);
+                    //return;
+                }
+                else if (result.result == FixerResult.FixResult.RemoveEffect)
+                {
+                    Effect? effectToRemove = (Effect)result.resultObj;
+
+                    effectToRemove = card.GetAllEffects().Find((eff) => eff.GetType() == effectToRemove.GetType());
+                    //effectToRemove = card.GetAllEffects().Find((eff) => effectToRemove.LinkedEffects.Any((e) => eff.LinkedEffects.Contains(e)));
+                    Effect? topLevelEffect = card.effects.Find((topEff) => topEff.GetAllEffectsInChain().Contains(effectToRemove));
+                    if (topLevelEffect != null && card.effects.Contains(topLevelEffect))
+                    {
+                        card.effects.Remove(topLevelEffect);
+                    }
+                    else if (card.effects.Contains(effectToRemove))
+                    {
+                        card.effects.Remove(effectToRemove);
+                    } else
+                    {
+                        throw new Exception("Card does not contain the effect it tried to remove");
+                    }
+                    //EnforceValidity(card);
+                    //return;
+                }
+                else if (result.result == FixerResult.FixResult.FixFailed)
+                {
+                    Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
+                    if (topLevelEffect != null)
+                    {
+                        card.effects.Remove(topLevelEffect);
+                    }
+                    else
+                    {
+                        card.effects.Remove(effect);
+                    }
+                    //EnforceValidity(card);
+                    //return;
+                }
+                else if (result.result == FixerResult.FixResult.FixError)
+                {
+                    Log.Warning("Fix result had an error");
+                }
+            }
         }
         #region elements
         private void SetupElementPool()
@@ -269,115 +297,70 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
         }
 
-        private Target ChooseTarget(Card card, Random rng)
+        private Target ChooseTarget(Context context)
         {
-            if (card.CardType == Card.CardTypes.Minor)
-            {
-                Target target = new Target();
-                int roll = (int)(rng.NextDouble() * 100) + 1;
-                if (roll <= 3)
-                {
-                    target.targetType = Target.TargetType.AnotherSpirit;
-                    return target;
-                }
-                else if (roll <= 15)
-                {
-                    target.targetType = Target.TargetType.AnySpirit;
-                    return target;
-                }
-                else
-                {
-                    target.targetType = Target.TargetType.Land;
-                    roll = (int)(rng.NextDouble() * 100) + 1;
-                    if (roll <= 46)
-                    {
-                        //Any
-                        return target;
-                    } else
-                    {
-                        Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
-                        foreach(LandConditions land in Card.conditions.Keys)
-                        {
-                            WeightAndPowerDifference weightAndPowerDifference = Card.conditions[land];
-                            weights.Add(land, weightAndPowerDifference.weight);
-                        }
+            TargetOption option = (TargetOption)context.effectGenerator.ChooseGeneratorOption<TargetOption>(context);
+            return option.OnChosen(context);
 
-                        target.landConditions.Add(Utils.ChooseWeightedOption(weights, rng));
-                        return target;
-                    }
-                }
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            //Card card = context.card;
+
+            //if (card.CardType == Card.CardTypes.Minor)
+            //{
+            //    Target target = new Target();
+            //    int roll = (int)(context.rng.NextDouble() * 100) + 1;
+            //    if (roll <= 3)
+            //    {
+            //        target.targetType = Target.TargetType.AnotherSpirit;
+            //        return target;
+            //    }
+            //    else if (roll <= 15)
+            //    {
+            //        target.targetType = Target.TargetType.AnySpirit;
+            //        return target;
+            //    }
+            //    else
+            //    {
+            //        target.targetType = Target.TargetType.Land;
+            //        roll = (int)(context.rng.NextDouble() * 100) + 1;
+            //        if (roll <= 46)
+            //        {
+            //            //Any
+            //            return target;
+            //        } else
+            //        {
+            //            Dictionary<LandConditions, int> weights = new Dictionary<LandConditions, int>();
+            //            foreach(LandConditions land in Card.conditions.Keys)
+            //            {
+            //                WeightAndPowerDifference weightAndPowerDifference = Card.conditions[land];
+            //                weights.Add(land, weightAndPowerDifference.weight);
+            //            }
+
+            //            target.landConditions.Add(Utils.ChooseWeightedOption(weights, context.rng));
+            //            return target;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    throw new NotImplementedException();
+            //}
         }
 
-        private Range ChooseRange(Card card, Random rng)
+        private Range ChooseRange(Context context)
         {
-            if (card.Target.SpiritTarget)
+            RangeOption option = (RangeOption)context.effectGenerator.ChooseGeneratorOption<RangeOption>(context);
+            if (option == null)
                 return new Range(false, -1, null);
 
-            int range = -1;
-            bool sacred = false;
-            LandTypes? landSource = null;
-            int roll = (int)(rng.NextDouble() * 85) + 1;
-            if (roll <= 16)
-            {
-                range = 0;
-            } else if (roll <= 67)
-            {
-                range = 1;
-            } else if (roll <= 84)
-            {
-                range = 2;
-            } else if (roll == 85)
-            {
-                range = 3;
-            }
+            Range range = option.OnSelected(context);
+            context.card.Range = range;
 
-            roll = (int)(rng.NextDouble() * 85) + 1;
-            if (roll <= 27)
-            {
-                sacred = true;
-            }
+            FromLandOption fromOption = (FromLandOption)context.effectGenerator.ChooseGeneratorOption<FromLandOption>(context);
+            range = fromOption.OnSelected(context);
 
-            roll = (int)(rng.NextDouble() * 85) + 1;
-            if (roll <= 2)
-            {
-                landSource = Utils.ChooseRandomEnumValue<LandTypes>(typeof(LandTypes), rng);
-            }
-
-            return new Range(sacred, range, landSource);
+            return range;
         }
 
-        #endregion
-
-        #region Effects
-        //private Effect ChooseRandomEffect(Context context)
-        //{
-        //    IEnumerable<Effect> effects;
-        //    if (card.Target.SpiritTarget)
-        //    {
-        //        effects = ReflectionManager.GetInstanciatedSubClasses<SpiritEffect>();
-        //    } else
-        //    {
-        //        effects = ReflectionManager.GetInstanciatedSubClasses<LandEffect>();
-        //    }
-            
-        //    Dictionary<Effect, int> weightedEffectChances = new Dictionary<Effect, int>();
-        //    foreach (Effect effect in effects)
-        //    {
-        //        effect.InitializeEffect(card, settings);
-        //        if (effect.IsValidGeneratorOption(card, settings))
-        //        {
-        //            //TODO: change adjusted probability to use int instead.
-        //            weightedEffectChances.Add(effect, (int)(effect.AdjustedProbability * 100));
-        //        }
-        //    }
-        //    Effect choosenEffect = Utils.ChooseWeightedOption<Effect>(weightedEffectChances, settings.rng);
-        //    return choosenEffect;
-        //}
         #endregion
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 using Spirit_Island_Card_Generator.Classes.ArtGeneration;
+using Spirit_Island_Card_Generator.Classes.CardOutput;
+using Spirit_Island_Card_Generator.Classes.DeckManagement;
 using Spirit_Island_Card_Generator.Classes.Effects;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 
@@ -12,15 +14,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
     internal class DeckGenerator
     {
-        List<Card> deck = new List<Card>();
+        Deck deck = new Deck();
 
         Settings settings;
         Dictionary<ElementSet.Element, int> elementCounts = new Dictionary<ElementSet.Element, int>();
         CardGenerator cardGenerator = new CardGenerator();
         Automatic1111Client artGenerator = Automatic1111Client.stableDiffusionClient;
-        private string Workspace => Path.Combine(settings.workspace, settings.deckName);
+        private string Workspace => Path.Combine(settings.workspace, "Minor Power Decks", settings.deckName);
         private string ArtDir => Path.Combine(Workspace, "Art");
         private string CardLogs => Path.Combine(Workspace, "CardLogs");
+        private string CardsDir => Path.Combine(Workspace, "Cards");
 
 
         public DeckGenerator(Settings s)
@@ -38,7 +41,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 card.Name = i.ToString();
 
                 PostProcessCard(card);
-                deck.Add(card);
+                deck.AddCard(card);
                 if (settings.GenerateArt)
                     QueueArtwork(card, i);
             }
@@ -52,7 +55,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
             if (!settings.GenerateArt)
             {
-                CreateBuilderFile();
+                CardPrinter.CreateSIBuilderFile(deck, Workspace);
+                foreach (Card card in deck.deck)
+                {
+                    CardPrinter.CreateLocalViewFile(card, CardsDir);
+                }
                 Cleanup();
             }
         }
@@ -70,6 +77,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             if (!Directory.Exists(CardLogs))
             {
                 Directory.CreateDirectory(CardLogs);
+            }
+            if (!Directory.Exists(CardsDir))
+            {
+                Directory.CreateDirectory(CardsDir);
             }
             Logger.ChangeLogConfig(Logger.MakeDeckLogger(Path.Combine(Workspace, "Log.txt")));
         }
@@ -94,9 +105,15 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private void OnLastImageProcessed(object  sender, SimpleEventArgs e)
         {
-            deck.Last().OnArtFinished(sender, e);
+            deck.deck.Last().OnArtFinished(sender, e);
 
-            CreateBuilderFile();
+            CardPrinter.CreateSIBuilderFile(deck, Workspace);
+            CardPrinter.CreatePartialSIBuilderFiles(deck, Workspace);
+            foreach (Card card in deck.deck)
+            {
+                CardPrinter.CreateLocalViewFile(card, CardsDir);
+            }
+            
             Cleanup();
         }
 
@@ -139,25 +156,26 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Log.Information($"Complexity: {card.Complexity()}");
         }
 
-        private void CreateBuilderFile()
-        {
-            string fileText = "<style></style>";
-            foreach(Card card in deck)
-            {
-                fileText += $"<quick-card image=\"{card.ArtDataString}\" name=\"{card.Name}\" speed=\"{(card.Fast ? "fast" : "slow")}\" cost=\"{card.Cost}\" type=\"{card.CardType}\" range=\"{(card.Range.Print())}\" target=\"{card.Target.Print()}\" elements=\"{card.elements.ToString()}\" image=\"{card.artworkDataString}\" artist-name=\"undefined\"><rules>{card.descrition}</rules>";
-                if (card.HasThreshold)
-                    fileText += $"<threshold condition=\"{card.thresholdCondition}\">{card.thresholdDescription}</threshold>";
+        //private void CreateBuilderFile()
+        //{
+        //    string fileText = "<style></style>";
+        //    foreach(Card card in deck)
+        //    {
+        //        fileText += $"<quick-card image=\"{card.ArtDataString}\" name=\"{card.Name}\" speed=\"{(card.Fast ? "fast" : "slow")}\" cost=\"{card.Cost}\" type=\"{card.CardType}\" range=\"{(card.Range.Print())}\" target=\"{card.Target.Print()}\" elements=\"{card.elements.ToString()}\" image=\"{card.artworkDataString}\" artist-name=\"undefined\"><rules>{card.descrition}</rules>";
+        //        if (card.HasThreshold)
+        //            fileText += $"<threshold condition=\"{card.thresholdCondition}\">{card.thresholdDescription}</threshold>";
                         
-                fileText += "</quick-card>\n";
-            }
-            fileText += "<spirit-name>Minor Deck</spirit-name>";
-            File.WriteAllText(Path.Combine(Workspace, "minor power deck.html"), fileText);
-        }
+        //        fileText += "</quick-card>\n";
+        //    }
+        //    fileText += "<spirit-name>Minor Deck</spirit-name>";
+        //    File.WriteAllText(Path.Combine(Workspace, "minor power deck.html"), fileText);
+        //}
 
         
 
         private void Cleanup()
         {
+            deck.SaveDeck(Workspace);
             Logger.ChangeLogConfig(Logger.DefaultConfig);
         }
     }

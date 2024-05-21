@@ -12,8 +12,12 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
-    internal class DestroyedPresenceAddEffect : AddEffect
+    internal class DestroyedPresenceAddEffect : AddEffect, ITrackedStat
     {
+        public static string TrackedName => "Add destroyed presence";
+        public static int TargetAmount => 2;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Plant }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun}; } }
         public override double BaseProbability { get { return .02; } }

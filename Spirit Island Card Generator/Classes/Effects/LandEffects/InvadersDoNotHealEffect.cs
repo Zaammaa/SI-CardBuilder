@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Moon }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Air, Element.Water }; } }
+
+        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(InvadersDoNotHealEffect) };
+
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 2; } }

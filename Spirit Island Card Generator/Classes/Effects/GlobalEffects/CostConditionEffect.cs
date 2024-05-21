@@ -33,7 +33,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
                 }
             }
         }
-        public override double BaseProbability { get { return .15; } }
+        public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get 
             {

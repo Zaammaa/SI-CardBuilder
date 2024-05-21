@@ -28,43 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            scanBtn = new Button();
             generateDeckBtn = new Button();
             tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
+            generateDeckPage = new TabPage();
+            label7 = new Label();
+            spiritTargetBuffBox = new NumericUpDown();
+            label6 = new Label();
+            customEffectLevelBox = new NumericUpDown();
             label5 = new Label();
             deckNameBox = new TextBox();
-            numericUpDown1 = new NumericUpDown();
+            maxComplexityBox = new NumericUpDown();
             label3 = new Label();
             label4 = new Label();
-            numericUpDown2 = new NumericUpDown();
+            minComplexityBox = new NumericUpDown();
             varianceBox = new NumericUpDown();
             label2 = new Label();
             label1 = new Label();
             targetPowerLevelBox = new NumericUpDown();
             generateArtChkBox = new CheckBox();
-            tabPage2 = new TabPage();
-            customEffectLevelBox = new NumericUpDown();
-            label6 = new Label();
+            deckViewerPage = new TabPage();
+            loadDeckbtn = new Button();
+            webBrowser1 = new WebBrowser();
+            tabPage1 = new TabPage();
+            folderBrowserDialog1 = new FolderBrowserDialog();
             tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            generateDeckPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)spiritTargetBuffBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)maxComplexityBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)minComplexityBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)varianceBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)targetPowerLevelBox).BeginInit();
-            tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).BeginInit();
+            deckViewerPage.SuspendLayout();
             SuspendLayout();
-            // 
-            // scanBtn
-            // 
-            scanBtn.Location = new Point(416, 302);
-            scanBtn.Name = "scanBtn";
-            scanBtn.Size = new Size(118, 96);
-            scanBtn.TabIndex = 0;
-            scanBtn.Text = "Scan";
-            scanBtn.UseVisualStyleBackColor = true;
-            scanBtn.Click += scanBtn_Click;
             // 
             // generateDeckBtn
             // 
@@ -78,37 +74,77 @@
             // 
             // tabControl1
             // 
+            tabControl1.Controls.Add(generateDeckPage);
+            tabControl1.Controls.Add(deckViewerPage);
             tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
             tabControl1.Location = new Point(6, 6);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(782, 432);
             tabControl1.TabIndex = 2;
             // 
-            // tabPage1
+            // generateDeckPage
             // 
-            tabPage1.Controls.Add(label6);
-            tabPage1.Controls.Add(customEffectLevelBox);
-            tabPage1.Controls.Add(label5);
-            tabPage1.Controls.Add(deckNameBox);
-            tabPage1.Controls.Add(numericUpDown1);
-            tabPage1.Controls.Add(label3);
-            tabPage1.Controls.Add(label4);
-            tabPage1.Controls.Add(numericUpDown2);
-            tabPage1.Controls.Add(varianceBox);
-            tabPage1.Controls.Add(label2);
-            tabPage1.Controls.Add(label1);
-            tabPage1.Controls.Add(targetPowerLevelBox);
-            tabPage1.Controls.Add(generateArtChkBox);
-            tabPage1.Controls.Add(generateDeckBtn);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(774, 404);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
+            generateDeckPage.Controls.Add(label7);
+            generateDeckPage.Controls.Add(spiritTargetBuffBox);
+            generateDeckPage.Controls.Add(label6);
+            generateDeckPage.Controls.Add(customEffectLevelBox);
+            generateDeckPage.Controls.Add(label5);
+            generateDeckPage.Controls.Add(deckNameBox);
+            generateDeckPage.Controls.Add(maxComplexityBox);
+            generateDeckPage.Controls.Add(label3);
+            generateDeckPage.Controls.Add(label4);
+            generateDeckPage.Controls.Add(minComplexityBox);
+            generateDeckPage.Controls.Add(varianceBox);
+            generateDeckPage.Controls.Add(label2);
+            generateDeckPage.Controls.Add(label1);
+            generateDeckPage.Controls.Add(targetPowerLevelBox);
+            generateDeckPage.Controls.Add(generateArtChkBox);
+            generateDeckPage.Controls.Add(generateDeckBtn);
+            generateDeckPage.Location = new Point(4, 24);
+            generateDeckPage.Name = "generateDeckPage";
+            generateDeckPage.Padding = new Padding(3);
+            generateDeckPage.Size = new Size(774, 404);
+            generateDeckPage.TabIndex = 0;
+            generateDeckPage.Text = "Generate Deck";
+            generateDeckPage.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(132, 153);
+            label7.Name = "label7";
+            label7.Size = new Size(94, 15);
+            label7.TabIndex = 16;
+            label7.Text = "Spirit Target Buff";
+            // 
+            // spiritTargetBuffBox
+            // 
+            spiritTargetBuffBox.DecimalPlaces = 2;
+            spiritTargetBuffBox.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
+            spiritTargetBuffBox.Location = new Point(132, 171);
+            spiritTargetBuffBox.Name = "spiritTargetBuffBox";
+            spiritTargetBuffBox.Size = new Size(120, 23);
+            spiritTargetBuffBox.TabIndex = 15;
+            spiritTargetBuffBox.Value = new decimal(new int[] { 1, 0, 0, 65536 });
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(4, 153);
+            label6.Name = "label6";
+            label6.Size = new Size(112, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Custom Effect Level";
+            // 
+            // customEffectLevelBox
+            // 
+            customEffectLevelBox.Location = new Point(6, 171);
+            customEffectLevelBox.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            customEffectLevelBox.Name = "customEffectLevelBox";
+            customEffectLevelBox.Size = new Size(120, 23);
+            customEffectLevelBox.TabIndex = 13;
+            customEffectLevelBox.Value = new decimal(new int[] { 3, 0, 0, 0 });
             // 
             // label5
             // 
@@ -126,14 +162,13 @@
             deckNameBox.Size = new Size(100, 23);
             deckNameBox.TabIndex = 11;
             // 
-            // numericUpDown1
+            // maxComplexityBox
             // 
-            numericUpDown1.Increment = new decimal(new int[] { 0, 0, 0, 0 });
-            numericUpDown1.Location = new Point(132, 123);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
-            numericUpDown1.TabIndex = 10;
-            numericUpDown1.Value = new decimal(new int[] { 20, 0, 0, 0 });
+            maxComplexityBox.Location = new Point(132, 123);
+            maxComplexityBox.Name = "maxComplexityBox";
+            maxComplexityBox.Size = new Size(120, 23);
+            maxComplexityBox.TabIndex = 10;
+            maxComplexityBox.Value = new decimal(new int[] { 20, 0, 0, 0 });
             // 
             // label3
             // 
@@ -153,13 +188,13 @@
             label4.TabIndex = 8;
             label4.Text = "Min Complexity";
             // 
-            // numericUpDown2
+            // minComplexityBox
             // 
-            numericUpDown2.Location = new Point(6, 123);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(120, 23);
-            numericUpDown2.TabIndex = 7;
-            numericUpDown2.Value = new decimal(new int[] { 8, 0, 0, 0 });
+            minComplexityBox.Location = new Point(6, 123);
+            minComplexityBox.Name = "minComplexityBox";
+            minComplexityBox.Size = new Size(120, 23);
+            minComplexityBox.TabIndex = 7;
+            minComplexityBox.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // varianceBox
             // 
@@ -209,34 +244,46 @@
             generateArtChkBox.Text = "Generate Art";
             generateArtChkBox.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // deckViewerPage
             // 
-            tabPage2.Controls.Add(scanBtn);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(774, 404);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            deckViewerPage.Controls.Add(loadDeckbtn);
+            deckViewerPage.Controls.Add(webBrowser1);
+            deckViewerPage.Location = new Point(4, 24);
+            deckViewerPage.Name = "deckViewerPage";
+            deckViewerPage.Padding = new Padding(3);
+            deckViewerPage.Size = new Size(774, 404);
+            deckViewerPage.TabIndex = 1;
+            deckViewerPage.Text = "Deck Viewer";
+            deckViewerPage.UseVisualStyleBackColor = true;
             // 
-            // customEffectLevelBox
+            // loadDeckbtn
             // 
-            customEffectLevelBox.Location = new Point(6, 171);
-            customEffectLevelBox.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
-            customEffectLevelBox.Name = "customEffectLevelBox";
-            customEffectLevelBox.Size = new Size(120, 23);
-            customEffectLevelBox.TabIndex = 13;
-            customEffectLevelBox.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            loadDeckbtn.Location = new Point(6, 6);
+            loadDeckbtn.Name = "loadDeckbtn";
+            loadDeckbtn.Size = new Size(75, 23);
+            loadDeckbtn.TabIndex = 28;
+            loadDeckbtn.Text = "Load Deck";
+            loadDeckbtn.UseVisualStyleBackColor = true;
+            loadDeckbtn.Click += loadDeckbtn_Click;
             // 
-            // label6
+            // webBrowser1
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(4, 153);
-            label6.Name = "label6";
-            label6.Size = new Size(112, 15);
-            label6.TabIndex = 14;
-            label6.Text = "Custom Effect Level";
+            webBrowser1.Location = new Point(257, 6);
+            webBrowser1.Margin = new Padding(5, 3, 5, 3);
+            webBrowser1.MinimumSize = new Size(27, 27);
+            webBrowser1.Name = "webBrowser1";
+            webBrowser1.Size = new Size(238, 306);
+            webBrowser1.TabIndex = 27;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(774, 404);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "Scan";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // CardGeneratorForm
             // 
@@ -247,36 +294,41 @@
             Name = "CardGeneratorForm";
             Text = "SI Card Generator";
             tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            generateDeckPage.ResumeLayout(false);
+            generateDeckPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)spiritTargetBuffBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)maxComplexityBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)minComplexityBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)varianceBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)targetPowerLevelBox).EndInit();
-            tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)customEffectLevelBox).EndInit();
+            deckViewerPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button scanBtn;
         private Button generateDeckBtn;
         private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
+        private TabPage generateDeckPage;
+        private TabPage deckViewerPage;
         private CheckBox generateArtChkBox;
         private NumericUpDown varianceBox;
         private Label label2;
         private Label label1;
         private NumericUpDown targetPowerLevelBox;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown maxComplexityBox;
         private Label label3;
         private Label label4;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown minComplexityBox;
         private Label label5;
         private TextBox deckNameBox;
         private Label label6;
         private NumericUpDown customEffectLevelBox;
+        private TabPage tabPage1;
+        private WebBrowser webBrowser1;
+        private Button loadDeckbtn;
+        private FolderBrowserDialog folderBrowserDialog1;
+        private Label label7;
+        private NumericUpDown spiritTargetBuffBox;
     }
 }

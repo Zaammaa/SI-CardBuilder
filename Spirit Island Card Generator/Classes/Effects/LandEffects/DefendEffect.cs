@@ -12,8 +12,12 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    public class DefendEffect : AmountEffect
+    public class DefendEffect : AmountEffect , ITrackedStat
     {
+        public static string TrackedName => "Defend";
+        public static int TargetAmount => 17;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Earth }; } }
         public override double BaseProbability { get { return .30; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -35,7 +39,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             new DifficultyOption("Change amounts", 100, IncreaseAmount, DecreaseAmount),
         };
 
-        public override double effectStrength => 0.2;
+        public override double effectStrength => 0.15;
 
         protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
@@ -43,9 +47,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             {2, 0.6},
             {3, 1},
             {4, 0.9},
-            {5, 0.9},
-            {6, 0.8},
-            {7, 0.7},
+            {5, 0.8},
+            {6, 0.7},
+            {7, 0.6},
             {8, 0.6},
             {9, 0.5},
             {10, 0.4},

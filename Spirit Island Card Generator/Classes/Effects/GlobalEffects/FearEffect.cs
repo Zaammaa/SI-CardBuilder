@@ -54,7 +54,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return fearAmount + " {fear}.";
+            return fearAmount + " {fear}";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

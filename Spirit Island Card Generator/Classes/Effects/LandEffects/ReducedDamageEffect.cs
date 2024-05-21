@@ -59,7 +59,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         protected List<ModifierOptions> instructionModifiers = new List<ModifierOptions>() {
-            new ModifierOptions(100, [Piece.Invader], "Each Invader does -1 Damage", 0.85, 0),
+            new ModifierOptions(100, [Piece.Invader], "Each Invader does -1 Damage", 0.8, 0),
             new ModifierOptions(2, [Piece.Explorer], "Each {explorer} does -1 Damage", 0.2, 3),
             new ModifierOptions(5, [Piece.Explorer, Piece.Town], "Each {explorer}/{town} does -1 Damage", 0.75, 2),
             new ModifierOptions(5, [Piece.Town, Piece.City], "Each {town}/{city} does -1 Damage", 0.5, 2),
@@ -75,6 +75,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         public override IPowerLevel Duplicate()
         {
             ReducedDamageEffect effect = new ReducedDamageEffect();
+            effect.instructionModifiers = new List<ModifierOptions>(instructionModifiers);
             effect.chosenOption = new ModifierOptions(chosenOption.weight, chosenOption.pieces, chosenOption.text, chosenOption.strength, chosenOption.customLevel);
             effect.Context = Context.Duplicate();
             return effect;

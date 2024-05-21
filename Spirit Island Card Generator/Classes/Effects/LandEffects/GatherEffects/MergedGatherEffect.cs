@@ -14,7 +14,7 @@ using static Spirit_Island_Card_Generator.Classes.GameConcepts.GamePieces;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 {
     [LandEffect]
-    internal class MergedGatherEffect : Effect, IParentEffect
+    internal class MergedGatherEffect : AmountEffect, IParentEffect
     {
         public override double BaseProbability => 0.1;
 
@@ -70,6 +70,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             }
         }
         private int _amount = 1;
+        [AmountValue]
         public int amount
         {
             get { return _amount; }
@@ -83,6 +84,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
                 }
             }
         }
+
+        public override double effectStrength => gatherEffects.Max(gather => gather.CalculatePowerLevel());
+
+        protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
+        {
+            {1,1},
+            {2,1},
+            {3,1},
+            {4,1},
+        };
+
         public List<Effect> gatherEffects = new List<Effect>();
 
         public override double CalculatePowerLevel()

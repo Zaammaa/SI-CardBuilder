@@ -17,10 +17,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
     public abstract class Effect : IGeneratorOption, IPowerLevel
     {
         public virtual Context.CardTargets TargetType { get { 
-                if (this.GetType().GetCustomAttributes(typeof(LandEffectAttribute), true) != null)
+                if (this.GetType().GetCustomAttributes(typeof(LandEffectAttribute), true).Count() > 0 && this.GetType().GetCustomAttributes(typeof(SpiritEffectAttribute), true).Count() > 0)
+                {
+                    return Context.targetContext;
+                }
+                else if (this.GetType().GetCustomAttributes(typeof(LandEffectAttribute), true).Count() > 0)
                 {
                     return Context.CardTargets.Land;
-                } else if (this.GetType().GetCustomAttributes(typeof(SpiritEffectAttribute), true) != null)
+                } else if (this.GetType().GetCustomAttributes(typeof(SpiritEffectAttribute), true).Count() > 0)
                 {
                     return Context.CardTargets.TargetSpirit;
                 } else
@@ -227,6 +231,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                         Log.Warning("Strengthen failed to increase power level");
                         //throw new Exception("Strengthen failed to increase power level");
                     }
+                    Log.Information("Chose strengthen option: " + option.name);
                     return chosenEffect;
                 } else
                 {
@@ -258,6 +263,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
                         Log.Warning("Weaken failed to reduce power level");
                         //throw new Exception("Weaken failed to reduce power level");
                     }
+                    Log.Information("Chose weaken option: " + option.name);
+
                     return chosenEffect;
                 }
                 else

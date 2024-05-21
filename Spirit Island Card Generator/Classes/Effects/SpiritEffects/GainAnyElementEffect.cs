@@ -51,7 +51,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            return 0.45;
+            return 0.3;
         }
 
         public override bool Scan(string description)

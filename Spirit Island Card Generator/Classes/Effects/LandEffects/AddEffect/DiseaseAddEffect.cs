@@ -12,8 +12,12 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
-    internal class DiseaseAddEffect : AddEffect
+    internal class DiseaseAddEffect : AddEffect, ITrackedStat
     {
+        public static string TrackedName => "Add disease";
+        public static int TargetAmount => 7;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Water }; } }
         public override double BaseProbability { get { return .08; } }

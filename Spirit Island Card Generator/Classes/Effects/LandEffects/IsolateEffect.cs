@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     {
         public override double BaseProbability { get { return .04; } }
         public override double AdjustedProbability { get { return .04; } set { } }
+
+        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(IsolateEffect) };
         public override int Complexity { get { return 3; } }
 
         public override Regex descriptionRegex

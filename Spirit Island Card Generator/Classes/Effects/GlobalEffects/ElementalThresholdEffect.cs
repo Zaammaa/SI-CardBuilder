@@ -16,6 +16,20 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [SpiritEffect]
     internal class ElementalThresholdEffect : Effect, IParentEffect
     {
+        public override Context.CardTargets TargetType
+        {
+            get
+            {
+                if (Context.target.SpiritTarget)
+                {
+                    return Context.CardTargets.TargetSpirit;
+                }
+                else
+                {
+                    return Context.CardTargets.Land;
+                }
+            }
+        }
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
         public override int Complexity

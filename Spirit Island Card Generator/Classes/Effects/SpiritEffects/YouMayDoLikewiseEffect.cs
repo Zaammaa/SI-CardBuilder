@@ -1,5 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
+using Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     {
         public override double BaseProbability { get { return .25; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
+
+        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(YouMayDoLikewiseEffect) };
+
         public override int Complexity { get { return 1; } }
 
         public override Regex descriptionRegex
@@ -46,7 +50,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override bool IsValidGeneratorOption(Context context)
         {
             //This can only be valid if the target type is another spirit, or if this is under the "If you target another spirit" effect.
-            if (!(context.target.targetType == Target.TargetType.AnotherSpirit || context.HasEffectAbove(typeof(IfYouTargetAnotherSpiritEffect))))
+            //We do want to use the card's target, rather than the Context's as having this on a land targeting card makes no sense
+            if (!(context.card.Target.targetType == Target.TargetType.AnotherSpirit || context.HasEffectAbove(typeof(IfYouTargetAnotherSpiritEffect))) || context.HasEffectAbove(typeof(OrEffect)))
                 return false;
             else
                 return true;

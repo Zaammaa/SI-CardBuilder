@@ -12,8 +12,15 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    public class DamageEffect : AmountEffect
+    public class DamageEffect : AmountEffect, ITrackedStat
     {
+        public static string TrackedName => "Damage";
+
+        public static int TargetAmount => 17;
+
+        public bool ExactTarget => false;
+
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Animal }; } }
         public override double BaseProbability { get { return .20; } }
@@ -56,7 +63,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         //Writes what goes on the card
         public override string Print()
         {
-            return damageAmount + " Damage.";
+            return damageAmount + " Damage";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)

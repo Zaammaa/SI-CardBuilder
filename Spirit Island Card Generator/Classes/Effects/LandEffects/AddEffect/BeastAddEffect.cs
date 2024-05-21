@@ -12,20 +12,24 @@ using static Spirit_Island_Card_Generator.Classes.ElementSet;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
-    internal class BeastAddEffect : AddEffect
+    internal class BeastAddEffect : AddEffect, ITrackedStat
     {
+        public static string TrackedName => "Add Beast";
+        public static int TargetAmount => 7;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal }; } }
         public override double BaseProbability { get { return .07; } }
-        public override int Complexity { get { return 3; } }
+        public override int Complexity { get { return 2; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Beast;
 
         protected override Dictionary<int, double> ExtraAmountMultiplier => new Dictionary<int, double>()
         {
             { 1, 1.0},
-            { 2, 0.9},
+            { 2, 1.2},
         };
 
-        public override double effectStrength => 0.6;
+        public override double effectStrength => 0.65;
 
         public override IPowerLevel Duplicate()
         {

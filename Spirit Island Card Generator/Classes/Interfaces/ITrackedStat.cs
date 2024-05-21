@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
-    internal interface ITrackedStat
+    public interface ITrackedStat
     {
         //Name that gets put into the log
         public static string TrackedName { get; }

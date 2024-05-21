@@ -89,6 +89,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             ConditionalDamageEffect effect = new ConditionalDamageEffect();
             effect.damageAmount = damageAmount;
             effect.chosenOption = new DamageOption(chosenOption.weight, chosenOption.pieces, chosenOption.text, chosenOption.strength);
+            effect.damageOptions = new List<DamageOption>(damageOptions);
             effect.Context = Context.Duplicate();
             return effect;
         }

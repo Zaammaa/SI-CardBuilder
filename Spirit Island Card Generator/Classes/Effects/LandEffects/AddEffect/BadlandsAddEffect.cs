@@ -14,11 +14,15 @@ using static Spirit_Island_Card_Generator.Classes.TargetConditions.LandConditon;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
 {
     [LandEffect]
-    internal class BadlandsAddEffect : AddEffect
+    internal class BadlandsAddEffect : AddEffect, ITrackedStat
     {
+        public static string TrackedName => "Add Badlands";
+        public static int TargetAmount => 6;
+        public bool ExactTarget => false;
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Earth }; } }
-        public override double BaseProbability { get { return .07; } }
+        public override double BaseProbability { get { return .06; } }
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Badland;
 
@@ -29,7 +33,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             { 3, 1.5},
         };
 
-        public override double effectStrength => 0.7;
+        public override double effectStrength => 0.85;
 
         public override IPowerLevel Duplicate()
         {
