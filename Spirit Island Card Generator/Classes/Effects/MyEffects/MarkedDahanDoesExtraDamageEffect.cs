@@ -1,6 +1,6 @@
 ﻿using Spirit_Island_Card_Generator.Classes.Attributes;
 using Spirit_Island_Card_Generator.Classes.CardGenerator;
-using Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects;
+using Spirit_Island_Card_Generator.Classes.Effects.LandEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,49 +8,52 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
+namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
 {
     [LandEffect]
-    public class IsolateEffect : Effect
+    [CustomEffect(4)]
+    [LimitedOption(2)]
+    internal class MarkedDahanDoesExtraDamageEffect : Effect
     {
-        public override double BaseProbability { get { return .04; } }
-        public override double AdjustedProbability { get { return .04; } set { } }
-
-        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(IsolateEffect) };
-        public override int Complexity { get { return 3; } }
+        public override int Complexity { get { return 5; } }
 
         public override Regex descriptionRegex
         {
             get
             {
-                return new Regex(@"Isolate target land", RegexOptions.IgnoreCase);
+                return new Regex(@"", RegexOptions.IgnoreCase);
             }
         }
 
         protected override DifficultyOption[] difficultyOptions => [];
 
+        public override double BaseProbability => 0.01;
+
+        public override double AdjustedProbability { get => BaseProbability; set { } }
+
         //Writes what goes on the card
         public override string Print()
         {
-            return $"Isolate {Context.GetTargetString(TargetType)}";
+            return "Mark a {dahan}. It does +1 Damage after Ravage (It can still die, but doesn't need to be targeted first by Invaders/Events)";
         }
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)
         {
-            if (context.card.ContainsSameEffectType(this) || !context.card.Fast)
+            if (context.target.landConditions.Contains(TargetConditions.LandConditon.LandConditions.NoDahan))
+            {
                 return false;
-            else
-                return true;
+            }
+            return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
         protected override void InitializeEffect()
         {
-            
+
         }
         //Estimates the effects own power level
         public override double CalculatePowerLevel()
         {
-            return 0.2;
+            return 1;
         }
 
         public override bool Scan(string description)
@@ -60,9 +63,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
             return match.Success;
         }
 
-        public override IsolateEffect Duplicate()
+        public override MarkedDahanDoesExtraDamageEffect Duplicate()
         {
-            IsolateEffect effect = new IsolateEffect();
+            MarkedDahanDoesExtraDamageEffect effect = new MarkedDahanDoesExtraDamageEffect();
             effect.Context = Context.Duplicate();
             return effect;
         }

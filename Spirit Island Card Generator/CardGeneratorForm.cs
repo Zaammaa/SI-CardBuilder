@@ -35,6 +35,8 @@ namespace Spirit_Island_Card_Generator
                 settings.GenerateArt = false;
             }
 
+            settings.AllowRandomEffects = allowRandomEffectsBox.Checked;
+
             settings.TargetPowerLevel = (double)targetPowerLevelBox.Value;
             settings.PowerLevelVariance = (double)varianceBox.Value;
 

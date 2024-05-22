@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         protected EffectOption chosenOption { get; set; }
 
+        protected List<EffectOption> _effectOptions = new List<EffectOption>();
         protected abstract List<EffectOption> EffectOptions { get; set; }
 
         public override bool Scan(string description)
@@ -57,9 +58,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             Dictionary<EffectOption, int> weights = new Dictionary<EffectOption, int>();
             foreach (EffectOption option in EffectOptions)
             {
-                if (option.powerMult > chosenOption.powerMult)
+                if (option.baseStrength == chosenOption.baseStrength)
                 {
-                    weights.Add(option, (int)(option.weight * 1000));
+                    if (option.powerMult > chosenOption.powerMult)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
+                }
+                else
+                {
+                    if (option.baseStrength > chosenOption.baseStrength)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
                 }
             }
             if (weights.Count == 0)
@@ -75,9 +86,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             Dictionary<EffectOption, int> weights = new Dictionary<EffectOption, int>();
             foreach (EffectOption option in EffectOptions)
             {
-                if (option.powerMult < chosenOption.powerMult)
+                if (option.baseStrength == chosenOption.baseStrength)
                 {
-                    weights.Add(option, (int)(option.weight * 1000));
+                    if (option.powerMult < chosenOption.powerMult)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
+                }
+                else
+                {
+                    if (option.baseStrength < chosenOption.baseStrength)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
                 }
             }
             if (weights.Count == 0)

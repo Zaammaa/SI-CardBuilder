@@ -16,6 +16,8 @@ namespace Spirit_Island_Card_Generator.Classes
         //If true, the deck of generated cards will have the same number of 0 cost and 1 cost cards as the base
         public bool UseExactCardCosts = false;
 
+        public bool AllowRandomEffects = true;
+
         //How strong the cards should be on average.
         public double TargetPowerLevel = 1.0;
         //How much variance the card generator will allow in power level.

@@ -288,7 +288,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             }
         }
 
-        protected Context UpdateContext()
+        protected virtual Context UpdateContext()
         {
             Context newContext = Context.Duplicate();
             if (this.GetType().GetInterfaces().Contains(typeof(IParentEffect)))

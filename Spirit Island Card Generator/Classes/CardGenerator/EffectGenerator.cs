@@ -63,7 +63,19 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 //TODO: pools
                 //tracked stats
+
                 int used = timesUsed[option.GetType()];
+                if (option.GetType().GetCustomAttribute(typeof(LimitedOptionAttribute)) != null)
+                {
+                    LimitedOptionAttribute limitedOptionAttribute = (LimitedOptionAttribute)option.GetType().GetCustomAttribute(typeof(LimitedOptionAttribute));
+                    if (limitedOptionAttribute.maxUses >= used)
+                    {
+                        AdjustedProbabilities[option.GetType()] = 0;
+                        continue;
+                    }
+                }
+
+
                 if (option.GetType().GetInterfaces().Contains(typeof(ITrackedStat)))
                 {
                     ITrackedStat trackedStat = (ITrackedStat)option;
@@ -316,11 +328,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             deckIndex++;
             AdjustWeights(card.elements);
-        }
-
-        public bool IsWithinAcceptablePowerLevel(double min, double max, double value)
-        {
-            return value >= min && value <= max;
         }
 
         public void LogTrackedStats()

@@ -25,7 +25,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
             { 3, 0.5},
         };
 
-        public override double effectStrength => 0.85;
+        public override double effectStrength {
+            get
+            {
+                if (Context.card.Fast)
+                    return 0.85;
+                else
+                    return 0.6;
+            }
+        }
 
         public override IPowerLevel Duplicate()
         {

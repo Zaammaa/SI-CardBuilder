@@ -29,8 +29,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ForEachEffects.LandForeac
         public override Regex descriptionRegex => new Regex(@"");
 
         protected override DifficultyOption[] difficultyOptions => [
-            new DifficultyOption("Strengthen/Weaken Effect", 30, StrengthenEffect, WeakenEffect),
-            new DifficultyOption("Choose different piece", 70, ChooseMoreCommonPiece, ChooseLessCommonPiece),
+            new DifficultyOption("Strengthen/Weaken Effect", 5, StrengthenEffect, WeakenEffect),
+            new DifficultyOption("Choose different piece", 85, ChooseMoreCommonPiece, ChooseLessCommonPiece),
             new DifficultyOption("Add/Remove effect", 5, AddNewEffect, RemoveEffect),
         ];
         //Certain effects need caps or it can get absurd. For example if you had a fear per dahan effect, you could stack a ton of dahan in a land and keep playing the card there for fear.

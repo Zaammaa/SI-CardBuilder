@@ -25,7 +25,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
             { 3, .5},
         };
 
-        public override double effectStrength => 0.75;
+        public override double effectStrength {
+            get
+            {
+                if (Context.card.Fast)
+                    return 0.7;
+                else
+                    return 0.55;
+            }
+        }
 
         public override IPowerLevel Duplicate()
         {

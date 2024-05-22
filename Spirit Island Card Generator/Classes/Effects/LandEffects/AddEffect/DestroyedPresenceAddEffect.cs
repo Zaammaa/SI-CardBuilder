@@ -30,7 +30,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
             { 2, 1.2 }
         };
 
-        public override double effectStrength => 0.7;
+        public override double effectStrength => 0.5;
 
         public override IPowerLevel Duplicate()
         {

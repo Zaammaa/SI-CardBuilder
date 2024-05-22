@@ -61,9 +61,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             Dictionary<EffectOption, int> weights = new Dictionary<EffectOption, int>();
             foreach (EffectOption option in EffectOptions)
             {
-                if (option.powerMult * option.baseStrength > chosenOption.powerMult * chosenOption.baseStrength)
+                if (option.baseStrength == chosenOption.baseStrength)
                 {
-                    weights.Add(option, (int)(option.weight * 1000));
+                    if (option.powerMult > chosenOption.powerMult)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
+                } else
+                {
+                    if (option.baseStrength > chosenOption.baseStrength)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
                 }
             }
             if (weights.Count == 0)
@@ -79,9 +88,19 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             Dictionary<EffectOption, int> weights = new Dictionary<EffectOption, int>();
             foreach (EffectOption option in EffectOptions)
             {
-                if (option.powerMult * option.baseStrength < chosenOption.powerMult * chosenOption.baseStrength)
+                if (option.baseStrength == chosenOption.baseStrength)
                 {
-                    weights.Add(option, (int)(option.weight * 1000));
+                    if (option.powerMult < chosenOption.powerMult)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
+                }
+                else
+                {
+                    if (option.baseStrength < chosenOption.baseStrength)
+                    {
+                        weights.Add(option, (int)(option.weight * 1000));
+                    }
                 }
             }
             if (weights.Count == 0)

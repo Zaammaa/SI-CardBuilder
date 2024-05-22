@@ -88,7 +88,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
 
         public override bool IsValidGeneratorOption(Context context)
         {
-            if (context.card.Range.range == 0)
+            //We do want context.card rather than context.target here. The card needs an origin land to make sense
+            if (context.card.Range.range == 0 || context.card.Target.SpiritTarget)
                 return false;
 
             return true;

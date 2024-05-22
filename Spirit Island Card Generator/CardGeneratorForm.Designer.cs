@@ -51,6 +51,7 @@
             webBrowser1 = new WebBrowser();
             tabPage1 = new TabPage();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            allowRandomEffectsBox = new CheckBox();
             tabControl1.SuspendLayout();
             generateDeckPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)spiritTargetBuffBox).BeginInit();
@@ -85,6 +86,7 @@
             // 
             // generateDeckPage
             // 
+            generateDeckPage.Controls.Add(allowRandomEffectsBox);
             generateDeckPage.Controls.Add(label7);
             generateDeckPage.Controls.Add(spiritTargetBuffBox);
             generateDeckPage.Controls.Add(label6);
@@ -285,6 +287,18 @@
             tabPage1.Text = "Scan";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // allowRandomEffectsBox
+            // 
+            allowRandomEffectsBox.AutoSize = true;
+            allowRandomEffectsBox.Checked = true;
+            allowRandomEffectsBox.CheckState = CheckState.Checked;
+            allowRandomEffectsBox.Location = new Point(266, 32);
+            allowRandomEffectsBox.Name = "allowRandomEffectsBox";
+            allowRandomEffectsBox.Size = new Size(142, 19);
+            allowRandomEffectsBox.TabIndex = 17;
+            allowRandomEffectsBox.Text = "Allow Random Effects";
+            allowRandomEffectsBox.UseVisualStyleBackColor = true;
+            // 
             // CardGeneratorForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -330,5 +344,6 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private Label label7;
         private NumericUpDown spiritTargetBuffBox;
+        private CheckBox allowRandomEffectsBox;
     }
 }

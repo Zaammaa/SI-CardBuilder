@@ -51,9 +51,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         //Checks if this should be an option for the card generator
         public override bool IsValidGeneratorOption(Context context)
         {
-            if (!context.card.Target.SpiritTarget || context.card.ContainsSameEffectType(this))
-                return false;
-            else
                 return true;
         }
         //Chooses what exactly the effect should be (how much damage/fear/defense/etc...)
