@@ -14,8 +14,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.InvaderAction
     internal class TurnRavageToBuildEffect : Effect
     {
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
-{
-};
+        {
+        };
+
+        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(DefendEffect), typeof(BlightDoesNotCascadeEffect), typeof(NotParticipateInRavageEffect)};
 
         public override double BaseProbability => 0.01;
 

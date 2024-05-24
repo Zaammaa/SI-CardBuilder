@@ -51,7 +51,13 @@ namespace Spirit_Island_Card_Generator
                 settings.deckName = deckNameBox.Text;
 
             DeckGenerator generator = new DeckGenerator(settings);
-            generator.GenerateDeck();
+            generator.CardUpdate += OnCardProgress;
+            generator.ImageUpdate += OnArtProgress;
+            generator.Finished += OnDeckFinished;
+            Thread makeDeckThread = new Thread(new ThreadStart(() => generator.GenerateDeck()));
+            generateDeckBtn.Visible = false;
+            progressBar.Maximum = settings.DeckSize;
+            makeDeckThread.Start();
         }
 
         private void loadDeckbtn_Click(object sender, EventArgs e)
@@ -71,6 +77,51 @@ namespace Spirit_Island_Card_Generator
                 }
                 MessageBox.Show($"BlightRemoval: {blightRemoveCount}");
             }
+        }
+
+        private void OnCardProgress(object sender, SimpleEventArgs e)
+        {
+            if (progressBar.BackColor != Color.Blue)
+            {
+                progressBar.BeginInvoke(new Action(() =>
+                {
+                    progressBar.BackColor = Color.Blue;
+                }));
+            }
+
+            progressBar.BeginInvoke(new Action(() =>
+            {
+                progressBar.Value = (int)e.data;
+            }));
+        }
+
+        private void OnArtProgress(object sender, SimpleEventArgs e)
+        {
+            if (progressBar.BackColor != Color.Green)
+            {
+                progressBar.BeginInvoke(new Action(() =>
+                {
+                    progressBar.BackColor = Color.Green;
+                }));
+            }
+
+            progressBar.BeginInvoke(new Action(() =>
+            {
+                progressBar.Value = (int)e.data;
+            }));
+        }
+
+        private void OnDeckFinished(object sender, SimpleEventArgs e)
+        {
+            progressBar.BeginInvoke(new Action(() =>
+            {
+                progressBar.Visible = false;
+            }));
+
+            generateDeckBtn.BeginInvoke(new Action(() =>
+            {
+                generateDeckBtn.Visible = true;
+            }));
         }
     }
 }

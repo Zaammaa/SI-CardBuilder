@@ -20,6 +20,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         Dictionary<ElementSet.Element, int> elementCounts = new Dictionary<ElementSet.Element, int>();
         CardGenerator cardGenerator = new CardGenerator();
         Automatic1111Client artGenerator = Automatic1111Client.stableDiffusionClient;
+        private int artworkCompletedCount = 0;
+
+        public event EventHandler<SimpleEventArgs> CardUpdate;
+        public event EventHandler<SimpleEventArgs> ImageUpdate;
+        public event EventHandler<SimpleEventArgs> Error;
+        public event EventHandler<SimpleEventArgs> Finished;
+
         private string Workspace => Path.Combine(settings.workspace, "Minor Power Decks", settings.deckName);
         private string ArtDir => Path.Combine(Workspace, "Art");
         private string CardLogs => Path.Combine(Workspace, "CardLogs");
@@ -34,7 +41,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public void GenerateDeck()
         {           
             SetupWorkSpace();
-            for (int i = 1; i <= 100; i++)
+            for (int i = 1; i <= settings.DeckSize; i++)
             {
                 Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
                 Card card = cardGenerator.GenerateMinorCard(settings);
@@ -44,6 +51,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 deck.AddCard(card);
                 if (settings.GenerateArt)
                     QueueArtwork(card, i);
+
+                CardUpdate?.Invoke(this, new SimpleEventArgs(i));
             }
             Log.Information("---------------------------Finished Deck---------------------------");
             Log.Information("Element Counts:");
@@ -98,9 +107,17 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             } else
             {
                 stableDiffusionSettings.AfterImageProcesses += card.OnArtFinished;
+                stableDiffusionSettings.AfterImageProcesses += OnImageProcessed;
             }
             
             artGenerator.AddPromptToQueue(stableDiffusionSettings);
+        }
+
+        //Most of the processing happens in the card method "OnArtFinished", but we can send the progress to the UI here
+        private void OnImageProcessed(object sender, SimpleEventArgs e)
+        {
+            artworkCompletedCount++;
+            ImageUpdate?.Invoke(this, new SimpleEventArgs(artworkCompletedCount));
         }
 
         private void OnLastImageProcessed(object  sender, SimpleEventArgs e)
@@ -115,6 +132,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             
             Cleanup();
+            Finished?.Invoke(this, e);
         }
 
         private void PostProcessCard(Card card)

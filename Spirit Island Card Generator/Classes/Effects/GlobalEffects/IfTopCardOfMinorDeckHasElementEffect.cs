@@ -24,6 +24,10 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
 
         public override Regex descriptionRegex => new Regex("");
 
+        public override bool Standalone => false;
+
+        public override double MaxPowerLevel => 0.6;
+
         protected override DifficultyOption[] difficultyOptions => [
             new DifficultyOption("Strengthen/Weaken child effect", 80, ChooseStrongerEffect, ChooseWeakerEffect),
             new DifficultyOption("Add/Remove effect", 10, AddNewEffect, RemoveEffect),

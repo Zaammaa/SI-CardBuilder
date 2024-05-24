@@ -29,7 +29,7 @@ namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
         public int height = 370;
         public bool restore_faces = false;
         public bool tiling = false;
-        public string negative_prompt = "bad anatomy, poor quality, boobs, nude, topless";
+        public string negative_prompt = "bad anatomy, poor quality";
         public string sampler_index = "Euler a";
         public string model = new SIArt().GetModelString();
 

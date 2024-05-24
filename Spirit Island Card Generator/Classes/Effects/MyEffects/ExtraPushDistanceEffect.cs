@@ -13,7 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
 {
     [SpiritEffect]
     [CustomEffect(3)]
-    internal class ExtraPushEffect : AmountEffect
+    internal class ExtraPushDistanceEffect : AmountEffect
     {
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double BaseProbability { get { return .01; } }
@@ -28,7 +28,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
             }
         }
         [AmountValue]
-        public int amount = 1;
+        public int extraPushAmount = 1;
 
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
@@ -47,9 +47,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
         //Writes what goes on the card
         public override string Print()
         {
-            if (amount > 1)
+            if (extraPushAmount > 1)
             {
-                return $"Once this turn when {Context.GetTargetString(TargetType)} pushes/gathers pieces, up to {amount} pieces may come or go to lands up to 2 distant";
+                return $"Once this turn when {Context.GetTargetString(TargetType)} pushes/gathers pieces, up to {extraPushAmount} pieces may come or go to lands up to 2 distant";
             }
 
             return $"Once this turn when {Context.GetTargetString(TargetType)} pushes/gathers pieces, 1 piece may come or go to lands up to 2 distant";
@@ -69,7 +69,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
         {
             if (Context.card.CardType == Card.CardTypes.Minor)
             {
-                amount = Context.rng.Next(1, 4);
+                extraPushAmount = Context.rng.Next(1, 4);
             }
             else
             {
@@ -84,8 +84,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
 
         public override Effect Duplicate()
         {
-            ExtraPushEffect effect = new ExtraPushEffect();
-            effect.amount = amount;
+            ExtraPushDistanceEffect effect = new ExtraPushDistanceEffect();
+            effect.extraPushAmount = extraPushAmount;
             effect.Context = Context.Duplicate();
             return effect;
         }

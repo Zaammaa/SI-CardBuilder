@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes
 {
     public class Settings
     {
+        public int DeckSize = 100;
         //If true, the deck of generated cards will have the exact same elements that are in the base.
         //Effectively, this takes all the cards from the old deck, replaces everything but the elements, and then generates new effects/names/art/etc...
         public bool UseExactElements = false;

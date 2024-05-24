@@ -66,14 +66,14 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ForEachEffects.LandForeac
         }
 
         protected List<ForeachOption> foreachOptions = new List<ForeachOption>() {
-            new ForeachOption(50, [Piece.Dahan], "{dahan}", 2.5, true),
-            new ForeachOption(25, [Piece.Beast], "{beast}", 1.8, true),
-            new ForeachOption(15, [Piece.Blight], "{blight}", 1, true),
+            new ForeachOption(50, [Piece.Dahan], "{dahan}", 2.8, true),
+            new ForeachOption(25, [Piece.Beast], "{beast}", 2, true),
+            new ForeachOption(15, [Piece.Blight], "{blight}", 1.5, true),
             new ForeachOption(10, [Piece.Explorer, Piece.Town, Piece.City, Piece.Invader], "type of Invader present", 2, false),
-            new ForeachOption(5, [], "your {sacred-site} in/adjacent to target land", 1.5, false, 2),
+            new ForeachOption(5, [], "your {sacred-site} in/adjacent to target land", 1.6, false, 2),
             new ForeachOption(5, [], "your {presence} in/adjacent to target land", 2.5, true, 3),
             new ForeachOption(5, [], "terror level", 1.3, false, 3),
-            new ForeachOption(3, [], "damaged Invader", 1, true, 3),
+            new ForeachOption(3, [], "damaged Invader", 1.3, true, 3),
         };
 
         protected ForeachOption chosenOption;

@@ -31,6 +31,7 @@
             generateDeckBtn = new Button();
             tabControl1 = new TabControl();
             generateDeckPage = new TabPage();
+            allowRandomEffectsBox = new CheckBox();
             label7 = new Label();
             spiritTargetBuffBox = new NumericUpDown();
             label6 = new Label();
@@ -51,7 +52,7 @@
             webBrowser1 = new WebBrowser();
             tabPage1 = new TabPage();
             folderBrowserDialog1 = new FolderBrowserDialog();
-            allowRandomEffectsBox = new CheckBox();
+            progressBar = new ProgressBar();
             tabControl1.SuspendLayout();
             generateDeckPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)spiritTargetBuffBox).BeginInit();
@@ -103,6 +104,7 @@
             generateDeckPage.Controls.Add(targetPowerLevelBox);
             generateDeckPage.Controls.Add(generateArtChkBox);
             generateDeckPage.Controls.Add(generateDeckBtn);
+            generateDeckPage.Controls.Add(progressBar);
             generateDeckPage.Location = new Point(4, 24);
             generateDeckPage.Name = "generateDeckPage";
             generateDeckPage.Padding = new Padding(3);
@@ -110,6 +112,18 @@
             generateDeckPage.TabIndex = 0;
             generateDeckPage.Text = "Generate Deck";
             generateDeckPage.UseVisualStyleBackColor = true;
+            // 
+            // allowRandomEffectsBox
+            // 
+            allowRandomEffectsBox.AutoSize = true;
+            allowRandomEffectsBox.Checked = true;
+            allowRandomEffectsBox.CheckState = CheckState.Checked;
+            allowRandomEffectsBox.Location = new Point(266, 32);
+            allowRandomEffectsBox.Name = "allowRandomEffectsBox";
+            allowRandomEffectsBox.Size = new Size(142, 19);
+            allowRandomEffectsBox.TabIndex = 17;
+            allowRandomEffectsBox.Text = "Allow Random Effects";
+            allowRandomEffectsBox.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -287,17 +301,12 @@
             tabPage1.Text = "Scan";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // allowRandomEffectsBox
+            // progressBar
             // 
-            allowRandomEffectsBox.AutoSize = true;
-            allowRandomEffectsBox.Checked = true;
-            allowRandomEffectsBox.CheckState = CheckState.Checked;
-            allowRandomEffectsBox.Location = new Point(266, 32);
-            allowRandomEffectsBox.Name = "allowRandomEffectsBox";
-            allowRandomEffectsBox.Size = new Size(142, 19);
-            allowRandomEffectsBox.TabIndex = 17;
-            allowRandomEffectsBox.Text = "Allow Random Effects";
-            allowRandomEffectsBox.UseVisualStyleBackColor = true;
+            progressBar.Location = new Point(2, 305);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(766, 96);
+            progressBar.TabIndex = 18;
             // 
             // CardGeneratorForm
             // 
@@ -345,5 +354,6 @@
         private Label label7;
         private NumericUpDown spiritTargetBuffBox;
         private CheckBox allowRandomEffectsBox;
+        private ProgressBar progressBar;
     }
 }
