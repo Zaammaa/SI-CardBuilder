@@ -18,7 +18,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Earth }; } }
 
-        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(BlightDoesNotCascadeEffect) };
+        public override List<Type> IncompatibleEffects => new List<Type>() { };
         public override int Complexity { get { return 2; } }
 
         public override Regex descriptionRegex

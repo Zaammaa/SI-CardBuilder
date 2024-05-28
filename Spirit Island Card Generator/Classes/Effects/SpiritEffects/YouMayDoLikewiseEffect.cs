@@ -16,7 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
         public override double BaseProbability { get { return .25; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
 
-        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(YouMayDoLikewiseEffect) };
+        public override List<Type> IncompatibleEffects => new List<Type>() { };
 
         public override int Complexity { get { return 1; } }
 

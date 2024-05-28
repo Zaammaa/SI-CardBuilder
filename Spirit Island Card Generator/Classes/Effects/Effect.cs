@@ -102,12 +102,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
             //Standard checks
             if (!WithinPowerLevel(this))
             {
+                Log.Information("Effect Invalid, Not within power level.");
                 return new PowerLevelFixer(this);
             } else if (Context.card.GetAllEffects().Any((effect) => { return IncompatibleEffects.Contains(effect.GetType()); }))
             {
+                Log.Information("Effect Invalid, Incompatible with another effect.");
                 return new IncompatableEffectsFixer(this);
             } else if (LinkedEffects.Any((effect) => { return !Context.card.GetAllEffects().Contains(effect); }))
             {
+                Log.Information("Effect Invalid, Linked effect no longer exists");
                 return new LinkedEffectFixer(this);
             }
 

@@ -143,6 +143,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 FixerResult result = fixer.Fix();
                 if (result.result == FixerResult.FixResult.UpdateEffect)
                 {
+                    Log.Information("Updating Effect: " + effect.ToString());
                     Effect updatedEffect = (Effect)result.resultObj;
                     if (card.effects.Contains(effect))
                     {
@@ -157,11 +158,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                             ParentEffect.ReplaceEffect(effect, updatedEffect);
                         }
                     }
-                    //EnforceValidity(card);
-                    //return;
                 }
                 else if (result.result == FixerResult.FixResult.RemoveEffect)
                 {
+                    Log.Information("Removing Effect: " + effect.ToString());
                     Effect? effectToRemove = (Effect)result.resultObj;
 
                     effectToRemove = card.GetAllEffects().Find((eff) => eff.GetType() == effectToRemove.GetType());
@@ -178,22 +178,21 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     {
                         throw new Exception("Card does not contain the effect it tried to remove");
                     }
-                    //EnforceValidity(card);
-                    //return;
                 }
                 else if (result.result == FixerResult.FixResult.FixFailed)
                 {
+                   
                     Effect? topLevelEffect = (Effect?)effect.GetSameContext()?.chain.FirstOrDefault();
                     if (topLevelEffect != null)
                     {
+                        Log.Information("Fix failed. Removing effect Effect: " + topLevelEffect.ToString());
                         card.effects.Remove(topLevelEffect);
                     }
                     else
                     {
+                        Log.Information("Fix failed. Removing effect Effect: " + effect.ToString());
                         card.effects.Remove(effect);
                     }
-                    //EnforceValidity(card);
-                    //return;
                 }
                 else if (result.result == FixerResult.FixResult.FixError)
                 {

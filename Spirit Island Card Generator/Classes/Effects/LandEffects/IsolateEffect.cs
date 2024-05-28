@@ -11,12 +11,21 @@ using System.Threading.Tasks;
 namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
 {
     [LandEffect]
-    public class IsolateEffect : Effect
+    public class IsolateEffect : Effect, ITrackedStat
     {
+        public static string TrackedName => "Isolate";
+        //The amount of cards that should have this effect
+        public static int TargetAmount => 5;
+        public bool ExactTarget => false;
+
+        public ITrackedStat.Pool pool => ITrackedStat.Pool.None;
+
+        
+
         public override double BaseProbability { get { return .04; } }
         public override double AdjustedProbability { get { return .04; } set { } }
 
-        public override List<Type> IncompatibleEffects => new List<Type>() { typeof(IsolateEffect) };
+        public override List<Type> IncompatibleEffects => new List<Type>() { };
         public override int Complexity { get { return 3; } }
 
         public override Regex descriptionRegex
@@ -28,6 +37,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
         }
 
         protected override DifficultyOption[] difficultyOptions => [];
+
+
 
         //Writes what goes on the card
         public override string Print()
