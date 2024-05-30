@@ -1,0 +1,20 @@
+__Adjectives__ __Nouns__			
+__Adjectives__ __Nouns__			
+__Adjectives__ __Nouns__			
+__Nouns__ and __Nouns__			
+__Adjectives__ and __Adjectives__ __Nouns__			
+__Adjectives__ __Nouns__ and __Nouns__			
+__Possessives__ __Nouns__			
+__Verbs__ the __Possessives__ __Nouns__			
+__Nouns__ in the __SILocations__			
+__Adjectives__ __Nouns__ in the __SILocations__			
+__Nouns__ above the __SILocations__			
+__Adjectives__ __Nouns__ above the __SILocations__			
+A __Nouns__ of __Nouns__ and __Nouns__			
+__Nouns__ of __Nouns__			
+__Verbs__ the __Nouns__			
+__Verbs__ the __Nouns__ and __Nouns__			
+__Nouns__ of the __Nouns__			
+__Adjectives__ __Nouns__ of the __Nouns__			
+__Nouns__ __Verbs__ across the __Nouns__			
+__Adjectives__ __Nouns__ __Verbs__ __Nouns__			

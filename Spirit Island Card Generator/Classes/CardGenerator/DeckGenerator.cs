@@ -45,7 +45,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
                 Card card = cardGenerator.GenerateMinorCard(settings);
-                card.Name = i.ToString();
+                Log.Information($"{card.Name}");
 
                 PostProcessCard(card);
                 deck.AddCard(card);
