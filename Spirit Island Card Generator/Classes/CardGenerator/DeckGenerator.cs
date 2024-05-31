@@ -41,14 +41,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public void GenerateDeck()
         {
-            try
-            {
+            try { 
                 SetupWorkSpace();
                 for (int i = 1; i <= settings.DeckSize; i++)
                 {
                     Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
                     Card card = cardGenerator.GenerateMinorCard(settings);
-                    card.Name = i.ToString();
+                    Log.Information($"{card.Name}");
 
                     PostProcessCard(card);
                     deck.AddCard(card);

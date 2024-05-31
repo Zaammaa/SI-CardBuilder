@@ -26,7 +26,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         //Used to select elements if exact elements is not set in settings
         public Dictionary<Element, int> elementPool = new Dictionary<Element, int>();
         public EffectGenerator generator;
-
+        public NameGenerator nameGenerator;
         public enum EffectTemplate
         {
             Standard,
@@ -40,6 +40,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         {
             SetupElementPool();
             generator = new EffectGenerator();
+            nameGenerator = new NameGenerator();
         }
 
         public Card GenerateMinorCard(Settings settings)
@@ -122,7 +123,10 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
             }
             Log.Information("}");
+
             //Step 6: Name
+            card.Name = nameGenerator.GenerateCardName(card, context.rng);
+            
             //Step 7: Art
 
             generator.CardChosen(card);
@@ -235,7 +239,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return new ElementSet(elements);
         }
 
-        private Element PullRandomElement(Random rng, List<Element> previouslyChosenElements)
+            private Element PullRandomElement(Random rng, List<Element> previouslyChosenElements)
         {
             Dictionary<Element, int> unusedElements = elementPool.ToDictionary(entry => entry.Key, entry => entry.Value);
             foreach(Element oldEl in previouslyChosenElements)
