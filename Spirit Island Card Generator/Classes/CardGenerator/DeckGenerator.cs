@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
@@ -12,7 +13,7 @@ using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
-    internal class DeckGenerator
+    public class DeckGenerator
     {
         Deck deck = new Deck();
 
@@ -39,37 +40,44 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         }
 
         public void GenerateDeck()
-        {           
-            SetupWorkSpace();
-            for (int i = 1; i <= settings.DeckSize; i++)
+        {
+            try
             {
-                Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
-                Card card = cardGenerator.GenerateMinorCard(settings);
-                card.Name = i.ToString();
-
-                PostProcessCard(card);
-                deck.AddCard(card);
-                if (settings.GenerateArt)
-                    QueueArtwork(card, i);
-
-                CardUpdate?.Invoke(this, new SimpleEventArgs(i));
-            }
-            Log.Information("---------------------------Finished Deck---------------------------");
-            Log.Information("Element Counts:");
-            foreach (ElementSet.Element el in elementCounts.Keys)
-            {
-                Log.Information($"{el}: {elementCounts[el]}");
-            }
-            cardGenerator.generator.LogTrackedStats();
-
-            if (!settings.GenerateArt)
-            {
-                CardPrinter.CreateSIBuilderFile(deck, Workspace);
-                foreach (Card card in deck.deck)
+                SetupWorkSpace();
+                for (int i = 1; i <= settings.DeckSize; i++)
                 {
-                    CardPrinter.CreateLocalViewFile(card, CardsDir);
+                    Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
+                    Card card = cardGenerator.GenerateMinorCard(settings);
+                    card.Name = i.ToString();
+
+                    PostProcessCard(card);
+                    deck.AddCard(card);
+                    if (settings.GenerateArt)
+                        QueueArtwork(card, i);
+
+                    CardUpdate?.Invoke(this, new SimpleEventArgs(i));
                 }
-                Cleanup();
+                Log.Information("---------------------------Finished Deck---------------------------");
+                Log.Information("Element Counts:");
+                foreach (ElementSet.Element el in elementCounts.Keys)
+                {
+                    Log.Information($"{el}: {elementCounts[el]}");
+                }
+                cardGenerator.generator.LogTrackedStats();
+
+                if (!settings.GenerateArt)
+                {
+                    CardPrinter.CreateSIBuilderFile(deck, Workspace);
+                    foreach (Card card in deck.deck)
+                    {
+                        CardPrinter.CreateLocalViewFile(card, CardsDir);
+                    }
+                    Cleanup();
+                    Finished?.Invoke(this, new SimpleEventArgs(deck));
+                }
+            } catch (Exception ex)
+            {
+                Error?.Invoke(this, new SimpleEventArgs(ex.Message));
             }
         }
 
@@ -132,7 +140,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             
             Cleanup();
-            Finished?.Invoke(this, e);
+            Finished?.Invoke(this, new SimpleEventArgs(deck));
         }
 
         private void PostProcessCard(Card card)

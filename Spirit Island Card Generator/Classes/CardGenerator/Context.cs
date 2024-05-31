@@ -100,6 +100,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
         }
 
+        //Gets all children of a parent effect
         private List<Effect> GetAllChildren(Effect effect)
         {
             if (!effect.GetType().GetInterfaces().Contains(typeof(IParentEffect)))
