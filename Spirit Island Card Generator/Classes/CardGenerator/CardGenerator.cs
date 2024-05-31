@@ -36,11 +36,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             YouMayDoLikewise
         }
 
-        public CardGenerator()
+        public CardGenerator(Settings settings)
         {
             SetupElementPool();
             generator = new EffectGenerator();
-            nameGenerator = new NameGenerator();
+            nameGenerator = new NameGenerator(settings);
         }
 
         public Card GenerateMinorCard(Settings settings)

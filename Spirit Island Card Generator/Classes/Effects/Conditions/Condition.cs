@@ -29,6 +29,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 
         public abstract string ConditionText { get; }
 
+        public bool Singleton => false;
+
         public abstract void Initialize(Context context);
 
         public abstract bool ChooseHarderCondition(Context context);

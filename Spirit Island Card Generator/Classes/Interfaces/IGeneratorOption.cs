@@ -12,6 +12,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         double AdjustedProbability { get; set; }
         int Complexity { get; }
 
+        bool Singleton { get; }
+
         List<ElementSet.Element> StronglyAssociatedElements { get; }
         List<ElementSet.Element> WeaklyAssociatedElements { get; }
 

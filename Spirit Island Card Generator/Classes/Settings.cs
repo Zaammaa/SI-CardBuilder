@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Spirit_Island_Card_Generator.Classes
 {
@@ -39,6 +35,8 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public string workspace = AppSettings.Default.CardOutputDir;
         public string deckName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+
+        public string cardNamePath = "";
 
         public int seed = -1;
         private Random _rng;

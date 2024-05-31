@@ -37,6 +37,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
         public abstract double AdjustedProbability { get; set; }
         public abstract int Complexity { get; }
 
+        public virtual bool Singleton => true;
+
         public abstract Regex descriptionRegex { get; }
 
         public virtual List<ElementSet.Element> StronglyAssociatedElements { get { return new List<ElementSet.Element>(); } }

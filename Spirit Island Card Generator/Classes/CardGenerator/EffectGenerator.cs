@@ -182,10 +182,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Dictionary<T, int> weightedEffectChances = new Dictionary<T, int>();
             foreach (T option in options)
             {
-                if (option.IsValidGeneratorOption(effectSettings.context) && (effectSettings.context.chain.Count == 0 || !option.TopLevelEffect()))
+                if (option.IsValidGeneratorOption(effectSettings.context) && (effectSettings.context.chain.Count == 0 || !option.TopLevelEffect()) && (!option.Singleton || !effectSettings.context.card.GetAllEffects().Any(opt => opt.GetType() == option.GetType())))
                 {
                     //TODO: change adjusted probability to use int instead.
                     weightedEffectChances.Add(option, (int)(AdjustedProbabilities[option.GetType()] * 10000));
+                }
+
+                //TODO: Remove this
+                if (option.Singleton && effectSettings.context.card.GetAllEffects().Any(opt => opt.GetType() == option.GetType()))
+                {
+                    Log.Information("Option rejected for being a singleton");
                 }
             }
             T? choosenEffect = Utils.ChooseWeightedOption<T>(weightedEffectChances, effectSettings.context.rng);

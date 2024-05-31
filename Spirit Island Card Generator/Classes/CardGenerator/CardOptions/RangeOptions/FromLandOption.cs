@@ -15,7 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
         public List<ElementSet.Element> StronglyAssociatedElements => new List<ElementSet.Element>();
         public List<ElementSet.Element> WeaklyAssociatedElements => new List<ElementSet.Element>();
 
-
+        public bool Singleton => true;
 
         public abstract bool IsValidGeneratorOption(Context context);
         public bool TopLevelEffect()

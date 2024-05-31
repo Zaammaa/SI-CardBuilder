@@ -10,9 +10,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         private Dictionary<string, List<string>> wordLists = new Dictionary<string, List<string>>();
         private Dictionary<string, List<List<string>>> templates = new Dictionary<string, List<List<string>>>();
         private List<string> previousNames = new List<string>();
- 
-        public NameGenerator()
+        private string cardNameDir;
+
+
+        public NameGenerator(Settings settings)
         {
+            cardNameDir = settings.cardNamePath.Equals("") ? Path.Combine(Environment.CurrentDirectory, $"..\\..\\..\\Card Name Words") : settings.cardNamePath;
             SetupCardNameOptions();
             SetupTemplateOptions();
         }
@@ -24,6 +27,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             var template = selectTemplate(card, rng);
             do
             {
+                name = "";
                 foreach (var tWord in template)
                 {
                     if (wordLists.ContainsKey(tWord))
@@ -69,8 +73,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             foreach (var type in types)
             {
-                string text = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, $"..\\..\\..\\Card Name Words\\{type}.txt"));
-                wordLists[$"__{type}__"] = new List<string>(text.Split(Environment.NewLine));
+                wordLists[$"__{type}__"] = File.ReadAllLines(Path.Combine(cardNameDir, $"{type}.txt")).ToList();
             }
         }
 
@@ -80,8 +83,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             var types = new List<String>() { "Standard", "Memorable" };
             foreach (var type in types)
             {
-                string text = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, $"..\\..\\..\\Card Name Words\\{type} Templates.txt"));
-                var lines = new List<string>(text.Split(Environment.NewLine));
+                var lines = File.ReadAllLines(Path.Combine(cardNameDir, $"{type} Templates.txt")).ToList();
                 var templateFile = new List<List<string>>();
                 foreach (var line in lines)
                 {

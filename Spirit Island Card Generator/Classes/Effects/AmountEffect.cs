@@ -1,4 +1,4 @@
-﻿using Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects;
+﻿ using Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects;
 using Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
     //An effect with a simple amount
     public abstract class AmountEffect : Effect
     {
+        public override bool Singleton => false;
+
         private int amount {
             get {
                 Type type = this.GetType();
