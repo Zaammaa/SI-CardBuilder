@@ -57,6 +57,7 @@ namespace Spirit_Island_Card_Generator
             Thread makeDeckThread = new Thread(new ThreadStart(() => generator.GenerateDeck()));
             generateDeckBtn.Visible = false;
             progressBar.Maximum = settings.DeckSize;
+            progressBar.Visible = true;
             makeDeckThread.Start();
         }
 

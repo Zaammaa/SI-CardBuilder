@@ -68,7 +68,7 @@ namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
 
             string json = JsonConvert.SerializeObject(settings);
 
-            var response = await client.PostAsync(@"http://127.0.0.1:7860/sdapi/v1/txt2img", new StringContent(json, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync($"{AppSettings.Default.StableDiffusionUrl}/sdapi/v1/txt2img", new StringContent(json, Encoding.UTF8, "application/json")); 
 
             var responseString = await response.Content.ReadAsStringAsync();
 

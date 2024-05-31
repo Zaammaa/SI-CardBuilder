@@ -19,7 +19,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         Settings settings;
         Dictionary<ElementSet.Element, int> elementCounts = new Dictionary<ElementSet.Element, int>();
-        CardGenerator cardGenerator = new CardGenerator();
+        CardGenerator cardGenerator;
         Automatic1111Client artGenerator = Automatic1111Client.stableDiffusionClient;
         private int artworkCompletedCount = 0;
 
@@ -37,6 +37,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public DeckGenerator(Settings s)
         {
             settings = s;
+            cardGenerator = new CardGenerator(s);
         }
 
         public void GenerateDeck()
