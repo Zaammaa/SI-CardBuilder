@@ -49,10 +49,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private List<string> selectTemplate(Card card)
         {
-            //TODO look at card target for some templates
-            int tType = (int)(rng.NextDouble()*100);
+            //TODO look at card target for land types
             string type = "Standard";
-            int roll = (int)(rng.NextDouble() * templates[type].Count);
+            var target = card.Target.Print();
+            int roll = (int)(rng.NextDouble() * 100);
+            if (target.Contains("spirit") && roll < 90)
+                type = "Spirit-Targeting";
+            if (target.Contains("dahan") && roll < 75)
+                type = "Dahan-Targeting";
+            int tType = (int)(rng.NextDouble()*100);
+            roll = (int)(rng.NextDouble() * templates[type].Count);
             var template = templates[type][roll];
             templates[type].RemoveAt(roll);
             if (templates[type].Count == 0)
