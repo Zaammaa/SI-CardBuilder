@@ -8,20 +8,21 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         private Dictionary<string, List<List<string>>> templates = new Dictionary<string, List<List<string>>>();
         private List<string> previousNames = new List<string>();
         private string cardNameDir;
-
+        private Random rng;
 
         public NameGenerator(Settings settings)
         {
             cardNameDir = settings.cardNamePath.Equals("") ? Path.Combine(Environment.CurrentDirectory, $"..\\..\\..\\Card Name Words") : settings.cardNamePath;
+            rng = settings.rng;
             SetupCardNameOptions();
             SetupTemplateOptions();
         }
 
-        public string GenerateCardName(Card card, Random rng)
+        public string GenerateCardName(Card card)
         {
             string name = "";
             int roll = 0;
-            var template = selectTemplate(card, rng);
+            var template = selectTemplate(card);
             do
             {
                 name = "";
@@ -46,7 +47,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return name;
         }
 
-        private List<string> selectTemplate(Card card, Random rng)
+        private List<string> selectTemplate(Card card)
         {
             //TODO look at card target for some templates
             int tType = (int)(rng.NextDouble()*100);
