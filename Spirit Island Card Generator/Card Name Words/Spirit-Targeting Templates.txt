@@ -1,0 +1,7 @@
+Gift of __Adjectives__	# 3
+Gift of __Nouns__		# 3
+Gift of __Adjectives__ __Nouns__ # 3
+__Adjectives__ boon		# 3
+Boon of __Adjectives__	# 3
+Boon of __Adjectives__	# 3
+Exaltation of __Adjectives__ __Nouns__ # 2		

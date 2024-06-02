@@ -4,9 +4,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
     public class NameGenerator
     {
-        // TODO move how likely a template is used to template files
-        private static double STANDARD_TEMPLATE_PROBABILITY = 0.9;
-        private static double MEMORABLE_TEMPLATE_PROBABILITY = 0.1;
         private Dictionary<string, List<string>> wordLists = new Dictionary<string, List<string>>();
         private Dictionary<string, List<List<string>>> templates = new Dictionary<string, List<List<string>>>();
         private List<string> previousNames = new List<string>();
@@ -51,15 +48,14 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private List<string> selectTemplate(Card card, Random rng)
         {
-            //TODO look at card target for picking some templates
+            //TODO look at card target for some templates
             int tType = (int)(rng.NextDouble()*100);
-            string type = "";
-            if (tType <= 100 * STANDARD_TEMPLATE_PROBABILITY)
-                type = "Standard";
-            else if (tType >= 100 - 100 * MEMORABLE_TEMPLATE_PROBABILITY)
-                type = "Memorable";
+            string type = "Standard";
             int roll = (int)(rng.NextDouble() * templates[type].Count);
             var template = templates[type][roll];
+            templates[type].RemoveAt(roll);
+            if (templates[type].Count == 0)
+                SetupTemplateOptions(type);
             return template;
         }
 
@@ -77,22 +73,33 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
         }
 
-        private void SetupTemplateOptions()
+        private void SetupTemplateOptions(string singleType = "no")
         {
-            //TODO add Common templates and consolidate files
-            var types = new List<String>() { "Standard", "Memorable" };
+            var types = new List<String>() { "Standard", "Spirit-Targeting", "Dahan-Targeting" };
+            if (singleType != "no")
+            {
+                types.Clear();
+                types.Add(singleType);
+            }
             foreach (var type in types)
             {
                 var lines = File.ReadAllLines(Path.Combine(cardNameDir, $"{type} Templates.txt")).ToList();
                 var templateFile = new List<List<string>>();
                 foreach (var line in lines)
                 {
-                    var lineList = new List<string>(line.Split(" "));
+                    var tNumList = new List<string>(line.Split("#"));
+                    var lineList = new List<string>(tNumList[0].Split(" "));
                     for (int i = 0; i < lineList.Count; i++)
                     {
                         lineList[i] = lineList[i].Trim();
                     }
-                    templateFile.Add(lineList);
+                    int num = 1;
+                    if (tNumList.Count == 2)
+                        num = Int32.Parse(tNumList[1].Trim());
+                    for (int i = 0; i < num; i++)
+                    {
+                        templateFile.Add(lineList);
+                    }
                 }
                 templates[type] = templateFile;
             }
