@@ -125,7 +125,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             Log.Information("}");
 
             //Step 6: Name
-            card.Name = nameGenerator.GenerateCardName(card, context.rng);
+            card.Name = nameGenerator.GenerateCardName(card);
             
             //Step 7: Art
 
