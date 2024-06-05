@@ -1,24 +1,24 @@
-Air's
-Beasts	
-Dahan's
-Desert's
-Earth's
-Flame's
-Gold's
-Heaven's
-Invader's
-Island's
-Jungle's
-Land's
-Light's
-Moon's
-Mountain's
-Nature's
-Night's
-Ocean's
-River's
-Shore's
-Spirit's
-Storm's
-Sun's
-Swamp's
+Air's	# Air Push Gather
+Beasts'	# Beast Animal
+Dahan's	# Dahan
+Desert's	# Sun Earth Fire
+Earth's	# Earth Water Plant
+Flame's	# Fire Air
+Gold's	# Sun Earth
+Heaven's	# Sun Moon
+Invader's	# Invader Explorer Town City
+Island's	# Plant Water Animal
+Jungle's	# Plant Water Wilds Animal
+Land's	# Earth
+Light's	# Sun
+Moon's	# Moon
+Mountain's	# Earth Badlands
+Nature's	# Plant Animal
+Night's	# Moon Fear
+Ocean's	# Water
+River's	# Water
+Shore's	# Earth Water
+Spirit's	# Sun Moon
+Storm's	# Water Air
+Sun's	# Sun
+Swamp's	# Water Earth

@@ -1,11 +1,12 @@
-Desert
-Jungle
-Mountain
-Wetland
-Ocean
-Shore
-Island's Heart
-Deep Wilderness
-Dahan Village
-Sky
-Peaks
+Dahan Village	# Dahan
+Deep Wilderness	# Wilds
+Desert	# Sun Fire
+Island's Heart	
+Jungle	# Plant Wilds Beast
+Mountain	# Earth Defend
+Ocean	# Water
+Peaks	# Earth Badlands
+River	# Water Push
+Shore	# Water Earth
+Sky	# Sun Moon Air
+Wetland	# Water

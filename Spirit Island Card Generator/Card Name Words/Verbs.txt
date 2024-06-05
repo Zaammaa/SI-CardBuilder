@@ -1,158 +1,159 @@
-Abandon
-Absorb
-Abuse
-Ambush
-Attack
-Beckon
-Bleach
-Bloom
-Blossom
-Break
-Bubble
-Bury
-Cackle
-Capture
-Cast
-Cleanse
-Collide
-Colonize
-Complete
-Consume
-Craft
-Crawl
-Creep
-Cross
-Crystalize
-Decay
-Defang
-Destroy
-Disembowel
-Disintegrate
-Draw
-Dream
-Eat
-Echo
-Eclipse
-Educate
-Encircle
-Engulf
-Enlighten
-Entrance
-Entrap
-Erupt
-Eviscerate
-Exalt
-Excite
-Expand
-Expell
-Expire
-Explode
-Fight
-Flood
-Flow
-Focus
-Frighten
-Glow
-Grant
-Grasp
-Graze
-Guard
-Guide
-Hallucinate
-Haunt
-Herd
-Highten
-Howl
-Hunger
-Hunt
-Ignite
-Incite
-Inflame
-Intoxicate
-Invade
-Kill
-Lead
-Leech
-Lure
-Lurk
-Lynch
-Migrate
-Mourn
-Move
-Muddle
-Murder
-Murmur
-Obscure
-Offer
-Open
-Outlast
-Outnumber
-Overrun
-Pillage
-Pinch
-Poison
-Pollute
-Preach
-Prey
-Proselytize
-Prowl
-Pull
-Purify
-Pursue
-Quell
-Rage
-Raise
-Rampage
-Rant
-Rave
-Reap
-Renew
-Respect
-Restore
-Return
-Roam
-Rouse
-Rust
-Sap
-Scatter
-Scour
-Scour
-Scout
-Scratch
-Scream
-Settler
-Shake
-Shatter
-Silence
-Sleep
-Slither
-Snake
-Spark
-Speak
-Spear
-Spew
-Splinter
-Spread
-Stab
-Sting
-Strike
-Surprise
-Surround
-Swallow
-Tear
-Tend
-Terrify
-Thrash
-Torch
-Torch
-Torture
-Trade
-Transform
-Unleash
-Utter
-Wake
-Weep
-Whisper
-Wither
-Witness
-Worship
+Abandon	# Dahan Explorer
+Absorb	# Plant Gather
+Abuse	# Fear Damage Blight
+Ambush	# Invader Dahan Damage
+Attack	# Damage Invader
+Beckon	# Gather
+Bleach	# Badlands Blight
+Bloom	# Plant Wilds Push
+Blossom	# Plant Wilds Push
+Break	# Damage
+Bubble	# Water Air
+Bury	# Earth Fear Damage
+Cackle	# Fear
+Capture	# Damage Invader Gather
+Cast	# Push
+Cleanse	# Water Vitality RemoveBlight
+Collide	# Damage Gather
+Colonize	# Invader Explorer Town City
+Complete	
+Consume	# Fire Plant Wilds Blight Gather Fear
+Craft	# Defend
+Crawl	# Push Gather Beast Dahan Explorer
+Creep	# Plant Push
+Cross	
+Crystallize	# Earth Fire Defend
+Decay	# Plant Blight Disease
+Defang	# Defend
+Destroy	# Damage Fear
+Disembowel	# Damage Fear
+Disintegrate	# Damage Blight
+Draw	# Gather
+Dream	# Moon
+Drown	# Water Damage
+Eat	# Damage Fear Gather
+Echo	# Air Earth
+Eclipse	# Sun Moon Earth Isolate Fear
+Educate	
+Encircle	# Isolate Gather
+Engulf	# Isolate Gather
+Enlighten	# Sun Air Spirit RemoveBlight Spirit Defend
+Entrance	
+Entrap	# Gather Isolate Wilds
+Erupt	# Fire Earth Badlands
+Eviscerate	
+Exalt	# Sun Air Spirit RemoveBlight Spirit
+Excite	# Gather Spirit
+Expand	# Push Air
+Expel	# Push Air
+Expire	
+Explode	# Fire Air Damage
+Fight	# Damage Fear
+Flood	# Water
+Flow	# Water Push
+Focus	
+Frighten	# Fear
+Glow	# Sun Moon Vitality
+Grant	
+Grasp	# Gather Isolate
+Graze	# Animal Beast Vitality
+Grow	# Plant Water Earth Sun Animal Beast
+Guard	# Defend
+Guide	
+Hallucinate	# Fear Moon
+Haunt	# Fear Moon
+Herd	# Animal Beast Gather Push
+Highten	
+Howl	# Animal Beast Air
+Hunger	# Animal Beast Damage
+Hunt	# Animal Beast Dahan Explorer
+Ignite	# Fire Damage Blight Badlands
+Incite	# Strife
+Inflame	# Fire Strife
+Intoxicate	# Disease Strife
+Invade	# Explorer Invader Damage
+Kill	# Dahan Invader Damage
+Lead	# Gather
+Leech	# Blight Disease
+Lure	# Gather
+Lurk	# Wilds Moon
+Lynch	# Strife Damage
+Migrate	# Animal Beast Gather Push
+Mourn	
+Move	# Gather Push
+Muddle	
+Murder	# Dahan Invader Damage Moon
+Murmur	
+Obscure	# Wilds Isolate Moon
+Offer	
+Open	# Gather
+Outlast	# Defend
+Outnumber	# Defend Damage
+Overrun	# Damage Dahan Invader
+Pillage	# Damage Blight Town City
+Pinch	
+Poison	# Disease Blight
+Pollute	# Blight Earth Water Air
+Preach	# Sun Moon Spirit Defend
+Prey	# Beast
+Proselytize	# Sun Moon Spirit Defend
+Prowl	# Animal Beast Push
+Pull	# Gather
+Purify	# RemoveBlight Water Air Earth Sun
+Pursue	# Push Gather
+Quell	
+Rage	# Strife Damage
+Raise	
+Rampage	# Strife Damage Beast
+Rant	# Strife
+Rave	# Strife
+Reap	# Earth Plant
+Renew	# RemoveBlight Sun Vitality
+Respect	# Spirit Dahan
+Restore	# RemoveBlight Sun Vitality
+Return	# Gather Dahan Explorer
+Roam	# Push Gather Animal Beast Dahan Explorer
+Rouse	# Strife
+Rust	# Blight Earth Water Damage
+Sap	# Damage
+Scatter	# Push Animal Beast Dahan Explorer
+Scour	# Blight Air Earth Damage
+Scout	# Push Explorer Dahan
+Scratch	# Beast Damage
+Scream	# Fear Strife Dahan Explorer
+Settler	# Explorer Dahan Plant Earth
+Shake	# Earth
+Shatter	# Damage Blight Badlands
+Silence	# Air Moon Isolate
+Sleep	# Dahan Explorer Town City Invader Moon
+Slither	# Animal Beast Fear
+Smother	# Fear Defend
+Snake	# Animal Beast Fear
+Spark	# Fire Strife
+Speak	# Dahan Explorer Spirit
+Spear	# Damage Dahan Explorer
+Spew	# Earth Water Push
+Splinter	# Damage Town City Push
+Spread	# Push Explorer Town City
+Stab	# Damage Dahan Explorer
+Sting	# Animal Beast Fear Damage
+Strike	# Damage
+Surprise	# Fear Dahan Explorer
+Surround	# Gather Town City Dahan
+Swallow	# Gather
+Tear	# Damage
+Tend	
+Terrify	# Fear Dahan Explorer
+Thrash	# Damage Dahan Explorer Town City
+Torch	# Fire Town City
+Torture	# Fear Dahan Explorer
+Trade	# Dahan Explorer Town City
+Transform	
+Unleash	# Animal Beast
+Utter	# Dahan Explorer Spirit
+Wake	# Dahan Explorer Town City Invader Sun
+Weep	# Dahan Explorer Spirit Water
+Whisper	# Dahan Explorer Spirit Air
+Wither	# Plant Blight Damage
+Witness	
+Worship	# Sun Moon Spirit Defend
