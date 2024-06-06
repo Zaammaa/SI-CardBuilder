@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
+using System.Xml.Linq;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -18,7 +20,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         {
             cardNameDir = settings.cardNamePath.Equals("") ? Path.Combine(Environment.CurrentDirectory, $"..\\..\\..\\Card Name Words") : settings.cardNamePath;
             rng = settings.rng;
-            keywords = getFileLineList("Association Keywords");
+            keywords = GetFileLineList("Association Keywords");
             SetupCardNameOptions();
             SetupTemplateOptions();
         }
@@ -26,85 +28,21 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         public string GenerateCardName(Card card)
         {
             string name = "";
-            int roll = 0;
-            var template = selectTemplate(card);
-            var numTypes = countFillInWords(template);
-            Debug.WriteLine(template + " " + numTypes);
+            var template = SelectTemplate(card);
+            Debug.WriteLine(template);
             do
             {
+                var remainingTypes = CountFillInWords(template);
+                var assoList = GetElementsAndEffects(card);
                 name = "";
-                var assoList = getElementsAndEffects(card);
                 foreach (var tWord in template)
                 {
                     if (wordLists.ContainsKey(tWord))
                     {
-                        
-                        string word = "";
-                        roll = (int)(rng.NextDouble() * assoList.Count);
-                        string asso = assoList[roll];
-                        string asso2 = null;
-                        if (assoList.Count > numTypes)
-                        {
-                            roll = (int)(rng.NextDouble() * assoList.Count);
-                            asso2 = assoList[roll];
-                        }
-                        Debug.WriteLine("*********************************");
-                        Debug.WriteLine("Part of speech: " + tWord + " Chosen asso: " + asso + " and " + asso2);
-                        bool canUseAsso1 = wordLists[tWord].ContainsKey(asso) && wordLists[tWord][asso].Count > 0;
-                        bool canUseAsso2 = asso2 != null && wordLists[tWord].ContainsKey(asso2) && wordLists[tWord][asso2].Count > 0;
-
-                        if (canUseAsso1 || canUseAsso2)
-                        {
-                            do
-                            {
-                                Debug.WriteLine("Using asso: " + asso + " and " + asso2);
-                                if (canUseAsso1 && canUseAsso2)
-                                {
-                                    Debug.WriteLine("Trying intersectioin");
-                                    var intersection = wordLists[tWord][asso].Intersect(wordLists[tWord][asso2]);
-                                    Debug.WriteLine("Created intersection, size " + intersection.ToList().Count);
-                                    var interList = intersection.ToList();
-                                    if (interList.Count > 0)
-                                    {
-                                        roll = (int)(rng.NextDouble() * interList.Count);
-                                        word = interList[roll];
-                                        Debug.WriteLine("Completed and got word: " + word);
-                                        wordLists[tWord][asso].Remove(word);
-                                        wordLists[tWord][asso2].Remove(word);
-                                        continue;
-                                    }
-                                }
-
-                                if (canUseAsso1)
-                                {
-                                    Debug.WriteLine("Sizd before remove: " + wordLists[tWord][asso].Count);
-                                    word = selectWord(wordLists[tWord][asso]);
-                                    Debug.WriteLine("Sizd after remove: " + wordLists[tWord][asso].Count);
-
-                                }
-                                else if (canUseAsso2)
-                                    word = selectWord(wordLists[tWord][asso2]);
-                                else
-                                {
-                                    word = selectGenericWord(tWord);
-                                    Debug.WriteLine("Have to use Generic, got " + word);
-
-                                }
-                            canUseAsso1 = wordLists[tWord][asso].Count > 0;
-                            if (asso2 != null)
-                                canUseAsso2 = wordLists[tWord][asso2].Count > 0;
-                        } while (!masterWordList[tWord].Contains(word));
-                        }
-                        else
-                        {
-                           word = selectGenericWord(tWord);
-                        }
-                        Debug.WriteLine("--Chose: " + word);
-                        name += word;
-                        //TODO? worth fixing that words will still be removed if name was too long initially
-                        masterWordList[tWord].Remove(word);
-                        if (masterWordList[tWord].Count == 0)
-                            SetupCardNameOptions(tWord.Replace("_", ""));
+                        remainingTypes--;
+                        name += GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        if (assoList.Count == 0)
+                            assoList = GetElementsAndEffects(card);
                     }
                     else
                         name += tWord;
@@ -116,7 +54,66 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return name;
         }
 
-        private List<string> getElementsAndEffects(Card card)
+        private string GenerateTemplateWord(string type, List<string> assoList, int remainingTypes)
+        {
+            Debug.WriteLine("*********************************");
+            string word = "";
+            string asso1 = SelectWord(assoList);
+            string asso2 = null;
+            Debug.WriteLine("NumTypes: " + remainingTypes + " assoList.Count " + assoList.Count);
+            if (assoList.Count > remainingTypes)
+                asso2 = SelectWord(assoList);
+            Debug.WriteLine("Part of speech: " + type + " Chosen asso: " + asso1 + " and " + asso2);
+            bool canUseAsso1 = wordLists[type].ContainsKey(asso1) && wordLists[type][asso1].Count > 0;
+            bool canUseAsso2 = asso2 != null && wordLists[type].ContainsKey(asso2) && wordLists[type][asso2].Count > 0;
+
+            if (canUseAsso1 || canUseAsso2)
+            {
+                do
+                {
+                    Debug.WriteLine("Using asso: " + asso1 + " and " + asso2);
+                    if (canUseAsso1 && canUseAsso2)
+                    {
+                        var intersection = wordLists[type][asso1].Intersect(wordLists[type][asso2]);
+                        Debug.WriteLine("Created intersection, size " + intersection.ToList().Count);
+                        var interList = intersection.ToList();
+                        if (interList.Count > 0)
+                        {
+                            word = ChooseRandomWord(interList);
+                            Debug.WriteLine("Completed and got word: " + word);
+                            wordLists[type][asso1].Remove(word);
+                            wordLists[type][asso2].Remove(word);
+                            continue;
+                        }
+                    }
+
+                    if (canUseAsso1)
+                        word = SelectWord(wordLists[type][asso1]);
+                    else if (canUseAsso2)
+                        word = SelectWord(wordLists[type][asso2]);
+                    else
+                    {
+                        word = SelectGenericWord(type);
+                        Debug.WriteLine("Have to use Generic, got " + word);
+
+                    }
+                    canUseAsso1 = wordLists[type][asso1].Count > 0;
+                    canUseAsso2 = canUseAsso2 && wordLists[type][asso2].Count > 0;
+                } while (!masterWordList[type].Contains(word));
+            }
+            else
+            {
+                word = SelectGenericWord(type);
+            }
+            Debug.WriteLine("--Chose: " + word);
+            //TODO? worth fixing that words will still be removed if name was too long initially
+            masterWordList[type].Remove(word);
+            if (masterWordList[type].Count == 0)
+                SetupCardNameOptions(type.Replace("_", ""));
+            return word;
+        }
+
+        private List<string> GetElementsAndEffects(Card card)
         {
             var assoList = new List<string>();
             var effectList = new List<string>();
@@ -135,34 +132,31 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return assoList;
         }
 
-        private string selectWord(List<string> givenList)
+        private string SelectWord(List<string> givenList)
         {
-            int roll = (int)(rng.NextDouble() * givenList.Count);
-            string word = givenList[roll];
+            string word = ChooseRandomWord(givenList);
             Debug.WriteLine("Found: " + word);
             givenList.Remove(word);
             return word;
         }
 
-        private string selectGenericWord(string wordType)
+        private string SelectGenericWord(string wordType)
         {
             string word = "";
             if (wordLists[wordType][GENERIC_KEY].Count > 0)
             {
-                int roll = (int)(rng.NextDouble() * wordLists[wordType][GENERIC_KEY].Count);
-                word = wordLists[wordType][GENERIC_KEY][roll];
+                word = ChooseRandomWord(wordLists[wordType][GENERIC_KEY]);
                 wordLists[wordType][GENERIC_KEY].Remove(word);
             }
             else
             {
                 Debug.WriteLine("############## Resorted to masterList ###################");
-                int roll = (int)(rng.NextDouble() * masterWordList[wordType].Count);
-                word = masterWordList[wordType][roll];
+                word = ChooseRandomWord(masterWordList[wordType]);
             }
             return word;
         }
 
-        private List<string> selectTemplate(Card card)
+        private List<string> SelectTemplate(Card card)
         {
             //TODO look at card target for land types
             string type = "Standard";
@@ -181,7 +175,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return template;
         }
 
-        private int countFillInWords(List<string> template)
+        private int CountFillInWords(List<string> template)
         {
             int count = 0;
             foreach (string word in template)
@@ -210,7 +204,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 {
                     wordLists[typeKey][assoKey] = new List<string>();
                 }
-                var lineList = getFileLineList(type);
+                var lineList = GetFileLineList(type);
                 foreach (var line in lineList)
                 {
                     var wordAndType = line.Split("#");
@@ -240,7 +234,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             foreach (var type in types)
             {
-                var lines = getFileLineList($"{type} Templates");
+                var lines = GetFileLineList($"{type} Templates");
                 var templateFile = new List<List<string>>();
                 foreach (var line in lines)
                 {
@@ -262,9 +256,15 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
         }
 
-        private List<string> getFileLineList(string filename)
+        private List<string> GetFileLineList(string filename)
         {
             return File.ReadAllLines(Path.Combine(cardNameDir, $"{filename}.txt")).ToList();
+        }
+
+        private string ChooseRandomWord(List<string> wordList)
+        {
+            int roll = (int)(rng.NextDouble() * wordList.Count);
+            return wordList[roll];
         }
     }
 }
