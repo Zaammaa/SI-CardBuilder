@@ -28,6 +28,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             string name = "";
             int roll = 0;
             var template = selectTemplate(card);
+            var numTypes = countFillInWords(template);
+            Debug.WriteLine(template + " " + numTypes);
             do
             {
                 name = "";
@@ -40,29 +42,62 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                         string word = "";
                         roll = (int)(rng.NextDouble() * assoList.Count);
                         string asso = assoList[roll];
+                        string asso2 = null;
+                        if (assoList.Count > numTypes)
+                        {
+                            roll = (int)(rng.NextDouble() * assoList.Count);
+                            asso2 = assoList[roll];
+                        }
                         Debug.WriteLine("*********************************");
-                        Debug.WriteLine("Part of speech: " + tWord + " Chosen asso: " + asso);
-                        if (wordLists[tWord].ContainsKey(asso))
+                        Debug.WriteLine("Part of speech: " + tWord + " Chosen asso: " + asso + " and " + asso2);
+                        bool canUseAsso1 = wordLists[tWord].ContainsKey(asso) && wordLists[tWord][asso].Count > 0;
+                        bool canUseAsso2 = asso2 != null && wordLists[tWord].ContainsKey(asso2) && wordLists[tWord][asso2].Count > 0;
+
+                        if (canUseAsso1 || canUseAsso2)
                         {
                             do
                             {
-                                Debug.WriteLine("Using asso: " + asso);
-                                if (wordLists[tWord][asso].Count > 0)
+                                Debug.WriteLine("Using asso: " + asso + " and " + asso2);
+                                if (canUseAsso1 && canUseAsso2)
                                 {
-                                    roll = (int)(rng.NextDouble() * wordLists[tWord][asso].Count);
-                                    word = wordLists[tWord][asso][roll];
-                                    Debug.WriteLine("Found: " + word);
-                                    wordLists[tWord][asso].Remove(word);
-                                }
-                                else {
-                                        word = selectGenericWord(tWord);
-                                        Debug.WriteLine("Have to use Generic, got " + word);
+                                    Debug.WriteLine("Trying intersectioin");
+                                    var intersection = wordLists[tWord][asso].Intersect(wordLists[tWord][asso2]);
+                                    Debug.WriteLine("Created intersection, size " + intersection.ToList().Count);
+                                    var interList = intersection.ToList();
+                                    if (interList.Count > 0)
+                                    {
+                                        roll = (int)(rng.NextDouble() * interList.Count);
+                                        word = interList[roll];
+                                        Debug.WriteLine("Completed and got word: " + word);
+                                        wordLists[tWord][asso].Remove(word);
+                                        wordLists[tWord][asso2].Remove(word);
+                                        continue;
                                     }
-                            } while (!masterWordList[tWord].Contains(word));
+                                }
+
+                                if (canUseAsso1)
+                                {
+                                    Debug.WriteLine("Sizd before remove: " + wordLists[tWord][asso].Count);
+                                    word = selectWord(wordLists[tWord][asso]);
+                                    Debug.WriteLine("Sizd after remove: " + wordLists[tWord][asso].Count);
+
+                                }
+                                else if (canUseAsso2)
+                                    word = selectWord(wordLists[tWord][asso2]);
+                                else
+                                {
+                                    word = selectGenericWord(tWord);
+                                    Debug.WriteLine("Have to use Generic, got " + word);
+
+                                }
+                            canUseAsso1 = wordLists[tWord][asso].Count > 0;
+                            if (asso2 != null)
+                                canUseAsso2 = wordLists[tWord][asso2].Count > 0;
+                        } while (!masterWordList[tWord].Contains(word));
                         }
                         else
                         {
-                           selectGenericWord(tWord);
+                           word = selectGenericWord(tWord);
                         }
                         Debug.WriteLine("--Chose: " + word);
                         name += word;
@@ -98,6 +133,15 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 }
             }
             return assoList;
+        }
+
+        private string selectWord(List<string> givenList)
+        {
+            int roll = (int)(rng.NextDouble() * givenList.Count);
+            string word = givenList[roll];
+            Debug.WriteLine("Found: " + word);
+            givenList.Remove(word);
+            return word;
         }
 
         private string selectGenericWord(string wordType)
@@ -137,9 +181,20 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             return template;
         }
 
+        private int countFillInWords(List<string> template)
+        {
+            int count = 0;
+            foreach (string word in template)
+            {
+                if (word.Contains("__"))
+                    count++;
+            }
+            return count;
+        }
+
         private void SetupCardNameOptions(string singleType = "no")
         {
-            var types = new List<String>() { "Nouns", "Adjectives", "Verbs", "Possessives", "SILocations" };
+            var types = new List<string>() { "Nouns", "Adjectives", "Verbs", "Possessives", "SILocations" };
             if (singleType != "no")
             {
                 types.Clear();
@@ -177,7 +232,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private void SetupTemplateOptions(string singleType = "no")
         {
-            var types = new List<String>() { "Standard", "Spirit-Targeting", "Dahan-Targeting" };
+            var types = new List<string>() { "Standard", "Spirit-Targeting", "Dahan-Targeting" };
             if (singleType != "no")
             {
                 types.Clear();
