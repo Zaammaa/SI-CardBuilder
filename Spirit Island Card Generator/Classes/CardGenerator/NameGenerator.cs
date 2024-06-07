@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
-using System.Xml.Linq;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -27,17 +24,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public string GenerateCardName(Card card)
         {
-            Debug.WriteLine("************** Card Start *******************");
             string name = "";
             var template = SelectTemplate(card);
-            foreach (var t in template) { Debug.WriteLine(t); }
             do
             {
                 var remainingTypes = CountFillInWords(template);
-                Debug.WriteLine("Getting effects");
                 var assoList = GetElementsAndEffects(card);
-                Debug.WriteLine("List of asso");
-                foreach (var a in assoList) { Debug.WriteLine(a); }
                 name = "";
                 foreach (var tWord in template)
                 {
@@ -63,10 +55,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             string word = "";
             string asso1 = SelectWord(assoList);
             string asso2 = null;
-            Debug.WriteLine("NumTypes: " + remainingTypes + " assoList.Count " + assoList.Count);
             if (assoList.Count > remainingTypes)
                 asso2 = SelectWord(assoList);
-            Debug.WriteLine("Part of speech: " + type + " Chosen asso: " + asso1 + " and " + asso2);
             bool canUseAsso1 = wordLists[type].ContainsKey(asso1) && wordLists[type][asso1].Count > 0;
             bool canUseAsso2 = asso2 != null && wordLists[type].ContainsKey(asso2) && wordLists[type][asso2].Count > 0;
 
@@ -74,16 +64,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 do
                 {
-                    Debug.WriteLine("Using asso: " + asso1 + " and " + asso2);
                     if (canUseAsso1 && canUseAsso2)
                     {
                         var intersection = wordLists[type][asso1].Intersect(wordLists[type][asso2]);
-                        Debug.WriteLine("Created intersection, size " + intersection.ToList().Count);
                         var interList = intersection.ToList();
                         if (interList.Count > 0)
                         {
                             word = ChooseRandomWord(interList);
-                            Debug.WriteLine("Completed and got word: " + word);
                             wordLists[type][asso1].Remove(word);
                             wordLists[type][asso2].Remove(word);
                             continue;
@@ -95,11 +82,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     else if (canUseAsso2)
                         word = SelectWord(wordLists[type][asso2]);
                     else
-                    {
                         word = SelectGenericWord(type);
-                        Debug.WriteLine("Have to use Generic, got " + word);
-
-                    }
                     canUseAsso1 = wordLists[type][asso1].Count > 0;
                     canUseAsso2 = canUseAsso2 && wordLists[type][asso2].Count > 0;
                 } while (!masterWordList[type].Contains(word));
@@ -108,7 +91,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 word = SelectGenericWord(type);
             }
-            Debug.WriteLine("--Chose: " + word);
             //TODO? worth fixing that words will still be removed if name was too long initially
             masterWordList[type].Remove(word);
             if (masterWordList[type].Count == 0)
@@ -125,7 +107,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 assoList.Add(el.ToString());
             foreach (var ef in card.effects)
             {
-                Debug.WriteLine(ef.GetType().Name);
                 foreach (var asso in keywords)
                 {
                     string efStr = ef.GetType().Name;
@@ -161,7 +142,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         private string SelectWord(List<string> givenList)
         {
             string word = ChooseRandomWord(givenList);
-            Debug.WriteLine("Found: " + word);
             givenList.Remove(word);
             return word;
         }
@@ -175,10 +155,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 wordLists[wordType][GENERIC_KEY].Remove(word);
             }
             else
-            {
-                Debug.WriteLine("############## Resorted to masterList ###################");
                 word = ChooseRandomWord(masterWordList[wordType]);
-            }
             return word;
         }
 
