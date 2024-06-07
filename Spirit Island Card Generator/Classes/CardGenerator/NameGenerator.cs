@@ -27,13 +27,17 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         public string GenerateCardName(Card card)
         {
+            Debug.WriteLine("************** Card Start *******************");
             string name = "";
             var template = SelectTemplate(card);
-            Debug.WriteLine(template);
+            foreach (var t in template) { Debug.WriteLine(t); }
             do
             {
                 var remainingTypes = CountFillInWords(template);
+                Debug.WriteLine("Getting effects");
                 var assoList = GetElementsAndEffects(card);
+                Debug.WriteLine("List of asso");
+                foreach (var a in assoList) { Debug.WriteLine(a); }
                 name = "";
                 foreach (var tWord in template)
                 {
@@ -56,7 +60,6 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private string GenerateTemplateWord(string type, List<string> assoList, int remainingTypes)
         {
-            Debug.WriteLine("*********************************");
             string word = "";
             string asso1 = SelectWord(assoList);
             string asso2 = null;
@@ -122,10 +125,33 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 assoList.Add(el.ToString());
             foreach (var ef in card.effects)
             {
+                Debug.WriteLine(ef.GetType().Name);
                 foreach (var asso in keywords)
                 {
                     string efStr = ef.GetType().Name;
-                    if (efStr.Contains(asso))
+                    if (asso == "RemoveBlight" && efStr.Contains("BlightDoesNotCascade"))
+                        assoList.Add(asso);
+                    else if (asso == "Blight" && (efStr.Contains("RemoveBlight") || efStr.Contains("BlightDoesNotCascade"))) {
+                      // Do nothing
+                    } else if (asso == "Spirit" && efStr.Contains("Presence"))
+                        assoList.Add(asso);
+                    else if (asso == "Invader" && (efStr.Contains("Ravage") || efStr.Contains("Build")))
+                        assoList.Add(asso);
+                    else if (asso == "Damage")
+                    {
+                        if (efStr.Contains("Damage") && !efStr.Contains("ReducedDamage"))
+                            assoList.Add(asso);
+                        else if (efStr.Contains("Destroy") && !efStr.Contains("DestroyFewer") && !efStr.Contains("DestroyedPresence"))
+                            assoList.Add(asso);
+                        else if (efStr.Contains("Downgrade"))
+                            assoList.Add(asso);
+                    }
+                    else if (efStr.Contains(asso))
+                        assoList.Add(asso);
+                    //TODO update effect classes to be consistent
+                    else if (asso == "Wilds" && efStr.Contains("Wild"))
+                        assoList.Add(asso);
+                    else if (asso == "Badlands" && efStr.Contains("Badland"))
                         assoList.Add(asso);
                 }
             }
