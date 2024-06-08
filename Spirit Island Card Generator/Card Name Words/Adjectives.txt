@@ -1,336 +1,327 @@
-Abandoned
-Abrupt
-Addicted
-Airy
-Amorphous
-Ancient
-Angry
-Arid
-Atrocious
-Bald
-Bargaining
-Berserk
-Bewitching
-Blind
-Blissful
-Blistering
-Boastful
-Bountiful
-Brilliant
-Bubbly
-Burning
-Burning
-Cackling
-Cavernous
-Celestial
-Chanting
-Chaotic
-Clairvoyant
-Cleansing
-Clueless
-Colorful
-Colossal
-Concealing
-Constant
-Consuming
-Crazy
-Crowded
-Crying
-Curious
-Dahan
-Dancing
-Dangerous
-Daring
-Dark
-Dead
-Deathly
-Deepest
-Defiled
-Delicious
-Delightful
-Demanding
-Dense
-Desiccating
-Desolate
-Dire
-Disorienting
-Dormant
-Doting
-Doubtful
-Draining
-Dread
-Dreadful
-Dripping
-Drunk
-Dry
-Eastern
-Ebullient
-Echoing
-Eerie
-Elemental
-Elemental
-Elite
-Elusive
-Emphatic
-Enticing
-Entrancing
-Ephemeral
-Essential
-Eternal
-Evasive
-Ever-Multiplying
-Exhausted
-Exploding
-Faithful
-Faithless
-Falling
-Fat
-Fathomless
-Feathered
-Feathered
-Ferocious
-Fertile
-Fetid
-Fickle
-Fiery
-Flammable
-Flat
-Floating
-Flowing
-Fluffy
-Fluttering
-Flying
-Forceful
-Foul
-Freezing
-Friendly
-Frigid
-Frolicking
-Fruitful
-Fruity
-Furious
-Furry
-Gaping
-Ghostly
-Glacial
-Gleaming
-Gloating
-Gluttonous
-Gnawing
-Graceful
-Grand
-Growling
-Hairy
-Hasty
-Hated
-Haunted
-Healing
-Heavenly
-Hideous
-Hilarious
-Hissing
-Holy
-Hopeless
-Hostile
-Howling
-Hungry
-Hypnotic
-Hysterical
-Illusive
-Impatient
-Incredible
-Infant
-Infested
-Infinate
-Inquisitive
-Insatiable
-Inspired
-Intolerant
-Invisible
-Irresistible
-Isolated
-Jagged
-Joyful
-Juicy
-Juvenile
-King
-Lasting
-Lithesome
-Living
-Lofty
-Loose
-Lost
-Loud
-Loving
-Lunar
-Lurking
-Lush
-Lustful
-Maximal
-Meandering
-Meaningful
-Meaty
-Melting
-Mesmerized
-Migratory
-Milky
-Minimal
-Moaning
-Moist
-Moody
-Munchy
-Murderous
-Mysterious
-Nasty
-Natural
-Neat
-Northern
-Obnoxious
-Obnoxious
-Odiferous
-Omniscient
-Ornate
-Overenthusiastic
-Passive
-Patient
-Peaceful
-Perplexing
-Pesky
-Pestilent
-Pitiful
-Placid
-Plunging
-Poisoned
-Polluted
-Precocious
-Predatory
-Prey
-Primordial
-Prowling
-Pugnacious
-Purifying
-Pyroclastic
-Quaking
-Quarrelsome
-Queen
-Questing
-Quiet
-Radiant
-Raging
-Ravenous
-Razor-Sharp
-Regrow
-Renewing
-Restful
-Rioting
-Rising
-Rocky
-Rosy
-Rotund
-Safe
-Satanic
-Savage
-Scarred
-Scary
-Scattered
-Scout
-Screaming
-Scurrying
-Searing
-Senior
-Serene
-Shocking
-Singing
-Slim
-Slimey
-Slippery
-Slithering
-Slobbering
-Slothful
-Slumbering
-Small
-Smoldering
-Smothering
-Sneaking
-Soft
-Solemn
-Sour
-Southern
-Stalk
-Stalking
-Star-lit
-Sticky
-Still
-Stinging
-Stony
-Strong
-Stumbling
-Sucking
-Sudden
-Sunlit
-Swarming
-Sweltering
-Tall
-Tangled
-Tasty
-Technicolor
-Teeming
-Telepathic
-Tempestuous
-Temporary
-Tense
-Tentative
-Tepid
-Terrifying
-Terse
-Thoughtless
-Threatening
-Thriving
-Tight
-Timeless
-Toasty
-Tormenting
-Torrential
-Torrid
-Towering
-Towering
-Twilight
-Twisted
-Ultraviolet
-Unconscious
-Unexpected
-Unfathomable
-Unknown
-Unnatural
-Unquenchable
-Unrelenting
-Untamed
-Untouched
-Unwilling
-Utter
-Vapid
-Vast
-Velvet
-Vibrant
-Vigilant
-Vigorous
-Viscious
-Volcanic
-Voracious
-Voracious
-Wailing
-Wary
-Watchful
-Weak
-Welcoming
-Western
-Whispering
-Whistling
-Wild
-Willful
-Winding
-Witless
-Worst
-Wounded
-Xenophobic
-Zealous
+Abandoned	
+Abrupt	
+Addicted	# Disease
+Airy	# Air
+Amorphous	
+Ancient	# Spirit Dahan
+Angry	# Strife
+Arid	# Earth Fire Air Badlands
+Atrocious	
+Bald	# Blight
+Bargaining	# Invader Explorer Town City
+Berserk	# Beast Animal Strife
+Bewitching	
+Blind	
+Blissful	
+Blistering	# Fire Air Strife
+Boastful	
+Bountiful	# Plant Gather Vitality Wilds RemoveBlight
+Brilliant	# Sun
+Bubbly	# Water Air
+Burning	# Fire
+Cackling	
+Cavernous	# Earth Air
+Celestial	# Sun Moon
+Chanting	
+Chaotic	# Air Fire
+Clairvoyant	
+Cleansing	# Water RemoveBlight
+Clueless	
+Colorful	
+Colossal	
+Concealing	
+Constant	# Earth Defend Isolate
+Consuming	# Gather Town City
+Crazy	# Strife Fear
+Crowded	# Gather Town City
+Crying	# Water
+Curious	
+Dahan	# Dahan
+Dancing	
+Dangerous	# Fear
+Daring	# Push
+Dark	
+Dead	# Fear
+Deathly	# Damage Fear
+Deepest	# Water
+Defiled	# Blight
+Delicious	
+Delightful	# Gather Vitality
+Demanding	
+Dense	# Earth
+Desiccating	# Badlands Earth Fire
+Desolate	# Badlands Earth
+Dire	
+Disorienting	
+Dormant	# Earth Plant
+Doting	
+Doubtful	
+Draining	
+Dread	# Fear
+Dreadful	# Fear
+Dripping	# Water
+Drunk	# Strife
+Dry	# Air Fire Sun
+Eastern	
+Ebullient	# Vitality Gather
+Echoing	
+Eerie	# Fear Moon
+Elemental	
+Elite	
+Elusive	# Air
+Emphatic	
+Enticing	# Gather
+Entrancing	# Gather
+Ephemeral	# Air
+Essential	
+Eternal	
+Evasive	# Push
+Ever-Multiplying	# Push
+Exhausted	
+Exploding	# Fire Air Damage
+Faithful	# Defend
+Faithless	
+Falling	
+Fat	
+Fathomless	
+Feathered	# Animal Beast Air
+Ferocious	# Animal Beast
+Fertile	# Plant Vitality
+Fetid	# Blight Earth Water Plant
+Fickle	
+Fiery	# Fire Air
+Flammable	# Fire Air
+Flat	# Earth
+Floating	# Air
+Flowing	# Water Push
+Fluffy	# Animal Beast
+Fluttering	# Animal Beast Air
+Flying	# Animal Beast Air Push
+Forceful	# Defend
+Foul	# Blight Badlands Disease
+Freezing	# Water
+Friendly	# Gather Dahan
+Frigid	# Water Air
+Frolicking	# Animal Beast Vitality Push
+Fruitful	# Vitality
+Fruity	# Plant Water
+Furious	# Strife
+Furry	# Animal Beast
+Gaping	
+Ghostly	# Air Moon Fear
+Glacial	# Water Earth
+Gleaming	# Sun Moon
+Gloating	
+Gluttonous	# Animal Beast Gather
+Gnawing	# Animal Beast
+Graceful	# Air
+Grand	
+Growling	# Animal Beast
+Hairy	# Animal Beast
+Hasty	# Air Fire
+Hated	# Strife
+Haunted	# Fear Moon
+Healing	# RemoveBlight Disease
+Heavenly	# Sun Moon Air
+Hideous	
+Hilarious	
+Hissing	# Animal Beast Fear
+Holy	# Sun Air
+Hopeless	# Strife Fear
+Hostile	# Strife Fear Push
+Howling	# Animal Beast Fear
+Hungry	# Animal Beast
+Hypnotic	
+Hysterical	# Strife Fear
+Illusive	# Air Push
+Impatient	# Strife Push
+Incredible	
+Infant	
+Infested	# Blight Animal Beast Plant
+Infinite	# Sun Moon Air
+Inquisitive	
+Insatiable	# Gather Animal Beast
+Inspired	
+Intolerant	# Strife
+Invisible	# Air
+Irresistible	# Push Gather Earth
+Isolated	# Isolate Wilds
+Jagged	# Badlands Earth Plant
+Joyful	# Vitality Gather
+Juicy	# Plant Water
+Juvenile	
+King	# Dahan Animal Beast
+Lasting	# Earth Moon Sun
+Lithesome	
+Living	# Animal Plant Beast Dahan
+Lofty	# Air Moon Sun
+Loose	# Push Beast
+Lost	# Isolate Push
+Loud	
+Loving	
+Lunar	# Moon
+Lurking	# Fear
+Lush	
+Lustful	# Strife
+Maximal	
+Meandering	# Water
+Meaningful	
+Meaty	# Animal Beast
+Melting	# Water Fire
+Mesmerized	
+Migratory	# Animal Beast Gather Push
+Milky	
+Minimal	
+Moaning	# Strife Fear
+Moist	# Water
+Moody	
+Munchy	# Animal Plant
+Murderous	# Fear Damage
+Mysterious	
+Nasty	# Wilds Disease Blight
+Natural	# Plant Water Earth Animal Beast
+Neat	# RemoveBlight
+Northern	
+Obnoxious	# Strife Blight
+Odiferous	
+Omniscient	
+Ornate	# Town City
+Overenthusiastic	
+Passive	# Defend
+Patient	
+Peaceful	# Air Water RemoveBlight Spirit Vitality
+Perplexing	
+Pesky	# Explorer Beast Invader
+Pestilent	# Disease Blight
+Pitiful	
+Placid	# Air Water Earth Isolate
+Plunging	# Water Badlands
+Poisoned	# Disease Blight Badlands
+Polluted	# Disease Blight Badlands Water Earth
+Precocious	
+Predatory	# Animal Beast Invader Explorer
+Prey	# Animal
+Primordial	
+Prowling	# Animal Beast Explorer Push
+Pugnacious	# Strife
+Purifying	# Air Water RemoveBlight Vitality Defend
+Pyroclastic	# Fire Earth Badlands Blight
+Quaking	# Earth Badlands Fear
+Quarrelsome	# Strife
+Queen	# Dahan Animal Beast
+Questing	# Push
+Quiet	# Earth Water Air Plant Isolate
+Radiant	# Sun Moon
+Raging	# Strife Damage
+Ravenous	# Damage Gather
+Razor-Sharp	
+Regrow	# Plant Earth RemoveBlight
+Renewing	# RemoveBlight
+Restful	# Air Water Earth Isolate
+Rioting	# Strife Damage
+Rising	# Sun Moon
+Rocky	# Earth Badlands
+Rosy	
+Rotund	
+Safe	# Defend
+Satanic	# Fear Damage
+Savage	# Beast Damage
+Scarred	# Blight Damage
+Scary	# Fear
+Scattered	# Push
+Screaming	# Strife
+Scurrying	# Push Animal Beast
+Searing	# Fire Badlands Blight
+Senior	
+Serene	# Air Water Earth Isolate
+Shocking	# Fear
+Singing	# Dahan Explorer
+Slim	
+Slimey	# Plant Earth Water
+Slippery	# Earth Water
+Slithering	# Animal Beast Fear Push
+Slobbering	# Animal Beast Fear
+Slothful	
+Slumbering	
+Small	
+Smoldering	# Fire Damage
+Sneaking	# Push
+Soft	
+Solemn	# Dahan Spirit
+Sour	
+Southern	
+Stalking	# Beast Explorer Push Gather
+Star-lit	# Moon Air
+Sticky	# Gather
+Still	# Air Water Earth Isolate
+Stinging	# Beast Fear
+Stony	# Earth Badlands
+Strong	# Defend Damage
+Stumbling	# Push
+Sucking	# Gather
+Sudden	
+Sunlit	# Sun Air
+Swarming	# Beast Fear Push Gather
+Sweltering	# Sun Air Fire
+Tall	
+Tangled	# Plant Wilds
+Tasty	# Animal Plant
+Technicolor	
+Teeming	# Plant Animal Beast Wilds
+Telepathic	
+Tempestuous	# Strife
+Temporary	
+Tense	
+Tentative	
+Tepid	
+Terrifying	# Fear Strife
+Terse	
+Thoughtless	
+Threatening	# Fear Invader
+Thriving	# Plant RemoveBlight
+Tight	
+Timeless	# Defend Spirit
+Toasty	# Fire Sun
+Tormenting	# Strife Fear
+Torrential	# Water
+Torrid	# Air Fire Sun
+Towering	
+Twilight	# Sun Moon
+Twisted	
+Ultraviolet	# Sun
+Unconscious	
+Unexpected	
+Unfathomable	
+Unknown	# Wilds Isolate
+Unnatural	# Town City
+Unquenchable	# Water
+Unrelenting	# Push
+Untamed	# Plant Animal Beast Wilds
+Untouched	# Wilds Defend Isolate
+Unwilling	
+Utter	
+Vapid	
+Vast	# Earth Air Sun Moon
+Velvet	
+Vibrant	# Vitality
+Vigilant	
+Vigorous	# Plant RemoveBlight Wilds
+Viscious	# Animal Beast Fear
+Volcanic	# Earth Fire Badlands
+Voracious	# Gather Beast Fear
+Wailing	# Air Animal Beast
+Wary	# Animal Beast
+Watchful	
+Weak	
+Welcoming	
+Western	
+Whispering	# Air
+Whistling	# Air
+Wild	# Wilds Animal Beast Plant
+Willful	
+Winding	# Water Push
+Witless	
+Worst	
+Wounded	# Animal Plant Beast Dahan Explorer
+Xenophobic	# Fear
+Zealous	

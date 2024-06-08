@@ -13,10 +13,6 @@ namespace Spirit_Island_Card_Generator
         {
             InitializeComponent();
 
-            string filePath = Path.Combine(AppSettings.Default.CardOutputDir, "Minor Power Decks", "2024-05-03-11-27-40", "Cards", "A Flame of Dread and Exaltation.html");
-            string fileText = File.ReadAllText(filePath);
-            webBrowser1.ScriptErrorsSuppressed = true;
-            webBrowser1.DocumentText = fileText;
         }
 
         private void scanBtn_Click(object sender, EventArgs e)
