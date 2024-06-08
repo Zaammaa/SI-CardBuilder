@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class BlightDoesNotCascadeEffect : Effect
     {
+        public override string Name => "Blight Does Not Cascade";
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
 

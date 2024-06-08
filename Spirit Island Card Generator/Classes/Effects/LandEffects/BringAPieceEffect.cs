@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [CustomEffect(1)]
     internal class BringAPieceEffect : AmountMultipleEffectOption, IParentEffect
     {
+        public override string Name => "Bring A Piece: " + chosenOption.text;
         public override List<ElementSet.Element> WeaklyAssociatedElements => new List<ElementSet.Element>() { ElementSet.Element.Air };
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

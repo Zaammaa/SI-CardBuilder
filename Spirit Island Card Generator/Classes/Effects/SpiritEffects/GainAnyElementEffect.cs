@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [CustomEffect(1)]
     internal class GainAnyElementEffect : Effect
     {
+        public override string Name => "Gain Any Element";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Moon}; } }
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

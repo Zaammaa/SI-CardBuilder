@@ -16,6 +16,18 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     internal class MergedPushEffect : AmountEffect, IParentEffect
     {
+        public override string Name
+        {
+            get
+            {
+                string baseText = "Merged Push: ";
+
+                IEnumerable<Piece> pieces = pushEffects.Select((gatherEffect) => { return gatherEffect.Piece; });
+
+                string pieceText = String.Join("/", pieces);
+                return baseText + pieceText;
+            }
+        }
         public override double BaseProbability => 0.1;
 
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

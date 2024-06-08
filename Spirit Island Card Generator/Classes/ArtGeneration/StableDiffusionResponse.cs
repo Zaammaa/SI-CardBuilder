@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
 {
-    internal class StableDiffusionResponse
+    public class StableDiffusionResponse
     {
         public List<string> images;
         public StableDiffusionSettings parameters;

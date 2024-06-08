@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class InEachOfSpiritsLandsEffect : MultipleOptionEffect, IParentEffect
     {
+        public override string Name => "In Each Of Spirits";
         public override double BaseProbability => 0.05;
 
         public override int Complexity => 3 + GetChildren().Sum((effect) => effect.Complexity);

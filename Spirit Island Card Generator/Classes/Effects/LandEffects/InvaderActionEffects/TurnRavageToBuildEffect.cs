@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.InvaderAction
     [LandEffect]
     internal class TurnRavageToBuildEffect : Effect
     {
+        public override string Name => "Ravage To Build";
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
         };

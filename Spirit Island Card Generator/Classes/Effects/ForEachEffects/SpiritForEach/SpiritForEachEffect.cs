@@ -19,6 +19,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ForEachEffects.SpiritForE
     [SpiritEffect]
     internal class SpiritForEachEffect : Effect, IParentEffect
     {
+        public override string Name => "Spirit For Each: " + chosenOption.text;
         public override Context.CardTargets TargetType => Context.CardTargets.TargetSpirit;
 
         public override double BaseProbability => 0.1;

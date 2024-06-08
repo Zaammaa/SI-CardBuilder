@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DowngradeEffe
     [CustomEffect(1)]
     internal class DowngradeEffect : AmountEffect
     {
+        public override string Name => "Downgrade: " + chosenOption.text;
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Moon, Element.Water }; } }
         public override double BaseProbability => 0.07;
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

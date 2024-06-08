@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class GainEnergyEffect : AmountEffect
     {
+        public override string Name => "Gain Energy";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Plant, Element.Water }; } }
         public override double BaseProbability { get { return .25; } }

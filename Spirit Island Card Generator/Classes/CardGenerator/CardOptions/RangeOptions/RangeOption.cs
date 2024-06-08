@@ -9,6 +9,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
 {
     abstract class RangeOption : IGeneratorOption
     {
+        public abstract string Name { get; }
         public abstract double BaseProbability { get; }
 
         public double AdjustedProbability { get => BaseProbability; set { } }

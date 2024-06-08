@@ -34,7 +34,7 @@ namespace Spirit_Island_Card_Generator.Classes.Analysis
                 return true;
             } else
             {
-                string desc = card.descrition;
+                string desc = card.description;
                 desc = Regex.Replace(desc, @"\s{2,}", " ");
                 List<string> effectBlocks = ParseEffectBlocks(desc);
 

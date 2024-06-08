@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class DahanExtraHealthEffect : AmountEffect
     {
+        public override string Name => "Dahan Extra Health";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal, Element.Sun, Element.Earth }; } }
         public override double BaseProbability { get { return .005; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

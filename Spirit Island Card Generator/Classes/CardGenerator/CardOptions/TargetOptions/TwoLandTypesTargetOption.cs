@@ -9,6 +9,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     internal class TwoLandTypesTargetOption : TargetOption
     {
+        public override string Name => "Two Land Types Target: " + lands;
         public override double BaseProbability => 0.1;
 
         public override int Complexity => 1;
@@ -18,6 +19,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
             return true;
         }
 
+        LandConditions lands;
+
         public override Target OnChosen(Context context)
         {
             Target target = new Target();
@@ -25,6 +28,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
             List<LandConditions> options = new List<LandConditions>() { LandConditions.MountainOrJungle, LandConditions.MountainOrSands, LandConditions.MountainOrWetlands, LandConditions.JungleOrSands, LandConditions.JungleOrWetlands, LandConditions.SandsOrWetlands };
             LandConditions condition = Utils.ChooseRandomListElement(options, context.rng);
 
+            lands = condition;
             target.landConditions.Add(condition);
             return target;
         }

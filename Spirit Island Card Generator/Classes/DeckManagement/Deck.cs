@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.DeckManagement
 {
-    internal class Deck
+    public class Deck
     {
         public List<Card> deck = new List<Card>();
         public int maxDeckSize = 100;
@@ -51,7 +51,7 @@ namespace Spirit_Island_Card_Generator.Classes.DeckManagement
             }
         }
 
-        public static Deck LoadDeck(string workspace)
+        public static Deck? LoadDeck(string workspace)
         {
             Deck? deck = JsonConvert.DeserializeObject<Deck>(File.ReadAllText(Path.Combine(workspace, "DeckSave.json")), new Newtonsoft.Json.JsonSerializerSettings
             {

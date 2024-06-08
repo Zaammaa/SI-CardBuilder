@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [SpiritCondition]
     internal class TerrorLevelConditionEffect : MultipleOptionEffect, IParentEffect
     {
+        public override string Name => "Terror Level Condition: " + chosenOption.text;
         public override double BaseProbability => 0.02;
 
         public override int Complexity => 2 + GetChildren().Sum((effect) => effect.Complexity);

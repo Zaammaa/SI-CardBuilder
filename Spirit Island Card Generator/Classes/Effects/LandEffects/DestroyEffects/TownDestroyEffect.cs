@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
     [LandEffect]
     internal class TownDestroyEffect : DestroyEffect
     {
+        public override string Name => "Destroy Town";
         public override double BaseProbability { get { return .04; } }
         public override int Complexity { get { return 1; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Town;

@@ -11,6 +11,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
     /// </summary>
     internal class NoFromLandRange : FromLandOption
     {
+        public override string Name => "No Source Land Constraint"; 
         public override double BaseProbability => 0.99;
 
         public override int Complexity => 0;

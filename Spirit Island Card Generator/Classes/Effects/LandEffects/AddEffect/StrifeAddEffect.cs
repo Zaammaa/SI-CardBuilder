@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class StrifeAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Strife";
         public static string TrackedName => "Add Strife";
         public static int TargetAmount => 7;
         public bool ExactTarget => false;

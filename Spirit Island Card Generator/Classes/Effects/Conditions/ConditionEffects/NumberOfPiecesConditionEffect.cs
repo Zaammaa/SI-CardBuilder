@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions.ConditionEffec
     [LandEffect]
     internal class NumberOfPiecesConditionEffect : Effect, IParentEffect
     {
+        public override string Name => condition.ConditionText;
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 6; } }

@@ -11,6 +11,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.TransformingE
 {
     internal abstract class TransformationEffect : Effect
     {
+        public override string Name => $"Tranform: {FromPiece} to {ToPiece}";
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract Piece FromPiece { get; }
         public abstract Piece ToPiece { get; }

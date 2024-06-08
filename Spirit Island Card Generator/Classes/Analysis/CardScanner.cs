@@ -66,7 +66,7 @@ namespace Spirit_Island_Card_Generator.Classes.Analysis
                         //elements
                         card.elements = ElementSet.ElementSetFromElementString(GetProperty("elements", backElement.InnerHtml));
                         //description
-                        card.descrition = GetProperty("description", backElement.InnerHtml);
+                        card.description = GetProperty("description", backElement.InnerHtml);
                         if (reader.ScanDescription(card))
                         {
                             fullyParsedCount++;

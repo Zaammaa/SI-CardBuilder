@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
     [LandEffect]
     internal class DahanDestroyEffect : DestroyEffect
     {
+        public override string Name => "Destroy Dahan";
         public override double BaseProbability { get { return .02; } }
         public override int Complexity { get { return 2; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Dahan;

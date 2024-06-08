@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     public class DefendEffect : AmountEffect , ITrackedStat
     {
+        public override string Name => "Defend";
         public static string TrackedName => "Defend";
         public static int TargetAmount => 17;
         public bool ExactTarget => false;

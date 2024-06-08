@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     internal class NoBlightTargetOption : TargetOption
     {
+        public override string Name => "No Blight Target";
         public override double BaseProbability => 0.04;
 
         public override int Complexity => 1;

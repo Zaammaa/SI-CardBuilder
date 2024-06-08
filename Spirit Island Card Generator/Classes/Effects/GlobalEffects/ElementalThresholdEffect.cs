@@ -16,6 +16,15 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [SpiritEffect]
     internal class ElementalThresholdEffect : Effect, IParentEffect
     {
+        public override string Name {
+            get
+            {
+                string name = "Elemental Threshold: ";
+
+                string elementsText = String.Join("-", elements.Keys);
+                return name + elementsText;
+            }
+        }
         public override Context.CardTargets TargetType
         {
             get

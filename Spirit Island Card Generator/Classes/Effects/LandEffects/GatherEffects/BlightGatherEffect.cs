@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class BlightGatherEffect : GatherEffect
     {
+        public override string Name => "Gather Blight";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Earth, Element.Air }; } }
         public override double BaseProbability { get { return .03; } }
         public override int Complexity { get { return 2; } }

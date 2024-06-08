@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LinkedEffects
     [UnspecificLand]
     internal class YouMayDoBothEffect : Effect
     {
+        public override string Name => "May Do Both";
         public override Context.CardTargets TargetType
         {
             get

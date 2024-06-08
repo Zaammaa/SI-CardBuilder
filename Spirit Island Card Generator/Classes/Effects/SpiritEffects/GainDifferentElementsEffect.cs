@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class GainDifferentElementsEffect : AmountEffect
     {
+        public override string Name => "Gain Different Elements";
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Moon }; } }
         public override double BaseProbability { get { return .1; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

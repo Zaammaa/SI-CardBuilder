@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [CustomEffect(1)]
     internal class NotParticipateInRavageEffect : AmountMultipleEffectOption
     {
+        public override string Name => "Don't Participate In Ravage: " + chosenOption.text;
         public override double BaseProbability => 0.03;
         public override int Complexity => 1;
         public override Regex descriptionRegex => new Regex("");

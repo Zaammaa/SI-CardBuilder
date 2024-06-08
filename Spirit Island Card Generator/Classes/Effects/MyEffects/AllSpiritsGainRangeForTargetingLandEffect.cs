@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(3)]
     internal class AllSpiritsGainRangeForTargetingLandEffect : AmountEffect
     {
+        public override string Name => "All Spirits Gain Range For Land";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double effectStrength => 0.2;
 

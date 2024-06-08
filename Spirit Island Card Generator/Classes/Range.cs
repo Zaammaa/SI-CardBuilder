@@ -41,7 +41,7 @@ namespace Spirit_Island_Card_Generator.Classes
         public string Print()
         {
             if (range < 0)
-                return "--";
+                return "none";
 
             string output = "";
 

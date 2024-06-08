@@ -18,6 +18,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class ReducedDamageEffect : Effect
     {
+        public override string Name => "Reduced Damage: " + chosenOption.text;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Water }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Animal }; } }
         public override double BaseProbability => 0.02;

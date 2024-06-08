@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     internal class DahanPushEffect : PushEffect
     {
+        public override string Name => "Push Dahan";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal, Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double BaseProbability { get { return .11; } }

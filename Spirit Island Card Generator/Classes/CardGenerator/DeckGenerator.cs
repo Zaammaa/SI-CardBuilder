@@ -48,6 +48,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 {
                     Log.Information($"-----------------------------------------Card {i}-----------------------------------------");
                     Card card = cardGenerator.GenerateMinorCard(settings);
+                    card.id = i;
                     Log.Information($"{card.Name}");
 
                     PostProcessCard(card);
@@ -105,7 +106,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         private void QueueArtwork(Card card, int i)
         {
             StableDiffusionSettings stableDiffusionSettings = new StableDiffusionSettings();
-            stableDiffusionSettings.prompt = "<lora:SI_ArtV1-33:1.0>,  PowerCard, __Templates__, artwork by __SIArtists__";
+            stableDiffusionSettings.prompt = $"<lora:SI_ArtV1-33:1.0>,  PowerCard, {card.Name}, artwork by __SIArtists__";
             stableDiffusionSettings.seed = settings.seed;
             stableDiffusionSettings.saveFilename = Path.Combine(ArtDir, card.Name + ".png");
 
@@ -168,7 +169,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 if (effect.GetType() != typeof(ElementalThresholdEffect))
                 {
-                    card.descrition += effect.Print() + ".\n";
+                    card.description += effect.Print() + ".\n";
                 }
                 else
                 {
