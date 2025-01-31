@@ -2,13 +2,13 @@ Aardvark	# Beast Animal
 Abyss	# Moon
 Aerie	# Beast Animal 
 Agony	# Disease Fear
-Air	# Air Push Gather
+Air/	# Air Push Gather
 Altar	# Moon Dahan Town City
 Ambush	
 Animal	# Beast Animal
-Apparitions	# Fear Moon
-Aquifers	# Water
-Arson	# Fire Blight Fear Town City Invader
+/Apparitions	# Fear Moon
+/Aquifers	# Water
+Arson/	# Fire Blight Fear Town City Invader
 Ash	# Fire Blight Fear Town City Invader
 Assassin	# Moon Badlands Damage Fear
 Avalanche	# Earth Water Damage
@@ -17,21 +17,21 @@ Bane	# Water Disease Badlands
 Beach	# Water Air Earth
 Bear	# Animal Spirit Beast
 Beast	# Animal Beast
-Berries	# Plant Wilds Dahan
+/Berries	# Plant Wilds Dahan
 Bird	# Animal Beast 
-Birth	# Earth Dahan
+Birth/	# Earth Dahan
 Blast	# Fire Wilds Strife Damage
 Blight	# Air Blight Damage Badlands
-Bliss	# Sun Spirit RemoveBlight Vitality 
+Bliss/	# Sun Spirit RemoveBlight Vitality 
 Blizzard	# Water Badlands Wilds Isolate
-Bloodshed	# Animal Strife Damage 
-Blossoms	# Sun Water Plant Dahan Push Vitality 
+Bloodshed/	# Animal Strife Damage 
+/Blossoms	# Sun Water Plant Dahan Push Vitality 
 Bond	# Earth Spirit Dahan Defend 
 Bonfire	# Fire Dahan Spirit 
-Breath	# Air Vitality Disease
+Breath/	# Air Vitality Disease
 Breeze	# Air Push Gather 
 Brook	# Water Dahan Push Gather
-Cacophony	# Animal Strife City 
+Cacophony/	# Animal Strife City 
 Calamity	# Air Fear City Blight Badlands
 Camp	# Earth Explorer Invader Defend
 Cannibal	# Animal Beast Strife Fear 
@@ -39,15 +39,15 @@ Cannon	# Fire Strife Town City Invader
 Canoe	# Plant Dahan Push Gather
 Captain	# Town City Invader
 Castle	# Town City Invader 
-Catacomb	# Moon Earth 
+/Catacombs	# Moon Earth 
 Cathedral	# City
-Cauldera	# Fire Earth Damage 
+Caldera	# Fire Earth Damage 
 Cauldron	# Fire Dahan 
 Cavern	# Earth Defend Isolate 
-Chaos	# Air Strife Invader Explorer
+Chaos/	# Air Strife Invader Explorer
 Chapel	# Town City
 Chase	# Animal Beast
-Chief	# Dahan 
+Chief/	# Dahan 
 Chieftain	# Dahan
 Child	# Dahan 
 Choir	# Spirit Vitality
@@ -58,49 +58,48 @@ Club	# Town City Invader Damage
 Coffin	# Fear Moon
 Command	# Town City Invader
 Conflaguration	# Fire Town City Fear Damage
-Confusion	# Invader Strife
+Confusion/	# Invader Strife
 Constellation	# Moon Spirit
-Corruption	# Earth Strife Blight 
-Cosmic	# Moon Spirit Sun
+Corruption/	# Earth Strife Blight 
 Crater	# Earth Moon
 Creation	# Plant Sun
 Crop	# Plant Dahan Vitality
-Cropland	# Plant Dahan Gather Push
+Cropland/	# Plant Dahan Gather Push
 Crypt	# Earth Moon Fear
 Cyclone	# Air Wilds Push Gather 
 Dahan	# Beast Animal Dahan
 Danger	# Invader Fear
-Darkness	# Moon Blight Fear
+Darkness/	# Moon Blight Fear
 Dawn	# Sun Spirit 
 Day	# Sun Dahan 
-Death	# Fear Blight Badlands
-Deeps	# Earth Water Fear 
-Delusions	# Animal Strife Invader Explorer
+Death/	# Fear Blight Badlands
+/Deeps	# Earth Water Fear 
+Delusion	# Animal Strife Invader Explorer
 Den	# Animal Beast Defend
 Desert	# Earth Sun Wilds 
-Despair	# Animal Isolate Fear
-Destruction	# Earth Badlands Damage Fear
-Dew	# Water Vitality 
+Despair/	# Animal Isolate Fear
+Destruction/	# Earth Badlands Damage Fear
+/Dew	# Water Vitality 
 Disaster	# Fire Water Wilds Badlands Fear Damage
 Disease	# Animal Disease Dahan Push Gather
-Doom	# Disease Badlands Spirit Vitality Damage Fear
+Doom/	# Disease Badlands Spirit Vitality Damage Fear
 Downpour	# Water Wilds Spirit
-Dread	# Air Fear Invader Explorer
+Dread/	# Air Fear Invader Explorer
 Dream	# Dahan Vitality 
 Drought	# Sun Earth 
-Dusk	# Sun Dahan Fear
+Dusk/	# Sun Dahan Fear
 Earthquake	# Earth Badlands Fear
 Eclipse	# Moon Dahan Spirit Dahan
 Egg	# Animal Beast
 Ember	# Fire Badlands 
 Eruption	# Earth Fire Badlands Blight Damage
-Exaltation	# Dahan Spirit RemoveBlight Defend
+Exaltation/	# Dahan Spirit RemoveBlight Defend
 Explorer	# Explorer Invader 
-Eyes	# Animal Beast 
+/Eyes	# Animal Beast 
 Farm	# Plant Dahan Vitality
-Farmland	# Earth Plant Dahan
+Farmland/	# Earth Plant Dahan
 Fear	# Air Moon Fear Spirit
-Fields	# Earth Plant Wilds Disease 
+/Fields	# Earth Plant Wilds Disease 
 Fire	# Fire Damage Blight 
 Fist	# Dahan Spirit Strife Damage
 Flame	# Fire Damage Blight 
@@ -118,46 +117,46 @@ Geyser	# Water
 Glade	# Earth Water Wilds
 Glen	# Earth Spirit Wilds
 Glory	# Sun Dahan Spirit RemoveBlight
-Gold	# Sun Dahan Spirit Town City
+Gold/	# Sun Dahan Spirit Town City
 Grassland	# Plant Wilds Disease
 Grave	# Moon Isolate
 Graveyard	# Moon Isolate Fear
-Greed	# Push Gather 
-Ground	# Earth Isolate 
+Greed/	# Push Gather 
+Ground/	# Earth Isolate 
 Growth	# Plant Push Gather 
 Harbinger	# Invader Explorer City Town
 Harbor	# Water Invader Town City Explorer
-Hatred	# Disease Badlands Strife
+Hatred/	# Disease Badlands Strife
 Hazard	# Disease Badlands 
-Hellspawn	# Damage Fear
+/Hellspawn	# Damage Fear
 Herd	# Animal Beast Push Gather
 Hoard	# Moon Gather 
 Hope	# Dahan Spirit
 Hut	# Dahan
 Invader	# Invader Explorer City Town
-Island	# Earth Water
+Island/	# Earth Water
 Jail	# Town City
 Joy	
 Jungle	# Plant Wilds
-Karma	# Dahan Spirit
+Karma/	# Dahan Spirit
 Key	
 King	# Town City
 Knife	# Damage Fear
 Lair	# Defend 
 Lake	# Water
-Land	# Earth
-Land-Dwellers	# Invader Dahan Beast Explorer Town City Animal Plant
-Landscape	# Earth Plant Water
-Lava	# Fire Earth Badlands
+Land/	# Earth
+/Land-Dwellers	# Invader Dahan Beast Explorer Town City Animal Plant
+Landscape/	# Earth Plant Water
+Lava/	# Fire Earth Badlands
 Life	# Vitality Plant Animal
-Lightning	# Air 
+Lightning/	# Air 
 Lock	# Isolate Defend
-Locusts	# Plant Animal Fear Damage
-Love	# Defend
+/Locusts	# Plant Animal Fear Damage
+Love/	# Defend
 Lurker	# Explorer Dahan Push Gather Moon
-Madness	# Fear
-Magma	# Fire Earth Badlands
-Maw	# Animal Beast Dahan Invader Explorer Fear
+Madness/	# Fear
+Magma/	# Fire Earth Badlands
+Maw/	# Animal Beast Dahan Invader Explorer Fear
 Meadow	# Plant 
 Merchant	# Town City
 Miasma	# Air Wilds Isolate Blight
@@ -166,19 +165,19 @@ Miner	# Earth
 Mirage	
 Mist	# Water Air
 Mob	# Strife Invader Explorer Fear
-Moon	# Moon 
+Moon/	# Moon 
 Mound	# Earth
 Mountain	# Earth
-Muck	# Wilds Earth Water
+Muck/	# Wilds Earth Water
 Musket	# Explorer Invader Damage
 Mystery	
-Nature	# Dahan Plant Animal Beast
+Nature/	# Dahan Plant Animal Beast
 Nest	# Beast Animal 
 Night	# Moon
 Nightmare	# Moon Fear Blight
 Noose	# Strife Fear
-Oblivion	# Dahan Defend Isolate
-Obsidian	# Earth Dahan Spirit
+Oblivion/	# Dahan Defend Isolate
+Obsidian/	# Earth Dahan Spirit
 Ocean	# Water
 Ooze	# Air Fear Wilds Badlands Disease Water
 Oracle	# Dahan Spirit
@@ -188,14 +187,14 @@ Panther	# Animal Beast
 Party	
 Pasture	# Plant Dahan Gather Push
 Path	# Gather Push
-Peace	# Isolate
+Peace/	# Isolate
 Peat	# Earth 
 Peril	# Blight Fear Damage
 Pestilence	# Disease Badlands Blight
 Pillar	
 Pit	# Earth 
 Plague	# Disease 
-Plains	# Earth Plant 
+/Plains	# Earth Plant 
 Plant	# Plant 
 Pond	# Water
 Pool	# Water
@@ -209,7 +208,7 @@ Promise
 Prophet	# Spirit
 Queen	# Town City
 Rain	# Water Air
-Rampage	# Strife Push 
+Rampage/	# Strife Push 
 Rampart	# City Town Defend 
 Ravine	# Earth
 Refugee	# Dahan
@@ -219,14 +218,14 @@ Rite	# Town City
 Ritual	# Dahan Spirit
 River	# Water
 Rock	# Earth
-Roots	# Plant
+Root	# Plant
 Rope	
-Rot	# Blight Plant
+Rot/	# Blight Plant
 Ruin	# Town City 
 Sacrifice	# Dahan Spirit
 Sailor	# Explorer
 Sanctuary	# Invader Town City Defend
-Sands	# Earth 
+Sand	# Earth 
 Scar	# Damage
 Scythe	# Strife Dahan Damage
 Sea	# Water
@@ -234,36 +233,36 @@ Season	# Plant Sun Moon
 Secret	# Invader Dahan Spirit Town City Explorer
 Seer	# Spirit Dahan
 Shadow	# Moon Sun
-Shaman	# Dahan Moon
+Shaman/	# Dahan Moon
 Shard	
 Shore	# Water
 Shout	# Dahan Invader Explorer
 Sky	# Moon Sun Air
 Slave	# Invader City Town Dahan
-Smoke	# Fire Air
+Smoke/	# Fire Air
 Snake	# Animal Beast
-Soil	# Earth
+Soil/	# Earth
 Soldier	# Explorer Invader
 Soul	
 Spirit	# Spirit 
 Stampede	# Push Gather Animal
 Star	# Moon
-Steam	# Water Air
+Steam/	# Water Air
 Stone	# Earth
 Storm	# Water
-Strife	# Strife
+Strife/	# Strife
 Sunrise	# Sun
 Sunset	# Sun
 Swamp	# Plant Water 
 Swarm	# Beast Invader Explorer Dahan
 Tail	# Animal Beast
-Teeth	# Beast Animal
-Tentacles	# Beast Animal
+/Teeth	# Beast Animal
+/Tentacles	# Beast Animal
 Territory	
 Terror	# Fear
 Thorn	# Plant Beast Damage
 Throne	
-Tidings	# Explorer Dahan Spirit
+/Tidings	# Explorer Dahan Spirit
 Tiger	# Animal Beast
 Tomb	# Moon Fear
 Torch	# Fire
@@ -275,14 +274,14 @@ Trap	# Invader Spirit Dahan Beast Gather
 Treasure	
 Tree	# Plant
 Tribe	# Dahan
-Triumph	# Defend
+Triumph/	# Defend
 Tsunami	# Water Damage 
-Tundra	# Plant 
-Twilight	# Sun
+Tundra/	# Plant 
+Twilight/	# Sun
 Twister	# Air Push Gather
-Undergrowth	# Plant Wilds
+Undergrowth/	# Plant Wilds
 Uprising	# Dahan Strife Town City
-Vengeance	# Dahan Spirit Beast Damage
+Vengeance/	# Dahan Spirit Beast Damage
 Village	# Dahan Town
 Vine	# Plant Wilds
 Voice	# Dahan Spirit Explorer
@@ -295,13 +294,13 @@ Warrior	# Dahan Spirit
 Wasp	# Animal Beast Defend
 Wasteland	# Isolate Blight Badlands
 Water	# Water
-Waterways	# Water Gather Push
+/Waterways	# Water Gather Push
 Weapon	# Damage Fear
-Wilderness	# Plant Wilds
+Wilderness/	# Plant Wilds
 Wind	# Air Push Gather
-Wings	# Beast Animal
+/Wings	# Beast Animal
 Witch	
 Wood	# Plant
-Wrath	# Strife
+Wrath/	# Strife
 Year	
-Zoo	# Animal Beast
+Zoo/	# Animal Beast
