@@ -80,7 +80,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardOutput
 
         private static string MakeQuickCard(Card card)
         {
-            string quickCard = $"<quick-card image=\"{card.ArtDataString}\" name=\"{card.Name}\" speed=\"{(card.Fast ? "fast" : "slow")}\" cost=\"{card.Cost}\" type=\"{card.CardType}\" range=\"{(card.Range.Print())}\" target=\"{card.Target.Print()}\" elements=\"{card.elements}\" artist-name=\"undefined\"><rules>{card.description}</rules>";
+            string quickCard = $"<quick-card image=\"{card.ArtDataString}\" name=\"{card.Name}\" speed=\"{(card.Fast ? "fast" : "slow")}\" cost=\"{card.Cost}\" type=\"{card.CardType}\" range=\"{(card.Range.Print())}\" target=\"{card.Target.Print()}\" target-title=\"{(card.Target.SpiritTarget ? "TARGET" : "TARGET LAND")}\" elements=\"{card.elements}\" artist-name=\"undefined\"><rules>{card.description}</rules>";
             if (card.HasThreshold)
                 quickCard += $"<threshold condition=\"{card.thresholdCondition}\">{card.thresholdDescription}</threshold>";
 
