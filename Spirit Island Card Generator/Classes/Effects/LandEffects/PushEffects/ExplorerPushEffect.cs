@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     internal class ExplorerPushEffect : PushEffect
     {
+        public override string Name => "Push Explorer";
         public override double BaseProbability { get { return .16; } }
         public override int Complexity { get { return 1; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Explorer;

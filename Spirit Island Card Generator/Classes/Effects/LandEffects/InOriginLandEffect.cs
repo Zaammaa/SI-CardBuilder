@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [CustomEffect(1)]
     internal class InOriginLandEffect : Effect, IParentEffect
     {
+        public override string Name => "In Origin Land";
         //It's usually more efficient to do something in an another land. Plus it means extra range.
         protected static double MODIFIER_FOR_ORIGIN_ONLY = 1.1;
         protected static double MODIFIER_FOR_ORIGIN_OR_TARGET = 1.2;

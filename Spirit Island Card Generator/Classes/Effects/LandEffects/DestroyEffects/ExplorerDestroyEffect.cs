@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.DestroyEffect
     [LandEffect]
     internal class ExplorerDestroyEffect : DestroyEffect
     {
+        public override string Name => "Destroy Explorer";
         public override double BaseProbability { get { return .06; } }
         public override int Complexity { get { return 1; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Explorer;

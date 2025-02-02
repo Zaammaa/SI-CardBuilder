@@ -17,19 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.CardMetaEffects
     [SpiritEffect]
     internal class OrEffect : Effect, IParentEffect
     {
-        public override Context.CardTargets TargetType
-        {
-            get
-            {
-                if (Context.target.SpiritTarget)
-                {
-                    return Context.CardTargets.TargetSpirit;
-                } else
-                {
-                    return Context.CardTargets.Land;
-                }
-            }
-        }
+        public override string Name => "Or";
         public override double BaseProbability { get { return .26; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { 

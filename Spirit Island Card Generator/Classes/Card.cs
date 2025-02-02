@@ -82,7 +82,8 @@ namespace Spirit_Island_Card_Generator.Classes
 
         public CardTypes CardType { get; set; }
         public string Name { get; set; }
-        public string ArtDataString { get; set; }
+        public string ArtDataString { get; set; } = "";
+        public string Artist { get; set; }
         public int Cost { get; set; }
         public bool Fast { get; set; }
         public Range Range { get; set; }
@@ -91,9 +92,9 @@ namespace Spirit_Island_Card_Generator.Classes
         public ElementSet elements { get; set; }
         public List<Effect> effects = new List<Effect>();
         public Settings settings;
-        public string descrition = "";
+        public string description = "";
 
-        public string artworkDataString = "";
+        public int id = 0;
 
         public bool HasThreshold { 
             get
@@ -273,11 +274,11 @@ namespace Spirit_Island_Card_Generator.Classes
         {
             Card newCard = new Card();
             newCard.CardType = CardType;
-            newCard.descrition = descrition;
+            newCard.description = description;
             //Name
             newCard.Name = Name;
             //Image
-            newCard.artworkDataString = artworkDataString;
+            newCard.ArtDataString = ArtDataString;
             //Cost
             newCard.Cost = Cost;
             //Elements
@@ -333,11 +334,10 @@ namespace Spirit_Island_Card_Generator.Classes
 
             ArtDataString = "data:image/png;base64," + response.images.First();
 
-            Match match = Regex.Match(response.info, @"PowerCard, ([^,]*), artwork by", RegexOptions.IgnoreCase);
+            Match match = Regex.Match(response.info, @"PowerCard, [^,]*, artwork by (\w+)", RegexOptions.IgnoreCase);
             if (match.Success)
             {
-                string title = match.Groups[1].Value;
-                Name = title;
+                this.Artist = $"*{match.Groups[1].Value}*";
             }
         }
     }

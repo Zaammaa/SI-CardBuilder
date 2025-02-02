@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class InOneOfSpiritLandsEffect : Effect, IParentEffect
     {
+        public override string Name => "In One of Spirit's Lands";
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity

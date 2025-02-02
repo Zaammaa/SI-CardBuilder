@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class DestroyedPresenceAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Destroyed Presence";
         public static string TrackedName => "Add destroyed presence";
         public static int TargetAmount => 2;
         public bool ExactTarget => false;

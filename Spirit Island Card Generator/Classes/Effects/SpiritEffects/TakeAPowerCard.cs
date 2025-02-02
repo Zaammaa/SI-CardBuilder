@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [CustomEffect(3)]
     internal class TakeAPowerCard : Effect
     {
+        public override string Name => "Take a Power Card";
         public override double BaseProbability => 0.01;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }

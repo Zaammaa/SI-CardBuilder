@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
 {
     internal class _3Range : RangeOption
     {
+        public override string Name => "3 Range";
         public override double BaseProbability => 0.01;
 
         public override bool IsValidGeneratorOption(Context context)

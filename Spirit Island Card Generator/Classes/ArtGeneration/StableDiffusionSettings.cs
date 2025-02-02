@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
 {
-    internal class StableDiffusionSettings
+    public class StableDiffusionSettings
     {
         public bool enable_hr = false;
         public double denoising_strength = 0.7;

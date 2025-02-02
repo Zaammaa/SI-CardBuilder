@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     abstract class TargetOption : IGeneratorOption
     {
+        public abstract string Name { get; }
         public abstract double BaseProbability { get; }
         public double AdjustedProbability { get { return BaseProbability; } set { } }
         public abstract int Complexity { get; }

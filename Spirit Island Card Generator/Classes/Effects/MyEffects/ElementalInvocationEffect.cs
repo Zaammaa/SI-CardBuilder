@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(4)]
     internal class ElementalInvocationEffect : AmountEffect
     {
+        public override string Name => "Elemental Invocation";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Moon }; } }
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

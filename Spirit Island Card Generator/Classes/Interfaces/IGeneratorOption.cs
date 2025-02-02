@@ -14,6 +14,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         bool Singleton { get; }
 
+        string Name { get; }
+
         List<ElementSet.Element> StronglyAssociatedElements { get; }
         List<ElementSet.Element> WeaklyAssociatedElements { get; }
 

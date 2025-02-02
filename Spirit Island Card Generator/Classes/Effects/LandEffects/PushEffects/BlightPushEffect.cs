@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     internal class BlightPushEffect : PushEffect
     {
+        public override string Name => "Push Blight";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Earth, Element.Air }; } }
         public override double BaseProbability { get { return .03; } }
         public override int Complexity { get { return 2; } }

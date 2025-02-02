@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class AddDestroyedPresenceEffect : AmountMultipleEffectOption
     {
+        public override string Name => "Add Destroyed Presence";
         public override List<ElementSet.Element> WeaklyAssociatedElements => new List<ElementSet.Element>() { ElementSet.Element.Air };
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

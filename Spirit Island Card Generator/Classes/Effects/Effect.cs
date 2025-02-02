@@ -41,6 +41,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects
 
         public abstract Regex descriptionRegex { get; }
 
+        public abstract string Name { get; }
+
         public virtual List<ElementSet.Element> StronglyAssociatedElements { get { return new List<ElementSet.Element>(); } }
         public virtual List<ElementSet.Element> WeaklyAssociatedElements { get { return new List<ElementSet.Element>(); } }
 

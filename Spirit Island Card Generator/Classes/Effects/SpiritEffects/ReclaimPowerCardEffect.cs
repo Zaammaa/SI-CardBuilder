@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class ReclaimPowerCardEffect : Effect
     {
+        public override string Name => "Card Reclaim";
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Moon, Element.Sun }; } }
         public override double BaseProbability { get { return .04; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

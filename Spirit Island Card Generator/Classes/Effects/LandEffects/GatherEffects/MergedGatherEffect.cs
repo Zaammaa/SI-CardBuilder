@@ -16,6 +16,17 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class MergedGatherEffect : AmountEffect, IParentEffect
     {
+        public override string Name {
+            get
+            {
+                string baseText = "Merged Gather: ";
+
+                IEnumerable<Piece> pieces = gatherEffects.Select((gatherEffect) => { return gatherEffect.Piece; });
+
+                string pieceText = String.Join("/",pieces);
+                return baseText + pieceText;
+            }
+        }
         public override double BaseProbability => 0.1;
 
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
@@ -95,7 +106,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             {4,1},
         };
 
-        public List<Effect> gatherEffects = new List<Effect>();
+        public List<GatherEffect> gatherEffects = new List<GatherEffect>();
 
         public override double CalculatePowerLevel()
         {
@@ -126,9 +137,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
             newEffect.Context = Context.Duplicate();
             newEffect.amount = amount;
             newEffect.mandatory = mandatory;
-            foreach (Effect effect in gatherEffects)
+            foreach (GatherEffect effect in gatherEffects)
             {
-                newEffect.gatherEffects.Add((Effect)effect.Duplicate());
+                newEffect.gatherEffects.Add((GatherEffect)effect.Duplicate());
             }
             return newEffect;
         }
@@ -140,9 +151,9 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
 
         public void ReplaceEffect(Effect effect, Effect newEffect)
         {
-            if (gatherEffects.Remove(effect))
+            if (gatherEffects.Remove((GatherEffect)effect))
             {
-                gatherEffects.Add(newEffect);
+                gatherEffects.Add((GatherEffect)newEffect);
             }
             else
             {

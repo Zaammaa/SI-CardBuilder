@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class BeastAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Beast";
         public static string TrackedName => "Add Beast";
         public static int TargetAmount => 7;
         public bool ExactTarget => false;

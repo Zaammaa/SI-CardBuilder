@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class ConditionalDamageEffect : AmountEffect
     {
+        public override string Name => "Damage To: " + chosenOption.text;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Animal }; } }
         public override double effectStrength

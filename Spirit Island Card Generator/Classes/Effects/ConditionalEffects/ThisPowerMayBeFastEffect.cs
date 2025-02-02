@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.ConditionalEffects
     [UnspecificLand]
     internal class ThisPowerMayBeFastEffect : Effect
     {
+        public override string Name => "This Power May Be Fast";
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get { return 2; } }

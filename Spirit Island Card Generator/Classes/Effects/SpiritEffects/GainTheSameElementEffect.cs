@@ -12,6 +12,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class GainTheSameElementEffect : Effect
     {
+        public override string Name => "Gain Same Element";
         public override double BaseProbability => 0.01;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }

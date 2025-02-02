@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class InvadersDoNotHealEffect : Effect
     {
+        public override string Name => "Invaders Don't Heal";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Moon }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Air, Element.Water }; } }
 

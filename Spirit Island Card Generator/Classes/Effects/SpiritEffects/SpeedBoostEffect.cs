@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class SpeedBoostEffect : AmountEffect
     {
+        public override string Name => "Speed Boost";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air}; } }
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return .05; } set { } }

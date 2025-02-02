@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(3)]
     internal class ExtraPiecesPushEffect : AmountEffect
     {
+        public override string Name => "Extra Pieces Push";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

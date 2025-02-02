@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(3)]
     internal class MovePieceToOriginEffect : AmountMultipleEffectOption
     {
+        public override string Name => "Move Piece To Origin: " + chosenOption.text;
         public override double BaseProbability => 0.02;
         public override int Complexity => 2;
         public override Regex descriptionRegex => new Regex("");

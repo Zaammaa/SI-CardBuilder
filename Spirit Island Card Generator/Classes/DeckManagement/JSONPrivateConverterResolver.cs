@@ -24,10 +24,5 @@ namespace Spirit_Island_Card_Generator.Classes.DeckManagement
                 .Concat(objectType.GetProperties(flags).Where(propInfo => propInfo.CanWrite))
                 .ToList();
         }
-
-        //protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-        //{
-        //    return base.CreateProperties(type, MemberSerialization.Fields);
-        //}
     }
 }

@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     internal class InlandTargetOption : TargetOption
     {
+        public override string Name => "Inland Target";
         public override double BaseProbability => 0.01;
 
         public override int Complexity => 1;

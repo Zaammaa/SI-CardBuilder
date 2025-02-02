@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class DahanGatherEffect : GatherEffect
     {
+        public override string Name => "Gather Dahan";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal, Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
 

@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class DestroyFewerDahanEffect : AmountEffect
     {
+        public override string Name => "Destroy Fewer Dahan";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal }; } }
         public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

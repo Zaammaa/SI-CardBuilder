@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class CityGatherEffect : GatherEffect
     {
+        public override string Name => "Gather City";
         public override double BaseProbability { get { return .01; } }
         public override int Complexity { get { return 2; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.City;

@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.InvaderAction
     [LandEffect]
     internal class SkipBuildActionEffect : Effect
     {
+        public override string Name => "Skip Build";
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
 {
 };
