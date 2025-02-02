@@ -8,13 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class IfYouTargetAnotherSpiritEffect : Effect, IParentEffect
     {
-        public override Context.CardTargets TargetType
-        {
-            get
-            {
-                return Context.CardTargets.TargetSpirit;
-            }
-        }
+        public override string Name => "If You Target Another Spirit";
 
         public override bool Standalone => false;
 

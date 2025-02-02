@@ -16,7 +16,8 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [CustomEffect(3)]
     internal class SpiritWithPresenceMayEffect : Effect, IParentEffect
     {
-        public override double BaseProbability { get { return .02; } }
+        public override string Name => "Spirit With Presence May";
+        public override double BaseProbability { get { return .01; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity
         {

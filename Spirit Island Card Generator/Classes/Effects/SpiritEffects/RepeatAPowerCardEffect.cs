@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class RepeatAPowerCardEffect : Effect
     {
+        public override string Name => "Card Repeat";
         //This is the power of repeating a 0 cost card with no modifiers
         protected static double BASE_POWER = 0.7;
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Sun }; } }

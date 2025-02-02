@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.PushEffects
     [LandEffect]
     internal class PresencePushEffect : PushEffect
     {
+        public override string Name => "Push Presence";
         public override double BaseProbability { get { return .01; } }
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Presence;

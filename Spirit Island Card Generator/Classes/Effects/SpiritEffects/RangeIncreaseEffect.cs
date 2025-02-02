@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class RangeIncreaseEffect : AmountEffect
     {
+        public override string Name => "Range Boost";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Water }; } }
         public override double BaseProbability { get { return .1; } }

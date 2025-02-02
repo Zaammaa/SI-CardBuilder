@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [CustomEffect(2)]
     internal class AdditionalDamageToAddBlightEffect : AmountEffect
     {
+        public override string Name => "Extra Land Health";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Earth }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Plant }; } }
         public override double BaseProbability { get { return .005; } }

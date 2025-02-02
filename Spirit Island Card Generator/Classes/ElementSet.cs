@@ -21,7 +21,7 @@ namespace Spirit_Island_Card_Generator.Classes
             Animal
         }
 
-        private List<Element> Elements;
+        public List<Element> Elements;
 
         public ElementSet(List<Element> el)
         {
@@ -59,7 +59,6 @@ namespace Spirit_Island_Card_Generator.Classes
         /// <param name="elementString">a comma seperated list of elements</param>
         public static ElementSet ElementSetFromElementString(string elementString)
         {
-            
             string formattedString = elementString.Trim().Replace(" ","");
             string[] elements = formattedString.Split(",");
             List<Element> elList = new List<Element>();

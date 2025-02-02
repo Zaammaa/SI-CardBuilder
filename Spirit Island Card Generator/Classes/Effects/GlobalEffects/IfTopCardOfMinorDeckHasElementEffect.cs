@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [CustomEffect(2)]
     internal class IfTopCardOfMinorDeckHasElementEffect : Effect, IParentEffect
     {
+        public override string Name => "If Top Card Has Element: " + element.ToString().ToLower();
         public override double BaseProbability => 0.01;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }

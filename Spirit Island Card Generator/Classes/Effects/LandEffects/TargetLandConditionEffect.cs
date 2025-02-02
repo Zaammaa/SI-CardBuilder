@@ -19,6 +19,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class TargetLandConditionEffect : Effect, IParentEffect
     {
+        public override string Name => "Target Land Condition: " + condition.ConditionText;
         public override double BaseProbability { get { return .2; } }
         public override double AdjustedProbability { get { return .2; } set { } }
         public override int Complexity

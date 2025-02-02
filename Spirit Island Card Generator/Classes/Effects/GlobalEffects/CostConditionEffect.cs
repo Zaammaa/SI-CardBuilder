@@ -19,20 +19,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.GlobalEffects
     [SpiritEffect]
     internal class CostConditionEffect : Effect, IParentEffect
     {
-        public override Context.CardTargets TargetType
-        {
-            get
-            {
-                if (Context.target.SpiritTarget)
-                {
-                    return Context.CardTargets.TargetSpirit;
-                }
-                else
-                {
-                    return Context.CardTargets.Land;
-                }
-            }
-        }
+        public override string Name => "Cost Condition: " + costCondition.ConditionText;
         public override double BaseProbability { get { return .02; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
         public override int Complexity { get 

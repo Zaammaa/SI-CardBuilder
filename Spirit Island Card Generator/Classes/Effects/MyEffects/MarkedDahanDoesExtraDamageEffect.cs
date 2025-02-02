@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [LimitedOption(2)]
     internal class MarkedDahanDoesExtraDamageEffect : Effect
     {
+        public override string Name => "Dahan Does More Damage";
         public override int Complexity { get { return 5; } }
 
         public override Regex descriptionRegex

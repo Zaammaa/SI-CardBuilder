@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(3)]
     internal class AddWardEffect : Effect
     {
+        public override string Name => "Add Ward";
         public override int Complexity { get { return 4; } }
 
         public override Regex descriptionRegex

@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.InvaderAction
     [CustomEffect(1)]
     internal class SkipRavageActionEffect : Effect
     {
+        public override string Name => "Skip Ravage";
         protected override DifficultyOption[] difficultyOptions => new DifficultyOption[]
         {
         };

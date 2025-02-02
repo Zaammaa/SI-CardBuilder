@@ -17,6 +17,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     internal class RemoveBlightEffect : Effect, ITrackedStat
     {
+        public override string Name => "Remove Blight";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Water, Element.Plant}; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Sun, Element.Earth }; } }
         public override double BaseProbability { get { return .12; } }

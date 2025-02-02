@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class BadlandsAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Badlands";
         public static string TrackedName => "Add Badlands";
         public static int TargetAmount => 6;
         public bool ExactTarget => false;

@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     public class IsolateEffect : Effect, ITrackedStat
     {
+        public override string Name => "Isolate";
         public static string TrackedName => "Isolate";
         //The amount of cards that should have this effect
         public static int TargetAmount => 5;

@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class YouMayDoLikewiseEffect : Effect
     {
+        public override string Name => "You May Do Likewise";
         public override double BaseProbability { get { return .25; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }
 
@@ -81,14 +82,6 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
 
         public override double CalculatePowerLevel()
         {
-            //double power = 0;
-            //foreach (Effect effect in Context.card.effects)
-            //{
-            //    if (effect.SelfReferencingPowerLevel || Context.IsParent(effect, this))
-            //        continue;
-            //    power += effect.CalculatePowerLevel();
-            //}
-            //return power;
             return Context.settings.TargetPowerLevel / 2;
         }
     }

@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class BlightAddEffect : AddEffect
     {
+        public override string Name => "Add Blight";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire, Element.Earth }; } }
         public override double BaseProbability { get { return .04; } }
         public override int Complexity { get { return 3; } }

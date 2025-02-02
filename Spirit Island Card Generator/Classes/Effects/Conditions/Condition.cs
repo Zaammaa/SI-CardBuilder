@@ -11,6 +11,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.Conditions
 {
     public abstract class Condition : IPowerLevel, IGeneratorOption
     {
+        public string Name => ConditionText;
         public abstract double BaseProbability { get; }
         public abstract double AdjustedProbability { get; set; }
         public abstract int Complexity { get; }

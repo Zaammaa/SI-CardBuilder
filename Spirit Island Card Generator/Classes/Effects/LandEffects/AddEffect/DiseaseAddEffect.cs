@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class DiseaseAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Disease";
         public static string TrackedName => "Add disease";
         public static int TargetAmount => 7;
         public bool ExactTarget => false;

@@ -9,9 +9,12 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
 {
     internal class FromLandTypeRange : FromLandOption
     {
+        public override string Name => "From Land: " + land;
         public override double BaseProbability => 0.01;
 
         public override int Complexity => 2;
+
+        public Lands.LandTypes land;
 
         public override bool IsValidGeneratorOption(Context context)
         {
@@ -29,7 +32,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.RangeOp
         {
             Range range = context.card.Range;
             List<Lands.LandTypes> lands = new List<Lands.LandTypes>() { Lands.LandTypes.Sands, Lands.LandTypes.Wetlands, Lands.LandTypes.Mountains, Lands.LandTypes.Jungles};
-            range.SourceLand = Utils.ChooseRandomListElement(lands, context.rng);
+            land = Utils.ChooseRandomListElement(lands, context.rng);
+            range.SourceLand = land;
             return range;
         }
     }

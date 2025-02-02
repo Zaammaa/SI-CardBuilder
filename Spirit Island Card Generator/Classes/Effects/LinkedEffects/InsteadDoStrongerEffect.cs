@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LinkedEffects
     [ConditionalEffect]
     internal class InsteadDoStrongerEffect : Effect, IParentEffect
     {
+        public override string Name => "Instead Do Stronger";
         public override double BaseProbability => 0.5;
 
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

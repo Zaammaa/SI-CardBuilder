@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.AddEffect
     [LandEffect]
     internal class DahanAddEffect : AddEffect, ITrackedStat
     {
+        public override string Name => "Add Dahan";
         public static string TrackedName => "Add Dahan";
         public static int TargetAmount => 1;
         public bool ExactTarget => false;

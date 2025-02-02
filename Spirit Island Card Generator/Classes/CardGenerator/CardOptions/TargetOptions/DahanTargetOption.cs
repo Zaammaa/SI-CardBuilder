@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     internal class DahanTargetOption : TargetOption
     {
+        public override string Name => "Dahan Target";
         public override double BaseProbability => 0.09;
 
         public override int Complexity => 1;

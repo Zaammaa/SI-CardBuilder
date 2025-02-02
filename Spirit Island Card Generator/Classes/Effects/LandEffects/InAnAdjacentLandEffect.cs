@@ -18,6 +18,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [UnspecificLand]
     internal class InAnAdjacentLandEffect : Effect, IParentEffect
     {
+        public override string Name => "In An Adjacent Land";
         public override Context.CardTargets TargetType
         {
             get

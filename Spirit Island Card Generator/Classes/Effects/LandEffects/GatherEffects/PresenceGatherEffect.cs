@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class PresenceGatherEffect : GatherEffect
     {
+        public override string Name => "Gather Presence";
         public override double BaseProbability { get { return .02; } }
         public override int Complexity { get { return 3; } }
         public override GamePieces.Piece Piece => GamePieces.Piece.Presence;

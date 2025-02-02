@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [CustomEffect(1)]
     internal class PushTheirPresenceEffect : AmountEffect
     {
+        public override string Name => "Spirit Push Presence";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

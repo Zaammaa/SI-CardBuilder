@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [SpiritEffect]
     internal class ExtraCardPlayEffect : Effect
     {
+        public override string Name => "Extra Card Play";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Air, Element.Sun }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override double BaseProbability { get { return .05; } }

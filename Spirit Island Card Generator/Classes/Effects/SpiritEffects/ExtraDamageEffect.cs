@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [CustomEffect(2)]
     internal class ExtraDamageEffect : AmountEffect
     {
+        public override string Name => "Extra Damage";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Fire }; } }
         public override double BaseProbability { get { return .05; } }
         public override double AdjustedProbability { get { return BaseProbability; } set { } }

@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.SpiritEffects
     [LimitedOption(1)]
     internal class TradePowerCardEffect : Effect
     {
+        public override string Name => "Card Trade";
         public override double BaseProbability => 0.01;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }

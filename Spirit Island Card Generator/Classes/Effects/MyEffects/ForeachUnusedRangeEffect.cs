@@ -15,6 +15,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.MyEffects
     [CustomEffect(4)]
     internal class ForeachUnusedRangeEffect : Effect, IParentEffect
     {
+        public override string Name => "For Each Unused Range";
         public override double BaseProbability => 0.01;
 
         public override double AdjustedProbability { get => BaseProbability; set { } }

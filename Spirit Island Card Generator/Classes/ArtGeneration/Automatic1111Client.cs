@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spirit_Island_Card_Generator.Classes.ArtGeneration
 {
-    internal class Automatic1111Client
+    public class Automatic1111Client
     {
         public static readonly Automatic1111Client stableDiffusionClient = new Automatic1111Client();
         private readonly HttpClient client = new HttpClient();

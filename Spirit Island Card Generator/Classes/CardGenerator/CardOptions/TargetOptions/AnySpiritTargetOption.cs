@@ -8,6 +8,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator.CardOptions.TargetO
 {
     internal class AnySpiritTargetOption : TargetOption
     {
+        public override string Name => "Any Spirit Target";
         public override double BaseProbability => 0.12;
 
         public override int Complexity => 1;

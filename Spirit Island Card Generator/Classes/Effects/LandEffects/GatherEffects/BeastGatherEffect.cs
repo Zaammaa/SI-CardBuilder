@@ -16,6 +16,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects.GatherEffects
     [LandEffect]
     internal class BeastGatherEffect : GatherEffect
     {
+        public override string Name => "Gather Beast";
         public override List<Element> StronglyAssociatedElements { get { return new List<Element>() { Element.Animal }; } }
         public override List<Element> WeaklyAssociatedElements { get { return new List<Element>() { Element.Air }; } }
         public override double BaseProbability { get { return .01; } }

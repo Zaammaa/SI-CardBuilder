@@ -14,6 +14,7 @@ namespace Spirit_Island_Card_Generator.Classes.Effects.LandEffects
     [LandEffect]
     public class DamageEffect : AmountEffect, ITrackedStat
     {
+        public override string Name => "Damage";
         public static string TrackedName => "Damage";
 
         public static int TargetAmount => 17;
