@@ -121,7 +121,7 @@ Scour	# Blight Air Earth Damage
 Scout	# Push Explorer Dahan
 Scratch	# Beast Damage
 Scream	# Fear Strife Dahan Explorer
-Settler	# Explorer Dahan Plant Earth
+Settle	# Explorer Dahan Plant Earth
 Shake	# Earth
 Shatter	# Damage Blight Badlands
 Silence	# Air Moon Isolate

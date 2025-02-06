@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 {
@@ -30,13 +31,27 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 var remainingTypes = CountFillInWords(template);
                 var assoList = GetElementsAndEffects(card);
+                var pluralNouns = new List<string>();
                 name = "";
-                foreach (var tWord in template)
+                foreach (var templateWord in template)
                 {
+                    var tWord = templateWord;
+                    if (tWord == "__Nouns__")
+                        tWord = ChooseRandomWord(["__NounsSingular__", "__NounsPlural__"]);
+
                     if (wordLists.ContainsKey(tWord))
                     {
                         remainingTypes--;
-                        name += GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        string word;
+                        word = GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        // Make sure the plural of this noun isn't already in the name (rare chance)
+                        if (tWord == "__NounsPlural__")
+                            pluralNouns.Add(word);
+                        if (tWord == "__NounsSingular__") {
+                            while (pluralNouns.Contains(CreatePluralNouns(word)[1]))
+                                word = GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        }
+                        name += word;
                         if (assoList.Count == 0)
                             assoList = GetElementsAndEffects(card);
                     }
@@ -95,6 +110,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             masterWordList[type].Remove(word);
             if (masterWordList[type].Count == 0)
                 SetupCardNameOptions(type.Replace("_", ""));
+            if (type.Contains("Singular"))
+            {
+                string plural = CreatePluralNouns(word)[1];
+                masterWordList[type.Replace("Singular", "Plural")].Remove(plural);
+            }
             return word;
         }
 
@@ -112,9 +132,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     string efStr = ef.GetType().Name;
                     if (asso == "RemoveBlight" && efStr.Contains("BlightDoesNotCascade"))
                         assoList.Add(asso);
-                    else if (asso == "Blight" && (efStr.Contains("RemoveBlight") || efStr.Contains("BlightDoesNotCascade"))) {
-                      // Do nothing
-                    } else if (asso == "Spirit" && efStr.Contains("Presence"))
+                    else if (asso == "Blight" && (efStr.Contains("RemoveBlight") || efStr.Contains("BlightDoesNotCascade")))
+                    {
+                        // Do nothing
+                    }
+                    else if (asso == "Spirit" && efStr.Contains("Presence"))
                         assoList.Add(asso);
                     else if (asso == "Invader" && (efStr.Contains("Ravage") || efStr.Contains("Build")))
                         assoList.Add(asso);
@@ -199,32 +221,104 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             foreach (var type in types)
             {
-                string typeKey = $"__{type}__";
-                masterWordList[typeKey] = new List<string>();
-                wordLists[typeKey] = new Dictionary<string, List<string>>();
-                wordLists[typeKey][GENERIC_KEY] = new List<string>();
-                foreach (string assoKey in keywords)
+                List<string> typeKey = [$"__{type}__"];
+                // typeKey will have 2 things in it for singular/plural word types
+                if (type == "Nouns")
                 {
-                    wordLists[typeKey][assoKey] = new List<string>();
+                    typeKey = [$"__{type}Singular__", $"__{type}Plural__"];
                 }
-                var lineList = GetFileLineList(type);
-                foreach (var line in lineList)
+                foreach (string key in typeKey)
                 {
-                    var wordAndType = line.Split("#");
-                    var word = wordAndType[0].Trim();
-                    if (wordAndType.Length == 2)
+                    masterWordList[key] = new List<string>();
+                    wordLists[key] = new Dictionary<string, List<string>>();
+                    wordLists[key][GENERIC_KEY] = new List<string>();
+
+                    foreach (string assoKey in keywords)
                     {
-                        var assoList = wordAndType[1].Trim().Split(" ");
-                        foreach (string asso in assoList)
-                        {
-                            wordLists[typeKey][asso.Trim()].Add(word);
-                        }
+                        wordLists[key][assoKey] = new List<string>();
                     }
-                    else
-                        wordLists[typeKey][GENERIC_KEY].Add(word);
-                    masterWordList[typeKey].Add(word);
+                    var lineList = GetFileLineList(type);
+                    foreach (var line in lineList)
+                    {
+                        var wordAndType = line.Split("#");
+                        var word = wordAndType[0].Trim();
+                        if (type == "Nouns")
+                        {
+                            var wordPair = CreatePluralNouns(word);
+                            if (wordPair[0] != "" && key.Contains("Singular"))
+                                word = wordPair[0];
+                            else if (wordPair[1] != "" && key.Contains("Plural"))
+                                word = wordPair[1];
+                            else // No word for that plurality
+                                continue;
+                        }
+
+
+                        if (wordAndType.Length == 2)
+                        {
+                            var assoList = wordAndType[1].Trim().Split(" ");
+                            foreach (string asso in assoList)
+                            {
+                                wordLists[key][asso.Trim()].Add(word);
+                            }
+                        }
+                        else
+                            wordLists[key][GENERIC_KEY].Add(word);
+                        masterWordList[key].Add(word);
+                    }
                 }
             }
+        }
+
+        private List<string> CreatePluralNouns(string word)
+        {
+            var wordPair = new List<string>() { "", "" };
+            var splitWord = word.Split("/");
+            if (splitWord.Length == 2)
+            {
+                wordPair[0] = splitWord[0].Trim();
+                wordPair[1] = splitWord[1].Trim();
+            }
+            else
+            {
+                string vowels = "aeiou";
+                word = splitWord[0].Trim().ToString();
+                wordPair[0] = word;
+                var endIndex = word.Length - 1;
+                var endLetter = word[endIndex].ToString();
+                var secondToEnd = word[endIndex - 1].ToString();
+                bool endsInY = endLetter == "y";
+                bool endsInVowelY = endsInY && vowels.Contains(secondToEnd);
+                bool endsInO = endLetter == "o";
+                bool endsInS = endLetter == "s";
+                bool endsInX = endLetter == "x";
+                bool endsInCH = endLetter == "h" && secondToEnd == "c";
+                bool endsInSH = endLetter == "h" && secondToEnd == "s";
+                bool endsInFE = endLetter == "e" && secondToEnd == "f";
+                if (endsInY && !endsInVowelY)
+                {
+                    word = word.Remove(endIndex);
+                    word += "ies";
+                }
+                else if (endsInO || endsInS || endsInX || endsInCH || endsInSH)
+                    word += "es";
+                else if (endsInFE)
+                {
+                    word = word.Remove(endIndex - 1);
+                    word += "ves";
+                }
+                else if (word == "Child")
+                    word += "ren";
+                else
+                {
+                    if (word != "Dahan")
+                    {
+                        word += "s";
+                    }
+                }
+                wordPair[1] = word;
+            }
+            return wordPair;
         }
 
         private void SetupTemplateOptions(string singleType = "no")
