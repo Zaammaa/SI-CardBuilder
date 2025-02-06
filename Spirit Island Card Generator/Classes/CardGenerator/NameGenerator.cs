@@ -31,6 +31,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             {
                 var remainingTypes = CountFillInWords(template);
                 var assoList = GetElementsAndEffects(card);
+                var pluralNouns = new List<string>();
                 name = "";
                 foreach (var templateWord in template)
                 {
@@ -41,7 +42,16 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     if (wordLists.ContainsKey(tWord))
                     {
                         remainingTypes--;
-                        name += GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        string word;
+                        word = GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        // Make sure the plural of this noun isn't already in the name (rare chance)
+                        if (tWord == "__NounsPlural__")
+                            pluralNouns.Add(word);
+                        if (tWord == "__NounsSingular__") {
+                            while (pluralNouns.Contains(CreatePluralNouns(word)[1]))
+                                word = GenerateTemplateWord(tWord, assoList, remainingTypes);
+                        }
+                        name += word;
                         if (assoList.Count == 0)
                             assoList = GetElementsAndEffects(card);
                     }
@@ -100,6 +110,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             masterWordList[type].Remove(word);
             if (masterWordList[type].Count == 0)
                 SetupCardNameOptions(type.Replace("_", ""));
+            if (type.Contains("Singular"))
+            {
+                string plural = CreatePluralNouns(word)[1];
+                masterWordList[type.Replace("Singular", "Plural")].Remove(plural);
+            }
             return word;
         }
 
@@ -282,10 +297,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                 bool endsInFE = endLetter == "e" && secondToEnd == "f";
                 if (endsInY && !endsInVowelY)
                 {
-                    Debug.WriteLine("---" + word + "---");
-                    Debug.WriteLine(endIndex);
                     word = word.Remove(endIndex);
-                    Debug.WriteLine(word);
                     word += "ies";
                 }
                 else if (endsInO || endsInS || endsInX || endsInCH || endsInSH)

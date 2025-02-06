@@ -20,7 +20,7 @@ The __Adjectives__ __NounsPlural__ __Verbs__	# 3
 The __NounsPlural__ __Verbs__	# 3
 Call of the __Nouns__	# 2
 Favor of the __Adjectives__ __Nouns__	# 2
-__Adjectives__ __Possesives__ Bane		# 2
+__Adjectives__ __Possessives__ Bane		# 2
 Dream of the __Adjectives__ __Nouns__
 Why don't you and them __Verbs__
 Here there be __NounsPlural__
@@ -28,7 +28,7 @@ Study the __Possessives__ __Nouns__
 Growth through __Nouns__
 Rain of __Nouns__
 Lure of the __Adjectives__
-The __NounsSinglur__ Returns Again
+The __NounsSingular__ Returns Again
 Share the secrets of __Nouns__
 Visions of a __Adjectives__ Doom
 Call of the __Adjectives__ Ways
