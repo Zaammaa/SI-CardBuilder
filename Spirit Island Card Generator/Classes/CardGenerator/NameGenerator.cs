@@ -13,6 +13,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         private string cardNameDir;
         private Random rng;
         private string GENERIC_KEY = "Generic";
+        private List<string> verbTypes = ["__VerbsAcross__", "__VerbsIntransitive__", "__VerbsTransitive__"];
 
         public NameGenerator(Settings settings)
         {
@@ -27,6 +28,7 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
         {
             string name = "";
             var template = SelectTemplate(card);
+
             do
             {
                 var remainingTypes = CountFillInWords(template);
@@ -38,7 +40,8 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                     var tWord = templateWord;
                     if (tWord == "__Nouns__")
                         tWord = ChooseRandomWord(["__NounsSingular__", "__NounsPlural__"]);
-
+                    else if (tWord == "__Verbs__")
+                        tWord = ChooseRandomWord(verbTypes);
                     if (wordLists.ContainsKey(tWord))
                     {
                         remainingTypes--;
@@ -67,6 +70,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
 
         private string GenerateTemplateWord(string type, List<string> assoList, int remainingTypes)
         {
+            if (masterWordList[type].Count == 0)
+            {
+                Debug.WriteLine("Re-loading " + type);
+                SetupCardNameOptions(type.Replace("_", ""));
+            }
             string word = "";
             string asso1 = SelectWord(assoList);
             string asso2 = null;
@@ -108,12 +116,13 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             }
             //TODO? worth fixing that words will still be removed if name was too long initially
             masterWordList[type].Remove(word);
-            if (masterWordList[type].Count == 0)
-                SetupCardNameOptions(type.Replace("_", ""));
             if (type.Contains("Singular"))
             {
                 string plural = CreatePluralNouns(word)[1];
                 masterWordList[type.Replace("Singular", "Plural")].Remove(plural);
+            } else if (type.Contains("Verbs")) {
+                foreach (var vt in verbTypes)
+                    masterWordList[vt].Remove(word);
             }
             return word;
         }
@@ -222,11 +231,11 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
             foreach (var type in types)
             {
                 List<string> typeKey = [$"__{type}__"];
-                // typeKey will have 2 things in it for singular/plural word types
+                // typeKey will hold the variations of Nouns and Verbs
                 if (type == "Nouns")
-                {
                     typeKey = [$"__{type}Singular__", $"__{type}Plural__"];
-                }
+                if (type == "Verbs")
+                    typeKey = verbTypes;
                 foreach (string key in typeKey)
                 {
                     masterWordList[key] = new List<string>();
@@ -251,6 +260,19 @@ namespace Spirit_Island_Card_Generator.Classes.CardGenerator
                                 word = wordPair[1];
                             else // No word for that plurality
                                 continue;
+                        } if (type == "Verbs")
+                        {
+                            var verbAndTypes = word.Split(">");
+                            if (verbAndTypes.Length > 1)
+                            {
+                                word = verbAndTypes[0];
+                                if (key.Contains("Across") && !verbAndTypes[1].Contains("A"))
+                                    continue;
+                                if (key.Contains("Intransitive") && !verbAndTypes[1].Contains("I"))
+                                    continue;
+                                if (key.Contains("Transitive") && !verbAndTypes[1].Contains("T"))
+                                    continue;
+                            }
                         }
 
 
