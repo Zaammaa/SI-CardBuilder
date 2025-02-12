@@ -3,26 +3,26 @@ __Nouns__ and __Nouns__		# 5
 __Adjectives__ and __Adjectives__ __Nouns__	# 5
 __Adjectives__ __Nouns__ and __Nouns__		# 5
 __Possessives__ __Nouns__				# 3
-__Verbs__ the __Possessives__ __Nouns__	# 3
+__VerbsTransitive__ the __Possessives__ __Nouns__	# 3
 __Nouns__ in the __SILocations__		# 2
 __Adjectives__ __Nouns__ in the __SILocations__ # 2
 __Nouns__ above the __SILocations__		# 2
 __Adjectives__ __Nouns__ above the __SILocations__ # 2
 A __NounsSingular__ of __Nouns__ and __Nouns__	# 3
 __Nouns__ of __Nouns__					# 4
-__Verbs__ the __Nouns__					# 4
-__Verbs__ the __Nouns__ and __Nouns__	# 3
+__VerbsTransitive__ the __Nouns__					# 4
+__VerbsTransitive__ the __Nouns__ and __Nouns__	# 3
 __Nouns__ of the __Nouns__				# 4
 __Adjectives__ __Nouns__ of the __Nouns__ # 3
-__NounsPlural__ __Verbs__ across the __Nouns__  # 3
-__Adjectives__ __NounsPlural__ __Verbs__ __Nouns__ # 3
-The __Adjectives__ __NounsPlural__ __Verbs__	# 3
-The __NounsPlural__ __Verbs__	# 3
+__NounsPlural__ __VerbsAcross__ across the __Nouns__  # 3
+__Adjectives__ __NounsPlural__ __VerbsTransitive__ __NounsPlural__ # 3
+The __Adjectives__ __NounsPlural__ __VerbsIntransitive__	# 3
+The __NounsPlural__ __VerbsIntransitive__	# 3
 Call of the __Nouns__	# 2
 Favor of the __Adjectives__ __Nouns__	# 2
 __Adjectives__ __Possessives__ Bane		# 2
 Dream of the __Adjectives__ __Nouns__
-Why don't you and them __Verbs__
+Why don't you and them __VerbsIntransitive__
 Here there be __NounsPlural__
 Study the __Possessives__ __Nouns__
 Growth through __Nouns__
@@ -40,13 +40,13 @@ The __Nouns__ and __Nouns__ Speak of War
 Manifestation of __Nouns__ and __Nouns__
 The __NounsSingular__ Hungers
 Vengeance of the __Nouns__
-__Verbs__ and never __Verbs__
-__Verbs__ the bonds of __Nouns__
+__VerbsIntransitive__ and never __VerbsIntransitive__
+__VerbsTransitive__ the bonds of __Nouns__
 Grant __Nouns__ a __Adjectives__ Form
 Utter a Curse of __Nouns__ and __Nouns__
-Twisted Flowers __Verbs__ __Nouns__
+Twisted Flowers __VerbsTransitive__ __Nouns__
 __Adjectives__ Flowers Murmur __Nouns__
 Dream of the __Nouns__
 Transform into a __Adjectives__ __NounsSingular__
-__Verbs__ Towards a __Adjectives__ __NounsSingular__
+__VerbsAcross__ Towards a __Adjectives__ __NounsSingular__
 Cast Down into the __Adjectives__ __Nouns__
